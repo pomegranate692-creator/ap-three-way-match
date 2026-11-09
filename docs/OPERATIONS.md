@@ -10,7 +10,7 @@ npm run seed -- --reset           # optional: preload all 25 synthetic bundles i
 Requires Node ≥ 22.13 (`node:sqlite`). First launch creates `data/app.db` and the three synthetic organisations; use *Load demo data* in the UI.
 
 ## Layout of local state
-`data/app.db` (SQLite, WAL) · `data/uploads/<org>/<doc-id>.pdf` · `data/exports/*.csv|xlsx`. All git-ignored.
+`data/app.db` (SQLite, WAL) · `data/uploads/<org>/<doc-id>.pdf` · `data/exports/*.csv|xlsx`. All git-ignored. Browser tests (`npm run test:e2e`) use a separate `data/e2e/` folder that is wiped on each run; they never touch the files above.
 
 ## Failure modes and recovery
 | Failure | Behaviour | Recovery |

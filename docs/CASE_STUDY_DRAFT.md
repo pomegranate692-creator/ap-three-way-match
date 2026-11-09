@@ -15,7 +15,7 @@
 
 **Constraints and decisions.** Synthetic data only; no OCR (no engine installed); no live LLM (no key); demo identity instead of real auth; three layout families; exclusive sales tax only.
 
-**Validated results (MEASURED, synthetic).** All 8 seeded discrepancies detected with the intended exception code and 0 false alarms on 17 clean bundles (baselines: total-only F1 50%, zero-tolerance F1 61.5%); field F1 100% on 72 documents; 112 unit/integration tests and 4 browser tests passing; invoice analysis ≈ 2 ms median. **Not measured:** human time saved, real-world accuracy, user satisfaction, LLM cost.
+**Validated results (MEASURED, synthetic).** All 8 seeded discrepancies detected with the intended exception code and 0 false alarms on 17 clean bundles (baselines: total-only F1 50%, zero-tolerance F1 61.5%); field F1 100% on 72 documents; 112 unit/integration tests and 6 browser tests passing; invoice analysis ≈ 2 ms median. **Not measured:** human time saved, real-world accuracy, user satisfaction, LLM cost.
 
 **Limitations.** See README → Known limitations. **Next steps.** Real-document evaluation set; OCR adapter; SSO and tamper-evident audit; PO/receipt import from CSV/ERP read-only adapter; VAT-inclusive and multi-rate tax; learning supplier-specific layouts with human corrections.
 

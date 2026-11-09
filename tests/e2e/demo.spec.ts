@@ -185,3 +185,45 @@ test("errors are explained and recoverable: wrong file type, role denial, server
   await expect(page.getByText(/Only a Controller can change/)).toBeVisible();
   await expect(page.getByRole("button", { name: "Save settings" })).toBeDisabled();
 });
+
+test("keyboard: tab strips follow the ARIA arrow-key pattern (roving focus, wrap, Home/End, Tab leaves the strip)", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => localStorage.setItem("ap.onboarded", "1"));
+  await page.reload();
+  await page.getByLabel("Organisation").selectOption({ label: "Harbor & Pine Hardware" });
+  await openBundle(page, "B05");
+
+  const strip = page.getByRole("tablist", { name: "Analysis sections" });
+  const tab = (name: string | RegExp) => strip.getByRole("tab", { name, exact: typeof name === "string" });
+  const onlyOneTabStop = async () => expect(await strip.getByRole("tab").evaluateAll((els) => els.filter((e) => e.getAttribute("tabindex") === "0").length)).toBe(1);
+
+  await onlyOneTabStop(); // roving tabindex: the strip is a single stop in the Tab order
+  await tab("Match").focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(tab(/^Exceptions/)).toBeFocused();
+  await expect(tab(/^Exceptions/)).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("tabpanel")).toBeVisible();
+  await onlyOneTabStop();
+  await page.keyboard.press("End");
+  await expect(tab("How it was decided")).toBeFocused();
+  await expect(tab("How it was decided")).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowRight"); // wraps to the first tab
+  await expect(tab("Match")).toBeFocused();
+  await page.keyboard.press("ArrowLeft"); // wraps to the last tab
+  await expect(tab("How it was decided")).toBeFocused();
+  await page.keyboard.press("Home");
+  await expect(tab("Match")).toBeFocused();
+  await expect(tab("Match")).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("Tab"); // leaves the strip instead of stepping through every tab
+  await expect(strip.getByRole("tab").and(page.locator(":focus"))).toHaveCount(0);
+
+  // the document strip works the same way, and skips a disabled "missing" tab
+  const docs = page.getByRole("tablist", { name: "Documents in this bundle" });
+  const enabled = docs.getByRole("tab").and(page.locator(":not([disabled])"));
+  const n = await enabled.count();
+  expect(n).toBeGreaterThanOrEqual(2);
+  await enabled.first().focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(enabled.nth(1)).toBeFocused();
+  await expect(enabled.nth(1)).toHaveAttribute("aria-selected", "true");
+});

@@ -3,7 +3,7 @@ import { api, newKey } from "../lib/api";
 import { CODE_LABEL, DOC_LABEL, DOC_SHORT, labelOfKey, money, qty, REC_LABEL, ROLE_LABEL, signed, when, whenFull } from "../lib/format";
 import { useApp, useLoad } from "../state";
 import { PdfViewer, type Highlight } from "../components/PdfViewer";
-import { AiBadge, CodeBadge, Conf, Empty, ErrorBox, Icon, LoadingBlock, ReasonDialog, RecBadge, SevBadge, StateBadge } from "../components/ui";
+import { AiBadge, CodeBadge, Conf, Empty, ErrorBox, Icon, LoadingBlock, ReasonDialog, RecBadge, SevBadge, StateBadge, tabIndexFor, tablistKeys } from "../components/ui";
 
 /* ------------------------------------------------------------------ types */
 interface Field { id: string; key: string; value: string | null; raw: string; bbox: Highlight["bbox"] | null; wordIds: string[]; confidence: number; reason: string; extractor: string; corrected: boolean; originalValue: string | null; updatedBy: string | null }
@@ -71,6 +71,7 @@ export function Review({ id, initialTab }: { id: string; initialTab?: Tab }) {
   const inv = data.documents.find((d) => d.role === "invoice");
   const f = (k: string) => inv?.fields.find((x) => x.key === k)?.value ?? null;
   const tz = data.org.timezone;
+  const firstDocId = ["PO", "GRN", "INVOICE"].map((t) => data.documents.find((d) => d.docType === t)).find(Boolean)?.id;
   const tabs: [Tab, string, ReactNode?][] = [
     ["match", "Match"], ["exceptions", "Exceptions", open.length ? <span key="p" className={`pill ${open.some((e) => e.severity === "blocking") ? "bad" : ""}`}>{open.length}</span> : <span key="p" className="pill">{data.exceptions.length}</span>],
     ["fields", "Fields"], ["history", "History"], ["how", "How it was decided"],
@@ -95,12 +96,12 @@ export function Review({ id, initialTab }: { id: string; initialTab?: Tab }) {
       <div className="review" data-pane={pane}>
         {/* ---------------- left: original document ---------------- */}
         <section className="card viewer" aria-label="Original documents">
-          <div className="tabs" role="tablist" aria-label="Documents in this bundle">
+          <div className="tabs" role="tablist" aria-label="Documents in this bundle" onKeyDown={tablistKeys}>
             {["PO", "GRN", "INVOICE"].map((t) => {
               const ds = data.documents.filter((d) => d.docType === t);
               if (!ds.length) return <button key={t} className="tab" role="tab" disabled aria-selected="false" title={t === "GRN" ? "No receiving record on file for this PO" : "Not uploaded"} style={{ opacity: 0.55 }}>{DOC_SHORT[t]} <span className="pill bad">missing</span></button>;
               return ds.map((d, i) => (
-                <button key={d.id} className="tab" role="tab" aria-selected={d.id === activeDoc} onClick={() => { setActiveDoc(d.id); setSel(null); }}>
+                <button key={d.id} className="tab" role="tab" aria-selected={d.id === activeDoc} tabIndex={tabIndexFor(d.id === activeDoc, data.documents.some((x) => x.id === activeDoc), d.id === firstDocId)} onClick={() => { setActiveDoc(d.id); setSel(null); }}>
                   {DOC_SHORT[t]}{ds.length > 1 ? ` ${i + 1}` : ""} {d.riskFlags.length > 0 && <span className="pill bad" title="Contains instruction-like text">!</span>}
                 </button>
               ));
@@ -122,9 +123,9 @@ export function Review({ id, initialTab }: { id: string; initialTab?: Tab }) {
         {/* ---------------- right: analysis ---------------- */}
         <section className="inspector" aria-label="Analysis">
           <div className="card panel">
-            <div className="tabs" role="tablist" aria-label="Analysis sections">
+            <div className="tabs" role="tablist" aria-label="Analysis sections" onKeyDown={tablistKeys}>
               {tabs.map(([k, label, extra]) => (
-                <button key={k} className="tab" role="tab" id={`tab-${k}`} aria-selected={tab === k} aria-controls="tabpanel" onClick={() => setTab(k)}>{label}{extra}</button>
+                <button key={k} className="tab" role="tab" id={`tab-${k}`} aria-selected={tab === k} tabIndex={tab === k ? 0 : -1} aria-controls="tabpanel" onClick={() => setTab(k)}>{label}{extra}</button>
               ))}
             </div>
             <div className="panel-body" id="tabpanel" role="tabpanel" aria-labelledby={`tab-${tab}`}>
@@ -487,6 +488,7 @@ function HowTab({ d, reload }: { d: Detail; reload(): void }) {
 function DecisionBar({ d, reload, onSeeExceptions }: { d: Detail; reload(): void; onSeeExceptions(): void }) {
   const app = useApp();
   const [dlg, setDlg] = useState<{ action: "approve" | "reject" | "hold" | "reopen"; key: string } | null>(null);
+  const [more, setMore] = useState(false);
   const p = d.permissions;
   const open = d.exceptions.filter((e) => e.status === "open").length;
   const st = d.bundle.state;
@@ -497,21 +499,29 @@ function DecisionBar({ d, reload, onSeeExceptions }: { d: Detail; reload(): void
     hold: { title: "Put on hold", label: "Hold", required: true, danger: false },
     reopen: { title: "Reopen this bundle", label: "Reopen", required: true, danger: false },
   } as const;
+  // On phones the secondary actions (Reopen / Hold / Reject) tuck behind a "More" button so the bar stays one
+  // short row with the main action. On wide screens CSS shows everything inline, exactly as before.
+  const hasMore = p.canReopen || p.canHold || p.canReject;
   return (
-    <div className="card decision" aria-label="Decision">
+    <div className="card decision" aria-label="Decision" data-more={more}>
       <div className="row">
-        <b>{done ? (st === "exported" ? "Approved and exported" : "Approved") : st === "rejected" ? "Rejected" : st === "held" ? "On hold" : "Your decision"}</b>
-        <span className="small muted">{done ? "Recorded. Export it from the Exports page." : st === "rejected" ? "No further action unless reopened." : open ? `${open} open exception${open > 1 ? "s" : ""} to clear first` : "No open exceptions"}</span>
+        <div className="decision-text">
+          <b>{done ? (st === "exported" ? "Approved and exported" : "Approved") : st === "rejected" ? "Rejected" : st === "held" ? "On hold" : "Your decision"}</b>
+          <span className="small muted">{done ? "Recorded. Export it from the Exports page." : st === "rejected" ? "No further action unless reopened." : open ? `${open} open exception${open > 1 ? "s" : ""} to clear first` : "No open exceptions"}</span>
+        </div>
         <span className="spacer" />
-        {p.canReopen && <button className="btn sm" onClick={() => setDlg({ action: "reopen", key: newKey() })}>Reopen</button>}
-        {p.canHold && <button className="btn sm" onClick={() => setDlg({ action: "hold", key: newKey() })}>Hold</button>}
-        {p.canReject && <button className="btn sm danger" onClick={() => setDlg({ action: "reject", key: newKey() })}>Reject</button>}
+        <div className="decision-more" id="decision-more">
+          {p.canReopen && <button className="btn sm" onClick={() => setDlg({ action: "reopen", key: newKey() })}>Reopen</button>}
+          {p.canHold && <button className="btn sm" onClick={() => setDlg({ action: "hold", key: newKey() })}>Hold</button>}
+          {p.canReject && <button className="btn sm danger" onClick={() => setDlg({ action: "reject", key: newKey() })}>Reject</button>}
+        </div>
         {!done && st !== "rejected" && <button className="btn good" disabled={!p.approve.ok} onClick={() => setDlg({ action: "approve", key: newKey() })} aria-describedby="approve-why"><Icon.check /> Approve</button>}
+        {hasMore && <button className="btn ghost decision-toggle" aria-expanded={more} aria-controls="decision-more" onClick={() => setMore((m) => !m)}>{more ? "Less" : "More"}</button>}
       </div>
       {!done && st !== "rejected" && !p.approve.ok && p.approve.reason && (
-        <div className="small muted" id="approve-why">Can't approve yet: {p.approve.reason} {open > 0 && <button className="btn sm ghost" onClick={onSeeExceptions}>See exceptions</button>}</div>
+        <div className="small muted decision-hint" id="approve-why"><span className="decision-reason" title={p.approve.reason}>Can't approve yet: {p.approve.reason}</span> {open > 0 && <button className="btn sm ghost" onClick={onSeeExceptions}>See exceptions</button>}</div>
       )}
-      {!done && p.approve.ok && <div className="small muted" id="approve-why">Approving records your sign-off for payment review. This system never executes a payment.</div>}
+      {!done && p.approve.ok && <div className="small muted decision-note" id="approve-why">Approving records your sign-off for payment review. This system never executes a payment.</div>}
       {dlg && (
         <ReasonDialog
           title={cfg[dlg.action].title} confirmLabel={cfg[dlg.action].label} required={cfg[dlg.action].required} danger={cfg[dlg.action].danger}

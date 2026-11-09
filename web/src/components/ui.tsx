@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
 import { CODE_LABEL, REC_LABEL, STATE_LABEL } from "../lib/format";
 
 /* ---------- icons (inline, 24px grid) ---------- */
@@ -107,3 +107,22 @@ export function ReasonDialog(p: { title: string; intro?: ReactNode; confirmLabel
     </Modal>
   );
 }
+
+/* ---------- tabs: standard arrow-key behaviour (WAI-ARIA "tabs" pattern) ----------
+   Put onKeyDown on the role="tablist" element. Left/Right move between tabs (wrapping), Home/End jump to the
+   first/last, and the newly focused tab is activated. Disabled tabs are skipped. Pair with roving tabindex:
+   only the selected tab is in the Tab order (see tabIndexFor). */
+export function tablistKeys(e: ReactKeyboardEvent<HTMLElement>) {
+  const keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
+  if (!keys.includes(e.key) || e.altKey || e.ctrlKey || e.metaKey) return;
+  const tabs = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]:not([disabled])'));
+  const i = tabs.indexOf(document.activeElement as HTMLElement);
+  if (i < 0 || tabs.length < 2) return;
+  e.preventDefault();
+  const next = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : (i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+  const target = tabs[next];
+  target?.focus();
+  target?.click();
+}
+/** Roving tabindex: the selected tab is tabbable; if nothing is selected yet, the first tab is. */
+export const tabIndexFor = (selected: boolean, anySelected: boolean, first: boolean) => (selected || (!anySelected && first) ? 0 : -1);

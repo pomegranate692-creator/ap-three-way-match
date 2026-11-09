@@ -16,7 +16,7 @@ Legend: [x] done and verified by a run · [~] done, partially verified · [ ] pe
 
 ## Phase 4 — Evaluation, recovery, polish [~]
 - [x] `npm run eval` with two deterministic baselines · [x] LLM adapters with timeout/retry/breaker/rate-limit (mock-tested) · [x] Playwright E2E + axe scan (found and fixed: contrast, link-only-colour, initial focus)
-- [ ] Real-document evaluation · [ ] OCR adapter · [ ] compact mobile decision bar · [ ] tabs arrow-key navigation (ARIA pattern) · [ ] manual screen-reader pass
+- [ ] Real-document evaluation · [ ] OCR adapter · [x] compact mobile decision bar (status + Approve + More; verified in Chrome at phone size) · [x] tabs arrow-key navigation (ARIA pattern; Left/Right/Home/End, roving tabindex) · [ ] manual screen-reader pass
 
 ## Phase 5 — Packaging [~]
 - [x] README, DEMO_SCRIPT (+ video storyboard), CASE_STUDY_DRAFT, METRICS_PLAN, SECURITY, OPERATIONS · [~] Dockerfile written, **untested** · [ ] recorded video · [ ] hosted deployment

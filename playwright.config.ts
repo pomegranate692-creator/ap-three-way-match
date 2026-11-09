@@ -12,7 +12,9 @@ export default defineConfig({
   reporter: [["list"]],
   use: { baseURL: `http://127.0.0.1:${PORT}`, channel: "chrome", trace: "retain-on-failure", screenshot: "only-on-failure", colorScheme: "light" },
   webServer: {
-    command: `sh -c "rm -f data/e2e.db data/e2e.db-shm data/e2e.db-wal && rm -rf data/uploads data/exports && npm run build >/dev/null && DB_PATH=data/e2e.db PORT=${PORT} NODE_ENV=production npx tsx server/index.ts"`,
+    // Everything the test server writes (database, uploads, exports) lives in data/e2e/, which is wiped each run.
+    // It never touches data/app.db, data/uploads or data/exports (the real local demo data).
+    command: `sh -c "rm -rf data/e2e && mkdir -p data/e2e && npm run build >/dev/null && DB_PATH=data/e2e/e2e.db PORT=${PORT} NODE_ENV=production npx tsx server/index.ts"`,
     url: `http://127.0.0.1:${PORT}/api/health`,
     reuseExistingServer: false,
     timeout: 180_000,
