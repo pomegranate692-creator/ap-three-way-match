@@ -2,7 +2,7 @@
 
 **AP Document Intelligence & Three-Way Match · Working prototype · AI-assisted development**
 
-[Watch the 85-second demo](../demos/ap-three-way-match-demo.mp4)
+[Watch the 85-second demo (video file)](https://github.com/pomegranate692-creator/ap-three-way-match/raw/main/demos/ap-three-way-match-demo.mp4)
 
 ## The problem
 

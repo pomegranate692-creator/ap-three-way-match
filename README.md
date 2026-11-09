@@ -4,7 +4,9 @@ A local-first web app that checks **purchase order ↔ receiving record ↔ invo
 
 > **Synthetic data only. It never pays, posts or sends anything.** Every company, person and document in the demo is fictional.
 
-[Watch the 85-second captioned demo](demos/ap-three-way-match-demo.mp4) · [Read the short case study](docs/CASE_STUDY.md)
+<video src="https://github.com/pomegranate692-creator/ap-three-way-match/raw/main/demos/ap-three-way-match-demo.mp4" controls muted playsinline width="760"></video>
+
+85-second captioned demo (no audio). If the player does not load, [open the video file directly](https://github.com/pomegranate692-creator/ap-three-way-match/raw/main/demos/ap-three-way-match-demo.mp4) · [Read the short case study](docs/CASE_STUDY.md)
 
 ![Quantity mismatch with source highlight](screenshots/05-source-highlight.png)
 
