@@ -10,3 +10,6 @@ test-results/
 playwright-report/
 .DS_Store
 data/e2e/
+# Demo recordings: only the finished MP4 is tracked. Raw .webm takes, sample exports, previews and temp folders stay local.
+demos/*
+!demos/ap-three-way-match-demo.mp4
