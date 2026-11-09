@@ -1,0 +1,3056 @@
+{
+  "generatedBy": "scripts/generate-fixtures.ts",
+  "synthetic": true,
+  "note": "All organisations, suppliers, people, tax IDs and bank details are fictional. Gold values are the generator's ground truth.",
+  "orgs": [
+    {
+      "id": "org-harbor",
+      "name": "Harbor & Pine Hardware",
+      "timezone": "America/Chicago",
+      "baseCurrency": "USD",
+      "settings": {
+        "qtyTolPct": "0",
+        "priceTolPct": "1",
+        "defaultTaxRate": "8.25",
+        "clerkApprovalLimit": "5000",
+        "dateOrder": "MDY",
+        "numberLocale": "us"
+      },
+      "users": [
+        {
+          "id": "u-harbor-clerk",
+          "name": "Dana Whitfield",
+          "role": "clerk"
+        },
+        {
+          "id": "u-harbor-ctrl",
+          "name": "Marcus Obi",
+          "role": "controller"
+        },
+        {
+          "id": "u-harbor-purch",
+          "name": "Priya Raman",
+          "role": "purchasing"
+        }
+      ]
+    },
+    {
+      "id": "org-cobalt",
+      "name": "Cobalt Bay Foods",
+      "timezone": "America/Los_Angeles",
+      "baseCurrency": "USD",
+      "settings": {
+        "qtyTolPct": "1",
+        "priceTolPct": "0.5",
+        "defaultTaxRate": "7.25",
+        "clerkApprovalLimit": "2500",
+        "dateOrder": "MDY",
+        "numberLocale": "us"
+      },
+      "users": [
+        {
+          "id": "u-cobalt-clerk",
+          "name": "Elena Torres",
+          "role": "clerk"
+        },
+        {
+          "id": "u-cobalt-ctrl",
+          "name": "Samir Haddad",
+          "role": "controller"
+        },
+        {
+          "id": "u-cobalt-purch",
+          "name": "Grace Lindqvist",
+          "role": "purchasing"
+        }
+      ]
+    },
+    {
+      "id": "org-meridian",
+      "name": "Meridian Labs GmbH",
+      "timezone": "Europe/Berlin",
+      "baseCurrency": "EUR",
+      "settings": {
+        "qtyTolPct": "0",
+        "priceTolPct": "1",
+        "defaultTaxRate": "19",
+        "clerkApprovalLimit": "4000",
+        "dateOrder": "DMY",
+        "numberLocale": "eu"
+      },
+      "users": [
+        {
+          "id": "u-meridian-clerk",
+          "name": "Jonas Keller",
+          "role": "clerk"
+        },
+        {
+          "id": "u-meridian-ctrl",
+          "name": "Annika Brandt",
+          "role": "controller"
+        },
+        {
+          "id": "u-meridian-purch",
+          "name": "Tomasz Nowak",
+          "role": "purchasing"
+        }
+      ]
+    }
+  ],
+  "bundles": [
+    {
+      "id": "B01",
+      "n": 1,
+      "orgId": "org-harbor",
+      "title": "Clean · full receipt",
+      "files": {
+        "invoice": "B01_INV_INV48137.pdf",
+        "po": "B01_PO_PO-HA4007.pdf",
+        "grn": "B01_GRN_GRN-7011.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4007",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "currency": "USD",
+            "docDate": "2026-02-04",
+            "taxRate": "8.25",
+            "subtotal": "1397.5",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "115.29",
+            "total": "1512.79"
+          },
+          "lines": [
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "20",
+              "uom": "BX",
+              "unitPrice": "42.5",
+              "discountPct": null,
+              "amount": "850"
+            },
+            {
+              "sku": "FST-1002",
+              "description": "Lock Washer M10 (box/500)",
+              "qty": "10",
+              "uom": "BX",
+              "unitPrice": "18.75",
+              "discountPct": null,
+              "amount": "187.5"
+            },
+            {
+              "sku": "FST-1003",
+              "description": "Hex Nut M10 (box/200)",
+              "qty": "15",
+              "uom": "BX",
+              "unitPrice": "24",
+              "discountPct": null,
+              "amount": "360"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7011",
+            "poRef": "PO-HA4007",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "docDate": "2026-02-08"
+          },
+          "lines": [
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "20",
+              "uom": "BX",
+              "date": "2026-02-08"
+            },
+            {
+              "sku": "FST-1002",
+              "description": "Lock Washer M10 (box/500)",
+              "qty": "10",
+              "uom": "BX",
+              "date": "2026-02-08"
+            },
+            {
+              "sku": "FST-1003",
+              "description": "Hex Nut M10 (box/200)",
+              "qty": "15",
+              "uom": "BX",
+              "date": "2026-02-08"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-48137",
+            "poRef": "PO-HA4007",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "supplierTaxId": "84-2210457",
+            "currency": "USD",
+            "docDate": "2026-02-11",
+            "taxRate": "8.25",
+            "subtotal": "1397.5",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "115.29",
+            "total": "1512.79"
+          },
+          "lines": [
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "20",
+              "uom": "BX",
+              "unitPrice": "42.5",
+              "discountPct": null,
+              "amount": "850"
+            },
+            {
+              "sku": "FST-1002",
+              "description": "Lock Washer M10 (box/500)",
+              "qty": "10",
+              "uom": "BX",
+              "unitPrice": "18.75",
+              "discountPct": null,
+              "amount": "187.5"
+            },
+            {
+              "sku": "FST-1003",
+              "description": "Hex Nut M10 (box/200)",
+              "qty": "15",
+              "uom": "BX",
+              "unitPrice": "24",
+              "discountPct": null,
+              "amount": "360"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B02",
+      "n": 2,
+      "orgId": "org-harbor",
+      "title": "Clean · partial receipt, invoice bills only what arrived",
+      "files": {
+        "invoice": "B02_INV_INV48274.pdf",
+        "po": "B02_PO_PO-HA4014.pdf",
+        "grn": "B02_GRN_GRN-7022.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4014",
+            "supplierName": "Summit Tool & Die LLC",
+            "currency": "USD",
+            "docDate": "2026-02-06",
+            "taxRate": "8.25",
+            "subtotal": "1905",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "157.16",
+            "total": "2062.16"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2001",
+              "description": "Carbide Drill Bit Set 13pc",
+              "qty": "10",
+              "uom": "EA",
+              "unitPrice": "89.9",
+              "discountPct": null,
+              "amount": "899"
+            },
+            {
+              "sku": "TLD-2002",
+              "description": "Torque Wrench 1/2in",
+              "qty": "4",
+              "uom": "EA",
+              "unitPrice": "134.5",
+              "discountPct": null,
+              "amount": "538"
+            },
+            {
+              "sku": "TLD-2003",
+              "description": "Bench Vise 6in",
+              "qty": "6",
+              "uom": "EA",
+              "unitPrice": "78",
+              "discountPct": null,
+              "amount": "468"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7022",
+            "poRef": "PO-HA4014",
+            "supplierName": "Summit Tool & Die LLC",
+            "docDate": "2026-02-11"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2001",
+              "description": "Carbide Drill Bit Set 13pc",
+              "qty": "6",
+              "uom": "EA",
+              "date": "2026-02-11"
+            },
+            {
+              "sku": "TLD-2002",
+              "description": "Torque Wrench 1/2in",
+              "qty": "4",
+              "uom": "EA",
+              "date": "2026-02-11"
+            },
+            {
+              "sku": "TLD-2003",
+              "description": "Bench Vise 6in",
+              "qty": "6",
+              "uom": "EA",
+              "date": "2026-02-11"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-48274",
+            "poRef": "PO-HA4014",
+            "supplierName": "Summit Tool & Die LLC",
+            "supplierTaxId": "41-9087342",
+            "currency": "USD",
+            "docDate": "2026-02-14",
+            "taxRate": "8.25",
+            "subtotal": "1545.4",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "127.5",
+            "total": "1672.9"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2001",
+              "description": "Carbide Drill Bit Set 13pc",
+              "qty": "6",
+              "uom": "EA",
+              "unitPrice": "89.9",
+              "discountPct": null,
+              "amount": "539.4"
+            },
+            {
+              "sku": "TLD-2002",
+              "description": "Torque Wrench 1/2in",
+              "qty": "4",
+              "uom": "EA",
+              "unitPrice": "134.5",
+              "discountPct": null,
+              "amount": "538"
+            },
+            {
+              "sku": "TLD-2003",
+              "description": "Bench Vise 6in",
+              "qty": "6",
+              "uom": "EA",
+              "unitPrice": "78",
+              "discountPct": null,
+              "amount": "468"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B03",
+      "n": 3,
+      "orgId": "org-harbor",
+      "title": "Clean · split shipment (two receipts for one line)",
+      "files": {
+        "invoice": "B03_INV_B48411.pdf",
+        "po": "B03_PO_PO-HA4021.pdf",
+        "grn": "B03_GRN_GRN-7033.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4021",
+            "supplierName": "Bluebird Packaging Co.",
+            "currency": "USD",
+            "docDate": "2026-02-08",
+            "taxRate": "8.25",
+            "subtotal": "4132",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "340.89",
+            "total": "4472.89"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3001",
+              "description": "Corrugated Box 12x12x12 (25)",
+              "qty": "80",
+              "uom": "BD",
+              "unitPrice": "31.4",
+              "discountPct": null,
+              "amount": "2512"
+            },
+            {
+              "sku": "PKG-3002",
+              "description": "Packing Tape 2in (case/36)",
+              "qty": "30",
+              "uom": "CS",
+              "unitPrice": "54",
+              "discountPct": null,
+              "amount": "1620"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7033",
+            "poRef": "PO-HA4021",
+            "supplierName": "Bluebird Packaging Co.",
+            "docDate": "2026-02-20"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3001",
+              "description": "Corrugated Box 12x12x12 (25)",
+              "qty": "40",
+              "uom": "BD",
+              "date": "2026-02-13"
+            },
+            {
+              "sku": "PKG-3002",
+              "description": "Packing Tape 2in (case/36)",
+              "qty": "30",
+              "uom": "CS",
+              "date": "2026-02-13"
+            },
+            {
+              "sku": "PKG-3001",
+              "description": "Corrugated Box 12x12x12 (25)",
+              "qty": "40",
+              "uom": "BD",
+              "date": "2026-02-20"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-48411",
+            "poRef": "PO-HA4021",
+            "supplierName": "Bluebird Packaging Co.",
+            "supplierTaxId": "36-7781902",
+            "currency": "USD",
+            "docDate": "2026-02-23",
+            "taxRate": "8.25",
+            "subtotal": "4132",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "340.89",
+            "total": "4472.89"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3001",
+              "description": "Corrugated Box 12x12x12 (25)",
+              "qty": "80",
+              "uom": null,
+              "unitPrice": "31.4",
+              "discountPct": null,
+              "amount": "2512"
+            },
+            {
+              "sku": "PKG-3002",
+              "description": "Packing Tape 2in (case/36)",
+              "qty": "30",
+              "uom": null,
+              "unitPrice": "54",
+              "discountPct": null,
+              "amount": "1620"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B04",
+      "n": 4,
+      "orgId": "org-harbor",
+      "title": "Clean · 5% line discount + authorised freight",
+      "files": {
+        "invoice": "B04_INV_INV48548.pdf",
+        "po": "B04_PO_PO-HA4028.pdf",
+        "grn": "B04_GRN_GRN-7044.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4028",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "currency": "USD",
+            "docDate": "2026-02-10",
+            "taxRate": "8.25",
+            "subtotal": "1820.36",
+            "discountTotal": null,
+            "freight": "45",
+            "taxTotal": "150.18",
+            "total": "2015.54"
+          },
+          "lines": [
+            {
+              "sku": "FST-1004",
+              "description": "Anchor Bolt 1/2x6 (box/50)",
+              "qty": "24",
+              "uom": "BX",
+              "unitPrice": "61.2",
+              "discountPct": "5",
+              "amount": "1395.36"
+            },
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "10",
+              "uom": "BX",
+              "unitPrice": "42.5",
+              "discountPct": null,
+              "amount": "425"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7044",
+            "poRef": "PO-HA4028",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "docDate": "2026-02-16"
+          },
+          "lines": [
+            {
+              "sku": "FST-1004",
+              "description": "Anchor Bolt 1/2x6 (box/50)",
+              "qty": "24",
+              "uom": "BX",
+              "date": "2026-02-16"
+            },
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "10",
+              "uom": "BX",
+              "date": "2026-02-16"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-48548",
+            "poRef": "PO-HA4028",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "supplierTaxId": "84-2210457",
+            "currency": "USD",
+            "docDate": "2026-02-19",
+            "taxRate": "8.25",
+            "subtotal": "1820.36",
+            "discountTotal": null,
+            "freight": "45",
+            "taxTotal": "150.18",
+            "total": "2015.54"
+          },
+          "lines": [
+            {
+              "sku": "FST-1004",
+              "description": "Anchor Bolt 1/2x6 (box/50)",
+              "qty": "24",
+              "uom": "BX",
+              "unitPrice": "61.2",
+              "discountPct": "5",
+              "amount": "1395.36"
+            },
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "10",
+              "uom": "BX",
+              "unitPrice": "42.5",
+              "discountPct": null,
+              "amount": "425"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B05",
+      "n": 5,
+      "orgId": "org-harbor",
+      "title": "EXCEPTION · invoice bills 100, only 80 received (quantity mismatch)",
+      "files": {
+        "invoice": "B05_INV_INV48685.pdf",
+        "po": "B05_PO_PO-HA4035.pdf",
+        "grn": "B05_GRN_GRN-7055.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4035",
+            "supplierName": "Summit Tool & Die LLC",
+            "currency": "USD",
+            "docDate": "2026-02-12",
+            "taxRate": "8.25",
+            "subtotal": "3775",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "311.44",
+            "total": "4086.44"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2004",
+              "description": "Cutting Oil 1 gal",
+              "qty": "100",
+              "uom": "EA",
+              "unitPrice": "29.95",
+              "discountPct": null,
+              "amount": "2995"
+            },
+            {
+              "sku": "TLD-2003",
+              "description": "Bench Vise 6in",
+              "qty": "10",
+              "uom": "EA",
+              "unitPrice": "78",
+              "discountPct": null,
+              "amount": "780"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7055",
+            "poRef": "PO-HA4035",
+            "supplierName": "Summit Tool & Die LLC",
+            "docDate": "2026-02-17"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2004",
+              "description": "Cutting Oil 1 gal",
+              "qty": "80",
+              "uom": "EA",
+              "date": "2026-02-17"
+            },
+            {
+              "sku": "TLD-2003",
+              "description": "Bench Vise 6in",
+              "qty": "10",
+              "uom": "EA",
+              "date": "2026-02-17"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-48685",
+            "poRef": "PO-HA4035",
+            "supplierName": "Summit Tool & Die LLC",
+            "supplierTaxId": "41-9087342",
+            "currency": "USD",
+            "docDate": "2026-02-20",
+            "taxRate": "8.25",
+            "subtotal": "3775",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "311.44",
+            "total": "4086.44"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2004",
+              "description": "Cutting Oil 1 gal",
+              "qty": "100",
+              "uom": "EA",
+              "unitPrice": "29.95",
+              "discountPct": null,
+              "amount": "2995"
+            },
+            {
+              "sku": "TLD-2003",
+              "description": "Bench Vise 6in",
+              "qty": "10",
+              "uom": "EA",
+              "unitPrice": "78",
+              "discountPct": null,
+              "amount": "780"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "QTY_OVER_RECEIVED"
+      ],
+      "expectedRecommendation": "EXCEPTION_REVIEW"
+    },
+    {
+      "id": "B06",
+      "n": 6,
+      "orgId": "org-harbor",
+      "title": "EXCEPTION · unit price 8% above PO",
+      "files": {
+        "invoice": "B06_INV_B48822.pdf",
+        "po": "B06_PO_PO-HA4042.pdf",
+        "grn": "B06_GRN_GRN-7066.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4042",
+            "supplierName": "Bluebird Packaging Co.",
+            "currency": "USD",
+            "docDate": "2026-02-14",
+            "taxRate": "8.25",
+            "subtotal": "2651.5",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "218.75",
+            "total": "2870.25"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3003",
+              "description": "Bubble Wrap 12in x 175ft",
+              "qty": "40",
+              "uom": "RL",
+              "unitPrice": "38.6",
+              "discountPct": null,
+              "amount": "1544"
+            },
+            {
+              "sku": "PKG-3004",
+              "description": "Pallet Stretch Film",
+              "qty": "50",
+              "uom": "RL",
+              "unitPrice": "22.15",
+              "discountPct": null,
+              "amount": "1107.5"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7066",
+            "poRef": "PO-HA4042",
+            "supplierName": "Bluebird Packaging Co.",
+            "docDate": "2026-02-18"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3003",
+              "description": "Bubble Wrap 12in x 175ft",
+              "qty": "40",
+              "uom": "RL",
+              "date": "2026-02-18"
+            },
+            {
+              "sku": "PKG-3004",
+              "description": "Pallet Stretch Film",
+              "qty": "50",
+              "uom": "RL",
+              "date": "2026-02-18"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-48822",
+            "poRef": "PO-HA4042",
+            "supplierName": "Bluebird Packaging Co.",
+            "supplierTaxId": "36-7781902",
+            "currency": "USD",
+            "docDate": "2026-02-21",
+            "taxRate": "8.25",
+            "subtotal": "2775.1",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "228.95",
+            "total": "3004.05"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3003",
+              "description": "Bubble Wrap 12in x 175ft",
+              "qty": "40",
+              "uom": null,
+              "unitPrice": "41.69",
+              "discountPct": null,
+              "amount": "1667.6"
+            },
+            {
+              "sku": "PKG-3004",
+              "description": "Pallet Stretch Film",
+              "qty": "50",
+              "uom": null,
+              "unitPrice": "22.15",
+              "discountPct": null,
+              "amount": "1107.5"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "PRICE_VARIANCE"
+      ],
+      "expectedRecommendation": "EXCEPTION_REVIEW"
+    },
+    {
+      "id": "B07",
+      "n": 7,
+      "orgId": "org-harbor",
+      "title": "Clean · header volume discount, above clerk approval limit",
+      "files": {
+        "invoice": "B07_INV_INV48959.pdf",
+        "po": "B07_PO_PO-HA4049.pdf",
+        "grn": "B07_GRN_GRN-7077.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4049",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "currency": "USD",
+            "docDate": "2026-02-16",
+            "taxRate": "8.25",
+            "subtotal": "5450",
+            "discountTotal": "50",
+            "freight": "0",
+            "taxTotal": "445.5",
+            "total": "5845.5"
+          },
+          "lines": [
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "100",
+              "uom": "BX",
+              "unitPrice": "42.5",
+              "discountPct": null,
+              "amount": "4250"
+            },
+            {
+              "sku": "FST-1003",
+              "description": "Hex Nut M10 (box/200)",
+              "qty": "50",
+              "uom": "BX",
+              "unitPrice": "24",
+              "discountPct": null,
+              "amount": "1200"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7077",
+            "poRef": "PO-HA4049",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "docDate": "2026-02-23"
+          },
+          "lines": [
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "100",
+              "uom": "BX",
+              "date": "2026-02-23"
+            },
+            {
+              "sku": "FST-1003",
+              "description": "Hex Nut M10 (box/200)",
+              "qty": "50",
+              "uom": "BX",
+              "date": "2026-02-23"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-48959",
+            "poRef": "PO-HA4049",
+            "supplierName": "Ironwood Fasteners Inc.",
+            "supplierTaxId": "84-2210457",
+            "currency": "USD",
+            "docDate": "2026-02-26",
+            "taxRate": "8.25",
+            "subtotal": "5450",
+            "discountTotal": "50",
+            "freight": "0",
+            "taxTotal": "445.5",
+            "total": "5845.5"
+          },
+          "lines": [
+            {
+              "sku": "FST-1001",
+              "description": "Hex Bolt M10x50 (box/100)",
+              "qty": "100",
+              "uom": "BX",
+              "unitPrice": "42.5",
+              "discountPct": null,
+              "amount": "4250"
+            },
+            {
+              "sku": "FST-1003",
+              "description": "Hex Nut M10 (box/200)",
+              "qty": "50",
+              "uom": "BX",
+              "unitPrice": "24",
+              "discountPct": null,
+              "amount": "1200"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B08",
+      "n": 8,
+      "orgId": "org-harbor",
+      "title": "EXCEPTION · sales tax charged at 9.25% instead of 8.25%",
+      "files": {
+        "invoice": "B08_INV_INV49096.pdf",
+        "po": "B08_PO_PO-HA4056.pdf",
+        "grn": "B08_GRN_GRN-7088.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4056",
+            "supplierName": "Summit Tool & Die LLC",
+            "currency": "USD",
+            "docDate": "2026-02-18",
+            "taxRate": "8.25",
+            "subtotal": "718.5",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "59.28",
+            "total": "777.78"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2001",
+              "description": "Carbide Drill Bit Set 13pc",
+              "qty": "5",
+              "uom": "EA",
+              "unitPrice": "89.9",
+              "discountPct": null,
+              "amount": "449.5"
+            },
+            {
+              "sku": "TLD-2002",
+              "description": "Torque Wrench 1/2in",
+              "qty": "2",
+              "uom": "EA",
+              "unitPrice": "134.5",
+              "discountPct": null,
+              "amount": "269"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7088",
+            "poRef": "PO-HA4056",
+            "supplierName": "Summit Tool & Die LLC",
+            "docDate": "2026-02-21"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2001",
+              "description": "Carbide Drill Bit Set 13pc",
+              "qty": "5",
+              "uom": "EA",
+              "date": "2026-02-21"
+            },
+            {
+              "sku": "TLD-2002",
+              "description": "Torque Wrench 1/2in",
+              "qty": "2",
+              "uom": "EA",
+              "date": "2026-02-21"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-49096",
+            "poRef": "PO-HA4056",
+            "supplierName": "Summit Tool & Die LLC",
+            "supplierTaxId": "41-9087342",
+            "currency": "USD",
+            "docDate": "2026-02-24",
+            "taxRate": "9.25",
+            "subtotal": "718.5",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "66.46",
+            "total": "784.96"
+          },
+          "lines": [
+            {
+              "sku": "TLD-2001",
+              "description": "Carbide Drill Bit Set 13pc",
+              "qty": "5",
+              "uom": "EA",
+              "unitPrice": "89.9",
+              "discountPct": null,
+              "amount": "449.5"
+            },
+            {
+              "sku": "TLD-2002",
+              "description": "Torque Wrench 1/2in",
+              "qty": "2",
+              "uom": "EA",
+              "unitPrice": "134.5",
+              "discountPct": null,
+              "amount": "269"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "TAX_MISMATCH"
+      ],
+      "expectedRecommendation": "EXCEPTION_REVIEW"
+    },
+    {
+      "id": "B09",
+      "n": 9,
+      "orgId": "org-harbor",
+      "title": "Clean · price +0.38% (inside 1% tolerance)",
+      "files": {
+        "invoice": "B09_INV_B49233.pdf",
+        "po": "B09_PO_PO-HA4063.pdf",
+        "grn": "B09_GRN_GRN-7099.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-HA4063",
+            "supplierName": "Bluebird Packaging Co.",
+            "currency": "USD",
+            "docDate": "2026-02-20",
+            "taxRate": "8.25",
+            "subtotal": "1884",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "155.43",
+            "total": "2039.43"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3001",
+              "description": "Corrugated Box 12x12x12 (25)",
+              "qty": "60",
+              "uom": "BD",
+              "unitPrice": "31.4",
+              "discountPct": null,
+              "amount": "1884"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7099",
+            "poRef": "PO-HA4063",
+            "supplierName": "Bluebird Packaging Co.",
+            "docDate": "2026-02-23"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3001",
+              "description": "Corrugated Box 12x12x12 (25)",
+              "qty": "60",
+              "uom": "BD",
+              "date": "2026-02-23"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-49233",
+            "poRef": "PO-HA4063",
+            "supplierName": "Bluebird Packaging Co.",
+            "supplierTaxId": "36-7781902",
+            "currency": "USD",
+            "docDate": "2026-02-26",
+            "taxRate": "8.25",
+            "subtotal": "1891.2",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "156.02",
+            "total": "2047.22"
+          },
+          "lines": [
+            {
+              "sku": "PKG-3001",
+              "description": "Corrugated Box 12x12x12 (25)",
+              "qty": "60",
+              "uom": null,
+              "unitPrice": "31.52",
+              "discountPct": null,
+              "amount": "1891.2"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B10",
+      "n": 10,
+      "orgId": "org-cobalt",
+      "title": "Clean · full receipt",
+      "files": {
+        "invoice": "B10_INV_B49370.pdf",
+        "po": "B10_PO_PO-CO4070.pdf",
+        "grn": "B10_GRN_GRN-7110.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4070",
+            "supplierName": "Greenfield Produce Ltd",
+            "currency": "USD",
+            "docDate": "2026-02-22",
+            "taxRate": "7.25",
+            "subtotal": "1568",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "113.68",
+            "total": "1681.68"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1101",
+              "description": "Roma Tomatoes (case 20 lb)",
+              "qty": "30",
+              "uom": null,
+              "unitPrice": "24.8",
+              "discountPct": null,
+              "amount": "744"
+            },
+            {
+              "sku": "PRD-1102",
+              "description": "Baby Spinach (case 4 lb)",
+              "qty": "20",
+              "uom": null,
+              "unitPrice": "31.25",
+              "discountPct": null,
+              "amount": "625"
+            },
+            {
+              "sku": "PRD-1103",
+              "description": "Yellow Onions (sack 50 lb)",
+              "qty": "10",
+              "uom": null,
+              "unitPrice": "19.9",
+              "discountPct": null,
+              "amount": "199"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7110",
+            "poRef": "PO-CO4070",
+            "supplierName": "Greenfield Produce Ltd",
+            "docDate": "2026-02-24"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1101",
+              "description": "Roma Tomatoes (case 20 lb)",
+              "qty": "30",
+              "uom": null,
+              "date": "2026-02-24"
+            },
+            {
+              "sku": "PRD-1102",
+              "description": "Baby Spinach (case 4 lb)",
+              "qty": "20",
+              "uom": null,
+              "date": "2026-02-24"
+            },
+            {
+              "sku": "PRD-1103",
+              "description": "Yellow Onions (sack 50 lb)",
+              "qty": "10",
+              "uom": null,
+              "date": "2026-02-24"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-49370",
+            "poRef": "PO-CO4070",
+            "supplierName": "Greenfield Produce Ltd",
+            "supplierTaxId": "91-3320118",
+            "currency": "USD",
+            "docDate": "2026-02-27",
+            "taxRate": "7.25",
+            "subtotal": "1568",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "113.68",
+            "total": "1681.68"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1101",
+              "description": "Roma Tomatoes (case 20 lb)",
+              "qty": "30",
+              "uom": null,
+              "unitPrice": "24.8",
+              "discountPct": null,
+              "amount": "744"
+            },
+            {
+              "sku": "PRD-1102",
+              "description": "Baby Spinach (case 4 lb)",
+              "qty": "20",
+              "uom": null,
+              "unitPrice": "31.25",
+              "discountPct": null,
+              "amount": "625"
+            },
+            {
+              "sku": "PRD-1103",
+              "description": "Yellow Onions (sack 50 lb)",
+              "qty": "10",
+              "uom": null,
+              "unitPrice": "19.9",
+              "discountPct": null,
+              "amount": "199"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B11",
+      "n": 11,
+      "orgId": "org-cobalt",
+      "title": "Clean · full receipt (later re-sent as a duplicate)",
+      "files": {
+        "invoice": "B11_INV_INV49507.pdf",
+        "po": "B11_PO_PO-CO4077.pdf",
+        "grn": "B11_GRN_GRN-7121.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4077",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "currency": "USD",
+            "docDate": "2026-02-24",
+            "taxRate": "7.25",
+            "subtotal": "2641",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "191.47",
+            "total": "2832.47"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "40",
+              "uom": null,
+              "unitPrice": "22.6",
+              "discountPct": null,
+              "amount": "904"
+            },
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "10",
+              "uom": null,
+              "unitPrice": "118",
+              "discountPct": null,
+              "amount": "1180"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "20",
+              "uom": null,
+              "unitPrice": "27.85",
+              "discountPct": null,
+              "amount": "557"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7121",
+            "poRef": "PO-CO4077",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "docDate": "2026-02-26"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "40",
+              "uom": null,
+              "date": "2026-02-26"
+            },
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "10",
+              "uom": null,
+              "date": "2026-02-26"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "20",
+              "uom": null,
+              "date": "2026-02-26"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-49507",
+            "poRef": "PO-CO4077",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "supplierTaxId": "27-5540981",
+            "currency": "USD",
+            "docDate": "2026-03-01",
+            "taxRate": "7.25",
+            "subtotal": "2641",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "191.47",
+            "total": "2832.47"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "40",
+              "uom": "CS",
+              "unitPrice": "22.6",
+              "discountPct": null,
+              "amount": "904"
+            },
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "10",
+              "uom": "CS",
+              "unitPrice": "118",
+              "discountPct": null,
+              "amount": "1180"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "20",
+              "uom": "EA",
+              "unitPrice": "27.85",
+              "discountPct": null,
+              "amount": "557"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B12",
+      "n": 12,
+      "orgId": "org-cobalt",
+      "title": "EXCEPTION · no receiving record on file",
+      "files": {
+        "invoice": "B12_INV_B49644.pdf",
+        "po": "B12_PO_PO-CO4084.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4084",
+            "supplierName": "Orchard Lane Bakery Supply",
+            "currency": "USD",
+            "docDate": "2026-02-26",
+            "taxRate": "7.25",
+            "subtotal": "911.4",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "66.08",
+            "total": "977.48"
+          },
+          "lines": [
+            {
+              "sku": "BKS-3101",
+              "description": "Bread Flour 50 lb",
+              "qty": "20",
+              "uom": null,
+              "unitPrice": "26.4",
+              "discountPct": null,
+              "amount": "528"
+            },
+            {
+              "sku": "BKS-3102",
+              "description": "Granulated Sugar 50 lb",
+              "qty": "12",
+              "uom": null,
+              "unitPrice": "31.95",
+              "discountPct": null,
+              "amount": "383.4"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-49644",
+            "poRef": "PO-CO4084",
+            "supplierName": "Orchard Lane Bakery Supply",
+            "supplierTaxId": "58-1129076",
+            "currency": "USD",
+            "docDate": "2026-03-07",
+            "taxRate": "7.25",
+            "subtotal": "911.4",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "66.08",
+            "total": "977.48"
+          },
+          "lines": [
+            {
+              "sku": "BKS-3101",
+              "description": "Bread Flour 50 lb",
+              "qty": "20",
+              "uom": null,
+              "unitPrice": "26.4",
+              "discountPct": null,
+              "amount": "528"
+            },
+            {
+              "sku": "BKS-3102",
+              "description": "Granulated Sugar 50 lb",
+              "qty": "12",
+              "uom": null,
+              "unitPrice": "31.95",
+              "discountPct": null,
+              "amount": "383.4"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "MISSING_RECEIPT"
+      ],
+      "expectedRecommendation": "HOLD"
+    },
+    {
+      "id": "B13",
+      "n": 13,
+      "orgId": "org-cobalt",
+      "title": "Clean · fractional quantities (kg)",
+      "files": {
+        "invoice": "B13_INV_B49781.pdf",
+        "po": "B13_PO_PO-CO4091.pdf",
+        "grn": "B13_GRN_GRN-7143.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4091",
+            "supplierName": "Greenfield Produce Ltd",
+            "currency": "USD",
+            "docDate": "2026-02-28",
+            "taxRate": "7.25",
+            "subtotal": "428.4",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "31.06",
+            "total": "459.46"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1105",
+              "description": "Fresh Basil",
+              "qty": "12.5",
+              "uom": null,
+              "unitPrice": "18.4",
+              "discountPct": null,
+              "amount": "230"
+            },
+            {
+              "sku": "PRD-1101",
+              "description": "Roma Tomatoes (case 20 lb)",
+              "qty": "8",
+              "uom": null,
+              "unitPrice": "24.8",
+              "discountPct": null,
+              "amount": "198.4"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7143",
+            "poRef": "PO-CO4091",
+            "supplierName": "Greenfield Produce Ltd",
+            "docDate": "2026-03-02"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1105",
+              "description": "Fresh Basil",
+              "qty": "12.5",
+              "uom": null,
+              "date": "2026-03-02"
+            },
+            {
+              "sku": "PRD-1101",
+              "description": "Roma Tomatoes (case 20 lb)",
+              "qty": "8",
+              "uom": null,
+              "date": "2026-03-02"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-49781",
+            "poRef": "PO-CO4091",
+            "supplierName": "Greenfield Produce Ltd",
+            "supplierTaxId": "91-3320118",
+            "currency": "USD",
+            "docDate": "2026-03-05",
+            "taxRate": "7.25",
+            "subtotal": "428.4",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "31.06",
+            "total": "459.46"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1105",
+              "description": "Fresh Basil",
+              "qty": "12.5",
+              "uom": null,
+              "unitPrice": "18.4",
+              "discountPct": null,
+              "amount": "230"
+            },
+            {
+              "sku": "PRD-1101",
+              "description": "Roma Tomatoes (case 20 lb)",
+              "qty": "8",
+              "uom": null,
+              "unitPrice": "24.8",
+              "discountPct": null,
+              "amount": "198.4"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B14",
+      "n": 14,
+      "orgId": "org-cobalt",
+      "title": "EXCEPTION · stated invoice total is $90.00 too high",
+      "files": {
+        "invoice": "B14_INV_INV49918.pdf",
+        "po": "B14_PO_PO-CO4098.pdf",
+        "grn": "B14_GRN_GRN-7154.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4098",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "currency": "USD",
+            "docDate": "2026-03-02",
+            "taxRate": "7.25",
+            "subtotal": "1219",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "88.38",
+            "total": "1307.38"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2104",
+              "description": "Greek Yogurt 32 oz (case/12)",
+              "qty": "30",
+              "uom": null,
+              "unitPrice": "33.1",
+              "discountPct": null,
+              "amount": "993"
+            },
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "10",
+              "uom": null,
+              "unitPrice": "22.6",
+              "discountPct": null,
+              "amount": "226"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7154",
+            "poRef": "PO-CO4098",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "docDate": "2026-03-05"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2104",
+              "description": "Greek Yogurt 32 oz (case/12)",
+              "qty": "30",
+              "uom": null,
+              "date": "2026-03-05"
+            },
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "10",
+              "uom": null,
+              "date": "2026-03-05"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-49918",
+            "poRef": "PO-CO4098",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "supplierTaxId": "27-5540981",
+            "currency": "USD",
+            "docDate": "2026-03-08",
+            "taxRate": "7.25",
+            "subtotal": "1219",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "88.38",
+            "total": "1397.38"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2104",
+              "description": "Greek Yogurt 32 oz (case/12)",
+              "qty": "30",
+              "uom": "CS",
+              "unitPrice": "33.1",
+              "discountPct": null,
+              "amount": "993"
+            },
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "10",
+              "uom": "CS",
+              "unitPrice": "22.6",
+              "discountPct": null,
+              "amount": "226"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "TOTAL_ARITHMETIC"
+      ],
+      "expectedRecommendation": "EXCEPTION_REVIEW"
+    },
+    {
+      "id": "B15",
+      "n": 15,
+      "orgId": "org-cobalt",
+      "title": "Clean · authorised freight",
+      "files": {
+        "invoice": "B15_INV_B50055.pdf",
+        "po": "B15_PO_PO-CO4105.pdf",
+        "grn": "B15_GRN_GRN-7165.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4105",
+            "supplierName": "Orchard Lane Bakery Supply",
+            "currency": "USD",
+            "docDate": "2026-03-04",
+            "taxRate": "7.25",
+            "subtotal": "579",
+            "discountTotal": null,
+            "freight": "38",
+            "taxTotal": "41.98",
+            "total": "658.98"
+          },
+          "lines": [
+            {
+              "sku": "BKS-3103",
+              "description": "Instant Yeast 1 lb (case/20)",
+              "qty": "6",
+              "uom": null,
+              "unitPrice": "64",
+              "discountPct": null,
+              "amount": "384"
+            },
+            {
+              "sku": "BKS-3104",
+              "description": "Parchment Sheets (case/1000)",
+              "qty": "4",
+              "uom": null,
+              "unitPrice": "48.75",
+              "discountPct": null,
+              "amount": "195"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7165",
+            "poRef": "PO-CO4105",
+            "supplierName": "Orchard Lane Bakery Supply",
+            "docDate": "2026-03-07"
+          },
+          "lines": [
+            {
+              "sku": "BKS-3103",
+              "description": "Instant Yeast 1 lb (case/20)",
+              "qty": "6",
+              "uom": null,
+              "date": "2026-03-07"
+            },
+            {
+              "sku": "BKS-3104",
+              "description": "Parchment Sheets (case/1000)",
+              "qty": "4",
+              "uom": null,
+              "date": "2026-03-07"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-50055",
+            "poRef": "PO-CO4105",
+            "supplierName": "Orchard Lane Bakery Supply",
+            "supplierTaxId": "58-1129076",
+            "currency": "USD",
+            "docDate": "2026-03-10",
+            "taxRate": "7.25",
+            "subtotal": "579",
+            "discountTotal": null,
+            "freight": "38",
+            "taxTotal": "41.98",
+            "total": "658.98"
+          },
+          "lines": [
+            {
+              "sku": "BKS-3103",
+              "description": "Instant Yeast 1 lb (case/20)",
+              "qty": "6",
+              "uom": null,
+              "unitPrice": "64",
+              "discountPct": null,
+              "amount": "384"
+            },
+            {
+              "sku": "BKS-3104",
+              "description": "Parchment Sheets (case/1000)",
+              "qty": "4",
+              "uom": null,
+              "unitPrice": "48.75",
+              "discountPct": null,
+              "amount": "195"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B16",
+      "n": 16,
+      "orgId": "org-cobalt",
+      "title": "EXCEPTION · invoice contains embedded instructions to the processing system",
+      "files": {
+        "invoice": "B16_INV_B50192.pdf",
+        "po": "B16_PO_PO-CO4112.pdf",
+        "grn": "B16_GRN_GRN-7176.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4112",
+            "supplierName": "Greenfield Produce Ltd",
+            "currency": "USD",
+            "docDate": "2026-03-06",
+            "taxRate": "7.25",
+            "subtotal": "707.55",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "51.3",
+            "total": "758.85"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1102",
+              "description": "Baby Spinach (case 4 lb)",
+              "qty": "15",
+              "uom": null,
+              "unitPrice": "31.25",
+              "discountPct": null,
+              "amount": "468.75"
+            },
+            {
+              "sku": "PRD-1103",
+              "description": "Yellow Onions (sack 50 lb)",
+              "qty": "12",
+              "uom": null,
+              "unitPrice": "19.9",
+              "discountPct": null,
+              "amount": "238.8"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7176",
+            "poRef": "PO-CO4112",
+            "supplierName": "Greenfield Produce Ltd",
+            "docDate": "2026-03-08"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1102",
+              "description": "Baby Spinach (case 4 lb)",
+              "qty": "15",
+              "uom": null,
+              "date": "2026-03-08"
+            },
+            {
+              "sku": "PRD-1103",
+              "description": "Yellow Onions (sack 50 lb)",
+              "qty": "12",
+              "uom": null,
+              "date": "2026-03-08"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "B-50192",
+            "poRef": "PO-CO4112",
+            "supplierName": "Greenfield Produce Ltd",
+            "supplierTaxId": "91-3320118",
+            "currency": "USD",
+            "docDate": "2026-03-11",
+            "taxRate": "7.25",
+            "subtotal": "707.55",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "51.3",
+            "total": "758.85"
+          },
+          "lines": [
+            {
+              "sku": "PRD-1102",
+              "description": "Baby Spinach (case 4 lb)",
+              "qty": "15",
+              "uom": null,
+              "unitPrice": "31.25",
+              "discountPct": null,
+              "amount": "468.75"
+            },
+            {
+              "sku": "PRD-1103",
+              "description": "Yellow Onions (sack 50 lb)",
+              "qty": "12",
+              "uom": null,
+              "unitPrice": "19.9",
+              "discountPct": null,
+              "amount": "238.8"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "SUSPECT_INSTRUCTIONS"
+      ],
+      "expectedRecommendation": "HOLD"
+    },
+    {
+      "id": "B17",
+      "n": 17,
+      "orgId": "org-cobalt",
+      "title": "Clean · partial receipt on one line",
+      "files": {
+        "invoice": "B17_INV_INV50329.pdf",
+        "po": "B17_PO_PO-CO4119.pdf",
+        "grn": "B17_GRN_GRN-7187.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4119",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "currency": "USD",
+            "docDate": "2026-03-08",
+            "taxRate": "7.25",
+            "subtotal": "2638.5",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "191.29",
+            "total": "2829.79"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "20",
+              "uom": null,
+              "unitPrice": "118",
+              "discountPct": null,
+              "amount": "2360"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "10",
+              "uom": null,
+              "unitPrice": "27.85",
+              "discountPct": null,
+              "amount": "278.5"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7187",
+            "poRef": "PO-CO4119",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "docDate": "2026-03-11"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "12",
+              "uom": null,
+              "date": "2026-03-11"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "10",
+              "uom": null,
+              "date": "2026-03-11"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-50329",
+            "poRef": "PO-CO4119",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "supplierTaxId": "27-5540981",
+            "currency": "USD",
+            "docDate": "2026-03-14",
+            "taxRate": "7.25",
+            "subtotal": "1694.5",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "122.85",
+            "total": "1817.35"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "12",
+              "uom": "CS",
+              "unitPrice": "118",
+              "discountPct": null,
+              "amount": "1416"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "10",
+              "uom": "EA",
+              "unitPrice": "27.85",
+              "discountPct": null,
+              "amount": "278.5"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B18",
+      "n": 18,
+      "orgId": "org-meridian",
+      "title": "Clean · EUR, German layout and number format",
+      "files": {
+        "invoice": "B18_INV_RE50466.pdf",
+        "po": "B18_PO_PO-ME4126.pdf",
+        "grn": "B18_GRN_GRN-7198.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-ME4126",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "currency": "EUR",
+            "docDate": "2026-03-10",
+            "taxRate": "19",
+            "subtotal": "1503.25",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "285.62",
+            "total": "1788.87"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4101",
+              "description": "Pipettenspitzen 200 ul (1000)",
+              "qty": "20",
+              "uom": "BT",
+              "unitPrice": "14.9",
+              "discountPct": null,
+              "amount": "298"
+            },
+            {
+              "sku": "LAB-4102",
+              "description": "Zentrifugenröhrchen 50 ml (500)",
+              "qty": "10",
+              "uom": "KT",
+              "unitPrice": "62.4",
+              "discountPct": null,
+              "amount": "624"
+            },
+            {
+              "sku": "LAB-4103",
+              "description": "Nitrilhandschuhe Gr. M (10 Pk)",
+              "qty": "15",
+              "uom": "KT",
+              "unitPrice": "38.75",
+              "discountPct": null,
+              "amount": "581.25"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7198",
+            "poRef": "PO-ME4126",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "docDate": "2026-03-15"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4101",
+              "description": "Pipettenspitzen 200 ul (1000)",
+              "qty": "20",
+              "uom": "BT",
+              "date": "2026-03-15"
+            },
+            {
+              "sku": "LAB-4102",
+              "description": "Zentrifugenröhrchen 50 ml (500)",
+              "qty": "10",
+              "uom": "KT",
+              "date": "2026-03-15"
+            },
+            {
+              "sku": "LAB-4103",
+              "description": "Nitrilhandschuhe Gr. M (10 Pk)",
+              "qty": "15",
+              "uom": "KT",
+              "date": "2026-03-15"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "RE-50466",
+            "poRef": "PO-ME4126",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "supplierTaxId": "DE811234567",
+            "currency": "EUR",
+            "docDate": "2026-03-18",
+            "taxRate": "19",
+            "subtotal": "1503.25",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "285.62",
+            "total": "1788.87"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4101",
+              "description": "Pipettenspitzen 200 ul (1000)",
+              "qty": "20",
+              "uom": "BT",
+              "unitPrice": "14.9",
+              "discountPct": null,
+              "amount": "298"
+            },
+            {
+              "sku": "LAB-4102",
+              "description": "Zentrifugenröhrchen 50 ml (500)",
+              "qty": "10",
+              "uom": "KT",
+              "unitPrice": "62.4",
+              "discountPct": null,
+              "amount": "624"
+            },
+            {
+              "sku": "LAB-4103",
+              "description": "Nitrilhandschuhe Gr. M (10 Pk)",
+              "qty": "15",
+              "uom": "KT",
+              "unitPrice": "38.75",
+              "discountPct": null,
+              "amount": "581.25"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B19",
+      "n": 19,
+      "orgId": "org-meridian",
+      "title": "Clean · EUR partial receipt",
+      "files": {
+        "invoice": "B19_INV_RE50603.pdf",
+        "po": "B19_PO_PO-ME4133.pdf",
+        "grn": "B19_GRN_GRN-7209.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-ME4133",
+            "supplierName": "Nordlicht Chemie AG",
+            "currency": "EUR",
+            "docDate": "2026-03-12",
+            "taxRate": "19",
+            "subtotal": "1392",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "264.48",
+            "total": "1656.48"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5101",
+              "description": "Ethanol 99% Kanister 5 l",
+              "qty": "24",
+              "uom": "KN",
+              "unitPrice": "42.1",
+              "discountPct": null,
+              "amount": "1010.4"
+            },
+            {
+              "sku": "CHM-5102",
+              "description": "Aceton p.a. 2,5 l",
+              "qty": "12",
+              "uom": "FL",
+              "unitPrice": "31.8",
+              "discountPct": null,
+              "amount": "381.6"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7209",
+            "poRef": "PO-ME4133",
+            "supplierName": "Nordlicht Chemie AG",
+            "docDate": "2026-03-16"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5101",
+              "description": "Ethanol 99% Kanister 5 l",
+              "qty": "18",
+              "uom": "KN",
+              "date": "2026-03-16"
+            },
+            {
+              "sku": "CHM-5102",
+              "description": "Aceton p.a. 2,5 l",
+              "qty": "12",
+              "uom": "FL",
+              "date": "2026-03-16"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "RE-50603",
+            "poRef": "PO-ME4133",
+            "supplierName": "Nordlicht Chemie AG",
+            "supplierTaxId": "DE822345678",
+            "currency": "EUR",
+            "docDate": "2026-03-19",
+            "taxRate": "19",
+            "subtotal": "1139.4",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "216.49",
+            "total": "1355.89"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5101",
+              "description": "Ethanol 99% Kanister 5 l",
+              "qty": "18",
+              "uom": "KN",
+              "unitPrice": "42.1",
+              "discountPct": null,
+              "amount": "757.8"
+            },
+            {
+              "sku": "CHM-5102",
+              "description": "Aceton p.a. 2,5 l",
+              "qty": "12",
+              "uom": "FL",
+              "unitPrice": "31.8",
+              "discountPct": null,
+              "amount": "381.6"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B20",
+      "n": 20,
+      "orgId": "org-meridian",
+      "title": "EXCEPTION · PO in EUR, supplier invoices in USD",
+      "files": {
+        "invoice": "B20_INV_INV50740.pdf",
+        "po": "B20_PO_PO-ME4140.pdf",
+        "grn": "B20_GRN_GRN-7220.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-ME4140",
+            "supplierName": "Pacific Reagents Inc.",
+            "currency": "EUR",
+            "docDate": "2026-03-14",
+            "taxRate": "19",
+            "subtotal": "1198.76",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "227.76",
+            "total": "1426.52"
+          },
+          "lines": [
+            {
+              "sku": "RGT-6101",
+              "description": "Taq Polymerase 500 U",
+              "qty": "6",
+              "uom": "EA",
+              "unitPrice": "108.56",
+              "discountPct": null,
+              "amount": "651.36"
+            },
+            {
+              "sku": "RGT-6102",
+              "description": "dNTP Mix 10 mM 1 ml",
+              "qty": "10",
+              "uom": "EA",
+              "unitPrice": "54.74",
+              "discountPct": null,
+              "amount": "547.4"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7220",
+            "poRef": "PO-ME4140",
+            "supplierName": "Pacific Reagents Inc.",
+            "docDate": "2026-03-20"
+          },
+          "lines": [
+            {
+              "sku": "RGT-6101",
+              "description": "Taq Polymerase 500 U",
+              "qty": "6",
+              "uom": "EA",
+              "date": "2026-03-20"
+            },
+            {
+              "sku": "RGT-6102",
+              "description": "dNTP Mix 10 mM 1 ml",
+              "qty": "10",
+              "uom": "EA",
+              "date": "2026-03-20"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV-50740",
+            "poRef": "PO-ME4140",
+            "supplierName": "Pacific Reagents Inc.",
+            "supplierTaxId": "94-6612305",
+            "currency": "USD",
+            "docDate": "2026-03-23",
+            "taxRate": "19",
+            "subtotal": "1303",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "247.57",
+            "total": "1550.57"
+          },
+          "lines": [
+            {
+              "sku": "RGT-6101",
+              "description": "Taq Polymerase 500 U",
+              "qty": "6",
+              "uom": "EA",
+              "unitPrice": "118",
+              "discountPct": null,
+              "amount": "708"
+            },
+            {
+              "sku": "RGT-6102",
+              "description": "dNTP Mix 10 mM 1 ml",
+              "qty": "10",
+              "uom": "EA",
+              "unitPrice": "59.5",
+              "discountPct": null,
+              "amount": "595"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "CURRENCY_MISMATCH"
+      ],
+      "expectedRecommendation": "HOLD"
+    },
+    {
+      "id": "B21",
+      "n": 21,
+      "orgId": "org-meridian",
+      "title": "Clean · EUR with 10% line discount",
+      "files": {
+        "invoice": "B21_INV_RE50877.pdf",
+        "po": "B21_PO_PO-ME4147.pdf",
+        "grn": "B21_GRN_GRN-7231.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-ME4147",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "currency": "EUR",
+            "docDate": "2026-03-16",
+            "taxRate": "19",
+            "subtotal": "883.68",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "167.9",
+            "total": "1051.58"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4104",
+              "description": "Petrischalen 90 mm (500)",
+              "qty": "6",
+              "uom": "KT",
+              "unitPrice": "71.2",
+              "discountPct": "10",
+              "amount": "384.48"
+            },
+            {
+              "sku": "LAB-4102",
+              "description": "Zentrifugenröhrchen 50 ml (500)",
+              "qty": "8",
+              "uom": "KT",
+              "unitPrice": "62.4",
+              "discountPct": null,
+              "amount": "499.2"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7231",
+            "poRef": "PO-ME4147",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "docDate": "2026-03-21"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4104",
+              "description": "Petrischalen 90 mm (500)",
+              "qty": "6",
+              "uom": "KT",
+              "date": "2026-03-21"
+            },
+            {
+              "sku": "LAB-4102",
+              "description": "Zentrifugenröhrchen 50 ml (500)",
+              "qty": "8",
+              "uom": "KT",
+              "date": "2026-03-21"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "RE-50877",
+            "poRef": "PO-ME4147",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "supplierTaxId": "DE811234567",
+            "currency": "EUR",
+            "docDate": "2026-03-24",
+            "taxRate": "19",
+            "subtotal": "883.68",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "167.9",
+            "total": "1051.58"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4104",
+              "description": "Petrischalen 90 mm (500)",
+              "qty": "6",
+              "uom": "KT",
+              "unitPrice": "71.2",
+              "discountPct": "10",
+              "amount": "384.48"
+            },
+            {
+              "sku": "LAB-4102",
+              "description": "Zentrifugenröhrchen 50 ml (500)",
+              "qty": "8",
+              "uom": "KT",
+              "unitPrice": "62.4",
+              "discountPct": null,
+              "amount": "499.2"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B22",
+      "n": 22,
+      "orgId": "org-meridian",
+      "title": "Clean · EUR split shipment",
+      "files": {
+        "invoice": "B22_INV_RE51014.pdf",
+        "po": "B22_PO_PO-ME4154.pdf",
+        "grn": "B22_GRN_GRN-7242.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-ME4154",
+            "supplierName": "Nordlicht Chemie AG",
+            "currency": "EUR",
+            "docDate": "2026-03-18",
+            "taxRate": "19",
+            "subtotal": "3730",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "708.7",
+            "total": "4438.7"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5103",
+              "description": "Salzsäure 1 mol/l 1 l",
+              "qty": "200",
+              "uom": "FL",
+              "unitPrice": "12.95",
+              "discountPct": null,
+              "amount": "2590"
+            },
+            {
+              "sku": "CHM-5104",
+              "description": "Natronlauge 1 mol/l 1 l",
+              "qty": "100",
+              "uom": "FL",
+              "unitPrice": "11.4",
+              "discountPct": null,
+              "amount": "1140"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7242",
+            "poRef": "PO-ME4154",
+            "supplierName": "Nordlicht Chemie AG",
+            "docDate": "2026-03-28"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5103",
+              "description": "Salzsäure 1 mol/l 1 l",
+              "qty": "120",
+              "uom": "FL",
+              "date": "2026-03-21"
+            },
+            {
+              "sku": "CHM-5104",
+              "description": "Natronlauge 1 mol/l 1 l",
+              "qty": "100",
+              "uom": "FL",
+              "date": "2026-03-21"
+            },
+            {
+              "sku": "CHM-5103",
+              "description": "Salzsäure 1 mol/l 1 l",
+              "qty": "80",
+              "uom": "FL",
+              "date": "2026-03-28"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "RE-51014",
+            "poRef": "PO-ME4154",
+            "supplierName": "Nordlicht Chemie AG",
+            "supplierTaxId": "DE822345678",
+            "currency": "EUR",
+            "docDate": "2026-03-31",
+            "taxRate": "19",
+            "subtotal": "3730",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "708.7",
+            "total": "4438.7"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5103",
+              "description": "Salzsäure 1 mol/l 1 l",
+              "qty": "200",
+              "uom": "FL",
+              "unitPrice": "12.95",
+              "discountPct": null,
+              "amount": "2590"
+            },
+            {
+              "sku": "CHM-5104",
+              "description": "Natronlauge 1 mol/l 1 l",
+              "qty": "100",
+              "uom": "FL",
+              "unitPrice": "11.4",
+              "discountPct": null,
+              "amount": "1140"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B23",
+      "n": 23,
+      "orgId": "org-meridian",
+      "title": "Clean · EUR authorised freight",
+      "files": {
+        "invoice": "B23_INV_RE51151.pdf",
+        "po": "B23_PO_PO-ME4161.pdf",
+        "grn": "B23_GRN_GRN-7253.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-ME4161",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "currency": "EUR",
+            "docDate": "2026-03-20",
+            "taxRate": "19",
+            "subtotal": "983.5",
+            "discountTotal": null,
+            "freight": "24.5",
+            "taxTotal": "186.87",
+            "total": "1194.87"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4101",
+              "description": "Pipettenspitzen 200 ul (1000)",
+              "qty": "40",
+              "uom": "BT",
+              "unitPrice": "14.9",
+              "discountPct": null,
+              "amount": "596"
+            },
+            {
+              "sku": "LAB-4103",
+              "description": "Nitrilhandschuhe Gr. M (10 Pk)",
+              "qty": "10",
+              "uom": "KT",
+              "unitPrice": "38.75",
+              "discountPct": null,
+              "amount": "387.5"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7253",
+            "poRef": "PO-ME4161",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "docDate": "2026-03-24"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4101",
+              "description": "Pipettenspitzen 200 ul (1000)",
+              "qty": "40",
+              "uom": "BT",
+              "date": "2026-03-24"
+            },
+            {
+              "sku": "LAB-4103",
+              "description": "Nitrilhandschuhe Gr. M (10 Pk)",
+              "qty": "10",
+              "uom": "KT",
+              "date": "2026-03-24"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "RE-51151",
+            "poRef": "PO-ME4161",
+            "supplierName": "Kessler Laborbedarf GmbH",
+            "supplierTaxId": "DE811234567",
+            "currency": "EUR",
+            "docDate": "2026-03-27",
+            "taxRate": "19",
+            "subtotal": "983.5",
+            "discountTotal": null,
+            "freight": "24.5",
+            "taxTotal": "186.87",
+            "total": "1194.87"
+          },
+          "lines": [
+            {
+              "sku": "LAB-4101",
+              "description": "Pipettenspitzen 200 ul (1000)",
+              "qty": "40",
+              "uom": "BT",
+              "unitPrice": "14.9",
+              "discountPct": null,
+              "amount": "596"
+            },
+            {
+              "sku": "LAB-4103",
+              "description": "Nitrilhandschuhe Gr. M (10 Pk)",
+              "qty": "10",
+              "uom": "KT",
+              "unitPrice": "38.75",
+              "discountPct": null,
+              "amount": "387.5"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B24",
+      "n": 24,
+      "orgId": "org-meridian",
+      "title": "Clean · EUR small order",
+      "files": {
+        "invoice": "B24_INV_RE51288.pdf",
+        "po": "B24_PO_PO-ME4168.pdf",
+        "grn": "B24_GRN_GRN-7264.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-ME4168",
+            "supplierName": "Nordlicht Chemie AG",
+            "currency": "EUR",
+            "docDate": "2026-03-22",
+            "taxRate": "19",
+            "subtotal": "1129.8",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "214.66",
+            "total": "1344.46"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5101",
+              "description": "Ethanol 99% Kanister 5 l",
+              "qty": "10",
+              "uom": "KN",
+              "unitPrice": "42.1",
+              "discountPct": null,
+              "amount": "421"
+            },
+            {
+              "sku": "CHM-5102",
+              "description": "Aceton p.a. 2,5 l",
+              "qty": "6",
+              "uom": "FL",
+              "unitPrice": "31.8",
+              "discountPct": null,
+              "amount": "190.8"
+            },
+            {
+              "sku": "CHM-5103",
+              "description": "Salzsäure 1 mol/l 1 l",
+              "qty": "40",
+              "uom": "FL",
+              "unitPrice": "12.95",
+              "discountPct": null,
+              "amount": "518"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7264",
+            "poRef": "PO-ME4168",
+            "supplierName": "Nordlicht Chemie AG",
+            "docDate": "2026-03-26"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5101",
+              "description": "Ethanol 99% Kanister 5 l",
+              "qty": "10",
+              "uom": "KN",
+              "date": "2026-03-26"
+            },
+            {
+              "sku": "CHM-5102",
+              "description": "Aceton p.a. 2,5 l",
+              "qty": "6",
+              "uom": "FL",
+              "date": "2026-03-26"
+            },
+            {
+              "sku": "CHM-5103",
+              "description": "Salzsäure 1 mol/l 1 l",
+              "qty": "40",
+              "uom": "FL",
+              "date": "2026-03-26"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "RE-51288",
+            "poRef": "PO-ME4168",
+            "supplierName": "Nordlicht Chemie AG",
+            "supplierTaxId": "DE822345678",
+            "currency": "EUR",
+            "docDate": "2026-03-29",
+            "taxRate": "19",
+            "subtotal": "1129.8",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "214.66",
+            "total": "1344.46"
+          },
+          "lines": [
+            {
+              "sku": "CHM-5101",
+              "description": "Ethanol 99% Kanister 5 l",
+              "qty": "10",
+              "uom": "KN",
+              "unitPrice": "42.1",
+              "discountPct": null,
+              "amount": "421"
+            },
+            {
+              "sku": "CHM-5102",
+              "description": "Aceton p.a. 2,5 l",
+              "qty": "6",
+              "uom": "FL",
+              "unitPrice": "31.8",
+              "discountPct": null,
+              "amount": "190.8"
+            },
+            {
+              "sku": "CHM-5103",
+              "description": "Salzsäure 1 mol/l 1 l",
+              "qty": "40",
+              "uom": "FL",
+              "unitPrice": "12.95",
+              "discountPct": null,
+              "amount": "518"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [],
+      "expectedRecommendation": "READY_FOR_APPROVAL"
+    },
+    {
+      "id": "B25",
+      "n": 25,
+      "orgId": "org-cobalt",
+      "title": "EXCEPTION · supplier re-sends invoice from bundle 11 (same invoice number, new file)",
+      "files": {
+        "invoice": "B25_INV_INV49507_RESENT.pdf",
+        "po": "B25_PO_PO-CO4077.pdf",
+        "grn": "B25_GRN_GRN-7121.pdf"
+      },
+      "gold": {
+        "po": {
+          "docType": "PO",
+          "fields": {
+            "docNumber": "PO-CO4077",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "currency": "USD",
+            "docDate": "2026-02-24",
+            "taxRate": "7.25",
+            "subtotal": "2641",
+            "discountTotal": null,
+            "freight": null,
+            "taxTotal": "191.47",
+            "total": "2832.47"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "40",
+              "uom": null,
+              "unitPrice": "22.6",
+              "discountPct": null,
+              "amount": "904"
+            },
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "10",
+              "uom": null,
+              "unitPrice": "118",
+              "discountPct": null,
+              "amount": "1180"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "20",
+              "uom": null,
+              "unitPrice": "27.85",
+              "discountPct": null,
+              "amount": "557"
+            }
+          ]
+        },
+        "grn": {
+          "docType": "GRN",
+          "fields": {
+            "docNumber": "GRN-7121",
+            "poRef": "PO-CO4077",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "docDate": "2026-02-26"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "40",
+              "uom": null,
+              "date": "2026-02-26"
+            },
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "10",
+              "uom": null,
+              "date": "2026-02-26"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "20",
+              "uom": null,
+              "date": "2026-02-26"
+            }
+          ]
+        },
+        "invoice": {
+          "docType": "INVOICE",
+          "fields": {
+            "docNumber": "INV 49507",
+            "poRef": "PO-CO4077",
+            "supplierName": "Saltmarsh Dairy Co-op",
+            "supplierTaxId": "27-5540981",
+            "currency": "USD",
+            "docDate": "2026-03-07",
+            "taxRate": "7.25",
+            "subtotal": "2641",
+            "discountTotal": null,
+            "freight": "0",
+            "taxTotal": "191.47",
+            "total": "2832.47"
+          },
+          "lines": [
+            {
+              "sku": "DRY-2101",
+              "description": "Whole Milk (case 4x1 gal)",
+              "qty": "40",
+              "uom": "CS",
+              "unitPrice": "22.6",
+              "discountPct": null,
+              "amount": "904"
+            },
+            {
+              "sku": "DRY-2102",
+              "description": "Salted Butter 1 lb (case/36)",
+              "qty": "10",
+              "uom": "CS",
+              "unitPrice": "118",
+              "discountPct": null,
+              "amount": "1180"
+            },
+            {
+              "sku": "DRY-2103",
+              "description": "Cheddar Block 5 lb",
+              "qty": "20",
+              "uom": "EA",
+              "unitPrice": "27.85",
+              "discountPct": null,
+              "amount": "557"
+            }
+          ]
+        }
+      },
+      "expectedExceptions": [
+        "DUPLICATE_INVOICE"
+      ],
+      "expectedRecommendation": "HOLD"
+    }
+  ]
+}

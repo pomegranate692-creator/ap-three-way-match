@@ -1,0 +1,303 @@
+{
+  "generatedAt": "2026-11-07T00:03:02.068Z",
+  "machine": {
+    "node": "v24.19.0",
+    "platform": "darwin arm64",
+    "cpus": 8
+  },
+  "caveat": "Synthetic, self-authored fixtures (the generator and the extractor were written by the same team): treat as an optimistic upper bound, not real-world accuracy.",
+  "extraction": {
+    "documents": 72,
+    "classificationAccuracy": 1,
+    "overall": {
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "header": {
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "lineItems": {
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "lineItemMatchAccuracy": {
+      "accurateLines": 162,
+      "goldLines": 162,
+      "rate": 1
+    },
+    "byDocType": {
+      "PO": {
+        "header": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "lines": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        }
+      },
+      "GRN": {
+        "header": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "lines": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        }
+      },
+      "INVOICE": {
+        "header": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "lines": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        }
+      }
+    },
+    "mismatches": []
+  },
+  "matching": {
+    "bundles": 25,
+    "seededDiscrepancies": 8,
+    "cleanBundles": 17,
+    "engine": {
+      "tp": 8,
+      "fp": 0,
+      "fn": 0,
+      "tn": 17,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "baselineTotalOnly": {
+      "tp": 4,
+      "fp": 4,
+      "fn": 4,
+      "tn": 13,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5
+    },
+    "baselineStrictLines": {
+      "tp": 4,
+      "fp": 1,
+      "fn": 4,
+      "tn": 16,
+      "precision": 0.8,
+      "recall": 0.5,
+      "f1": 0.6153846153846154
+    },
+    "exactExceptionCodeMatches": "25/25",
+    "recommendationMatches": "25/25",
+    "perBundle": [
+      {
+        "id": "B01",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B02",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B03",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B04",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B05",
+        "expected": [
+          "QTY_OVER_RECEIVED"
+        ],
+        "got": [
+          "QTY_OVER_RECEIVED"
+        ],
+        "recommendation": "EXCEPTION_REVIEW"
+      },
+      {
+        "id": "B06",
+        "expected": [
+          "PRICE_VARIANCE"
+        ],
+        "got": [
+          "PRICE_VARIANCE"
+        ],
+        "recommendation": "EXCEPTION_REVIEW"
+      },
+      {
+        "id": "B07",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B08",
+        "expected": [
+          "TAX_MISMATCH"
+        ],
+        "got": [
+          "TAX_MISMATCH"
+        ],
+        "recommendation": "EXCEPTION_REVIEW"
+      },
+      {
+        "id": "B09",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B10",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B11",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B12",
+        "expected": [
+          "MISSING_RECEIPT"
+        ],
+        "got": [
+          "MISSING_RECEIPT"
+        ],
+        "recommendation": "HOLD"
+      },
+      {
+        "id": "B13",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B14",
+        "expected": [
+          "TOTAL_ARITHMETIC"
+        ],
+        "got": [
+          "TOTAL_ARITHMETIC"
+        ],
+        "recommendation": "EXCEPTION_REVIEW"
+      },
+      {
+        "id": "B15",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B16",
+        "expected": [
+          "SUSPECT_INSTRUCTIONS"
+        ],
+        "got": [
+          "SUSPECT_INSTRUCTIONS"
+        ],
+        "recommendation": "HOLD"
+      },
+      {
+        "id": "B17",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B18",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B19",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B20",
+        "expected": [
+          "CURRENCY_MISMATCH"
+        ],
+        "got": [
+          "CURRENCY_MISMATCH"
+        ],
+        "recommendation": "HOLD"
+      },
+      {
+        "id": "B21",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B22",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B23",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B24",
+        "expected": [],
+        "got": [],
+        "recommendation": "READY_FOR_APPROVAL"
+      },
+      {
+        "id": "B25",
+        "expected": [
+          "DUPLICATE_INVOICE"
+        ],
+        "got": [
+          "DUPLICATE_INVOICE"
+        ],
+        "recommendation": "HOLD"
+      }
+    ]
+  },
+  "latencyMs": {
+    "invoiceAnalysisMedian": 1.7,
+    "invoiceAnalysisP95": 2.3,
+    "samples": 50,
+    "wholeMatchingEvaluation25Bundles": 108
+  },
+  "notMeasured": [
+    "human correction time",
+    "manual-baseline time-on-task",
+    "user satisfaction",
+    "LLM cost per run (no API key; adapters never run live)",
+    "accuracy on real or scanned documents"
+  ]
+}
