@@ -84,3 +84,6 @@ Claude Code generated the application from the supplied project instructions and
 
 ## Docs
 [PRD](docs/PRD.md) · [Feasibility](docs/FEASIBILITY.md) · [Architecture](docs/architecture.md) · [Data contracts](docs/data-contracts.md) · [Risks](docs/risks.md) · [Acceptance tests](docs/acceptance-tests.md) · [Metrics plan](docs/METRICS_PLAN.md) · [Security](docs/SECURITY.md) · [Operations](docs/OPERATIONS.md) · [Demo script](docs/DEMO_SCRIPT.md) · [Case study draft](docs/CASE_STUDY_DRAFT.md) · [Build plan](docs/BUILD_PLAN.md)
+
+## License
+[MIT](LICENSE) © 2026 Romaan Malik
