@@ -1,0 +1,916 @@
+{
+  "note": "SYNTHETIC STRESS TEST. Fictional vendors; invoices drawn from source data and degraded to imitate phone photos. Ground truth is computed from the source numbers, not read from the images. Not real-world accuracy.",
+  "damageLevels": [
+    "light",
+    "medium",
+    "heavy"
+  ],
+  "docs": [
+    {
+      "id": "S01",
+      "file": "S01.light.jpg",
+      "damage": "light",
+      "applied": {
+        "level": "light",
+        "rotationDeg": -0.71,
+        "skewX": 0.006,
+        "skewY": 0.006,
+        "scale": 0.85,
+        "blurPx": 0.5,
+        "lightingShade": 0.08,
+        "castShadow": 0,
+        "noiseSigma": 3,
+        "jpegQuality": 80,
+        "deskBackground": false
+      },
+      "pixels": "1445x1870",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "MDY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "QF-30417",
+          "poRef": "PO-55102",
+          "supplierName": "Quillfeather Print Works",
+          "supplierTaxId": "47-3318820",
+          "currency": "USD",
+          "docDate": "2026-03-14",
+          "taxRate": "8.25",
+          "subtotal": "1320.8",
+          "discountTotal": null,
+          "freight": "24",
+          "taxTotal": "108.97",
+          "total": "1453.77"
+        },
+        "lines": [
+          {
+            "sku": "PR-2201",
+            "description": "Business cards matte box/500",
+            "qty": "12",
+            "uom": "BX",
+            "unitPrice": "38.4",
+            "discountPct": null,
+            "amount": "460.8"
+          },
+          {
+            "sku": "PR-2210",
+            "description": "Letterhead 24lb ream",
+            "qty": "20",
+            "uom": "RM",
+            "unitPrice": "21.75",
+            "discountPct": null,
+            "amount": "435"
+          },
+          {
+            "sku": "PR-2230",
+            "description": "Presentation folders",
+            "qty": "150",
+            "uom": "EA",
+            "unitPrice": "1.18",
+            "discountPct": null,
+            "amount": "177"
+          },
+          {
+            "sku": "PR-2244",
+            "description": "Die-cut stickers 3in",
+            "qty": "400",
+            "uom": "EA",
+            "unitPrice": "0.62",
+            "discountPct": null,
+            "amount": "248"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S02",
+      "file": "S02.light.jpg",
+      "damage": "light",
+      "applied": {
+        "level": "light",
+        "rotationDeg": 0.62,
+        "skewX": 0.007,
+        "skewY": -0.005,
+        "scale": 0.85,
+        "blurPx": 0.5,
+        "lightingShade": 0.08,
+        "castShadow": 0,
+        "noiseSigma": 3,
+        "jpegQuality": 80,
+        "deskBackground": false
+      },
+      "pixels": "1445x1870",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "MDY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "TH-100823",
+          "poRef": "WL-4471-B",
+          "supplierName": "Tanager Hydro Supply",
+          "supplierTaxId": "82-5540913",
+          "currency": "USD",
+          "docDate": "2026-04-02",
+          "taxRate": "7",
+          "subtotal": "1311.2",
+          "discountTotal": null,
+          "freight": null,
+          "taxTotal": "91.78",
+          "total": "1402.98"
+        },
+        "lines": [
+          {
+            "sku": "HY-100",
+            "description": "PVC elbow 2in",
+            "qty": "60",
+            "uom": null,
+            "unitPrice": "3.85",
+            "discountPct": null,
+            "amount": "231"
+          },
+          {
+            "sku": "HY-118",
+            "description": "Ball valve brass 1in",
+            "qty": "24",
+            "uom": null,
+            "unitPrice": "14.2",
+            "discountPct": null,
+            "amount": "340.8"
+          },
+          {
+            "sku": "HY-203",
+            "description": "Pipe cement 8oz",
+            "qty": "12",
+            "uom": null,
+            "unitPrice": "6.95",
+            "discountPct": null,
+            "amount": "83.4"
+          },
+          {
+            "sku": "HY-310",
+            "description": "PTFE tape 3/4in",
+            "qty": "100",
+            "uom": null,
+            "unitPrice": "0.89",
+            "discountPct": null,
+            "amount": "89"
+          },
+          {
+            "sku": "HY-415",
+            "description": "Sump pump 1/3HP",
+            "qty": "3",
+            "uom": null,
+            "unitPrice": "189",
+            "discountPct": null,
+            "amount": "567"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S03",
+      "file": "S03.light.jpg",
+      "damage": "light",
+      "applied": {
+        "level": "light",
+        "rotationDeg": -0.77,
+        "skewX": 0.007,
+        "skewY": 0.006,
+        "scale": 0.85,
+        "blurPx": 0.5,
+        "lightingShade": 0.08,
+        "castShadow": 0,
+        "noiseSigma": 3,
+        "jpegQuality": 80,
+        "deskBackground": false
+      },
+      "pixels": "1445x1870",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "MDY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "SF/2026/00871",
+          "poRef": null,
+          "supplierName": "Saltmarsh Freight Services",
+          "supplierTaxId": "01-6620034",
+          "currency": "USD",
+          "docDate": "2026-05-09",
+          "taxRate": "6",
+          "subtotal": "1558.4",
+          "discountTotal": null,
+          "freight": null,
+          "taxTotal": "93.5",
+          "total": "1651.9"
+        },
+        "lines": [
+          {
+            "sku": "SVC-LTL",
+            "description": "LTL freight Boston-Albany",
+            "qty": "4",
+            "uom": null,
+            "unitPrice": "312.5",
+            "discountPct": null,
+            "amount": "1250"
+          },
+          {
+            "sku": "SVC-LGT",
+            "description": "Liftgate delivery",
+            "qty": "4",
+            "uom": null,
+            "unitPrice": "45",
+            "discountPct": null,
+            "amount": "180"
+          },
+          {
+            "sku": "SVC-FSC",
+            "description": "Fuel surcharge",
+            "qty": "1",
+            "uom": null,
+            "unitPrice": "128.4",
+            "discountPct": null,
+            "amount": "128.4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S04",
+      "file": "S04.medium.jpg",
+      "damage": "medium",
+      "applied": {
+        "level": "medium",
+        "rotationDeg": -1.12,
+        "skewX": -0.016,
+        "skewY": -0.014,
+        "scale": 0.6,
+        "blurPx": 1,
+        "lightingShade": 0.18,
+        "castShadow": 0.22,
+        "noiseSigma": 7,
+        "jpegQuality": 60,
+        "deskBackground": false
+      },
+      "pixels": "1020x1320",
+      "hint": {
+        "numberLocale": "eu",
+        "dateOrder": "DMY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "RE-2026-0418",
+          "poRef": "B-77120",
+          "supplierName": "Nordlicht Elektro GmbH",
+          "supplierTaxId": "DE811234567",
+          "currency": "EUR",
+          "docDate": "2026-03-21",
+          "taxRate": "19",
+          "subtotal": "1554.8",
+          "discountTotal": null,
+          "freight": null,
+          "taxTotal": "295.41",
+          "total": "1850.21"
+        },
+        "lines": [
+          {
+            "sku": "EL-4410",
+            "description": "Kabel NYM-J 3x1,5 Ring 50m",
+            "qty": "12",
+            "uom": "ST",
+            "unitPrice": "58.9",
+            "discountPct": null,
+            "amount": "706.8"
+          },
+          {
+            "sku": "EL-4420",
+            "description": "Schalter Serie 55 weiss",
+            "qty": "40",
+            "uom": "ST",
+            "unitPrice": "4.35",
+            "discountPct": null,
+            "amount": "174"
+          },
+          {
+            "sku": "EL-4455",
+            "description": "Steckdose 2-fach",
+            "qty": "40",
+            "uom": "ST",
+            "unitPrice": "6.8",
+            "discountPct": null,
+            "amount": "272"
+          },
+          {
+            "sku": "EL-5001",
+            "description": "Verteilerkasten 24 TE",
+            "qty": "3",
+            "uom": "ST",
+            "unitPrice": "74.5",
+            "discountPct": null,
+            "amount": "223.5"
+          },
+          {
+            "sku": "EL-5090",
+            "description": "Sicherungsautomat B16",
+            "qty": "30",
+            "uom": "ST",
+            "unitPrice": "5.95",
+            "discountPct": null,
+            "amount": "178.5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S05",
+      "file": "S05.medium.jpg",
+      "damage": "medium",
+      "applied": {
+        "level": "medium",
+        "rotationDeg": -1.27,
+        "skewX": 0.029,
+        "skewY": -0.015,
+        "scale": 0.6,
+        "blurPx": 1,
+        "lightingShade": 0.18,
+        "castShadow": 0.22,
+        "noiseSigma": 7,
+        "jpegQuality": 60,
+        "deskBackground": false
+      },
+      "pixels": "1020x1320",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "DMY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "BL-55190",
+          "poRef": "HI-0098",
+          "supplierName": "Brightwater Linen Co.",
+          "supplierTaxId": "GB284771903",
+          "currency": "GBP",
+          "docDate": "2026-02-27",
+          "taxRate": "20",
+          "subtotal": "2957.88",
+          "discountTotal": null,
+          "freight": "18.5",
+          "taxTotal": "591.58",
+          "total": "3567.96"
+        },
+        "lines": [
+          {
+            "sku": "LN-101",
+            "description": "Table cloth white 90in",
+            "qty": "24",
+            "uom": null,
+            "unitPrice": "14.8",
+            "discountPct": "10",
+            "amount": "319.68"
+          },
+          {
+            "sku": "LN-104",
+            "description": "Napkins cotton pack/12",
+            "qty": "30",
+            "uom": null,
+            "unitPrice": "9.45",
+            "discountPct": null,
+            "amount": "283.5"
+          },
+          {
+            "sku": "LN-110",
+            "description": "Bed sheet king",
+            "qty": "40",
+            "uom": null,
+            "unitPrice": "17.2",
+            "discountPct": "10",
+            "amount": "619.2"
+          },
+          {
+            "sku": "LN-112",
+            "description": "Pillowcase std pair",
+            "qty": "80",
+            "uom": null,
+            "unitPrice": "6.35",
+            "discountPct": null,
+            "amount": "508"
+          },
+          {
+            "sku": "LN-120",
+            "description": "Bath towel 500gsm",
+            "qty": "60",
+            "uom": null,
+            "unitPrice": "8.9",
+            "discountPct": null,
+            "amount": "534"
+          },
+          {
+            "sku": "LN-121",
+            "description": "Hand towel 500gsm",
+            "qty": "60",
+            "uom": null,
+            "unitPrice": "4.75",
+            "discountPct": "10",
+            "amount": "256.5"
+          },
+          {
+            "sku": "LN-130",
+            "description": "Laundry bag large",
+            "qty": "15",
+            "uom": null,
+            "unitPrice": "11",
+            "discountPct": null,
+            "amount": "165"
+          },
+          {
+            "sku": "LN-140",
+            "description": "Mattress protector",
+            "qty": "20",
+            "uom": null,
+            "unitPrice": "13.6",
+            "discountPct": null,
+            "amount": "272"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S06",
+      "file": "S06.medium.jpg",
+      "damage": "medium",
+      "applied": {
+        "level": "medium",
+        "rotationDeg": -1.99,
+        "skewX": 0.018,
+        "skewY": 0.009,
+        "scale": 0.6,
+        "blurPx": 1,
+        "lightingShade": 0.18,
+        "castShadow": 0.22,
+        "noiseSigma": 7,
+        "jpegQuality": 60,
+        "deskBackground": false
+      },
+      "pixels": "1020x1320",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "MDY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "PB-20948",
+          "poRef": "SRL-331",
+          "supplierName": "Pinecrest Bakery Wholesale",
+          "supplierTaxId": "812345678RT0001",
+          "currency": "CAD",
+          "docDate": "2026-06-03",
+          "taxRate": "5",
+          "subtotal": "1562.5",
+          "discountTotal": null,
+          "freight": null,
+          "taxTotal": "78.13",
+          "total": "1640.63"
+        },
+        "lines": [
+          {
+            "sku": "BK-010",
+            "description": "Sourdough loaf 800g",
+            "qty": "120",
+            "uom": "EA",
+            "unitPrice": "4.1",
+            "discountPct": null,
+            "amount": "492"
+          },
+          {
+            "sku": "BK-022",
+            "description": "Croissant butter 70g",
+            "qty": "300",
+            "uom": "EA",
+            "unitPrice": "1.35",
+            "discountPct": null,
+            "amount": "405"
+          },
+          {
+            "sku": "BK-031",
+            "description": "Rye bread sliced",
+            "qty": "60",
+            "uom": "EA",
+            "unitPrice": "3.8",
+            "discountPct": null,
+            "amount": "228"
+          },
+          {
+            "sku": "BK-045",
+            "description": "Cinnamon roll tray/12",
+            "qty": "25",
+            "uom": "TR",
+            "unitPrice": "17.5",
+            "discountPct": null,
+            "amount": "437.5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S07",
+      "file": "S07.medium.jpg",
+      "damage": "medium",
+      "applied": {
+        "level": "medium",
+        "rotationDeg": 1.33,
+        "skewX": 0.019,
+        "skewY": 0.01,
+        "scale": 0.6,
+        "blurPx": 1,
+        "lightingShade": 0.18,
+        "castShadow": 0.22,
+        "noiseSigma": 7,
+        "jpegQuality": 60,
+        "deskBackground": false
+      },
+      "pixels": "1020x1320",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "MDY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "KP-981204",
+          "poRef": "GWU-2026-114",
+          "supplierName": "Kestrel Industrial Pumps Ltd",
+          "supplierTaxId": "74-2201186",
+          "currency": "USD",
+          "docDate": "2026-07-18",
+          "taxRate": "9.5",
+          "subtotal": "3094.7",
+          "discountTotal": "154.74",
+          "freight": "85",
+          "taxTotal": "279.3",
+          "total": "3304.26"
+        },
+        "lines": [
+          {
+            "sku": "KP-7700",
+            "description": "Centrifugal pump 2in",
+            "qty": "2",
+            "uom": "EA",
+            "unitPrice": "845",
+            "discountPct": null,
+            "amount": "1690"
+          },
+          {
+            "sku": "KP-7712",
+            "description": "Mechanical seal kit",
+            "qty": "6",
+            "uom": "EA",
+            "unitPrice": "63.25",
+            "discountPct": null,
+            "amount": "379.5"
+          },
+          {
+            "sku": "KP-7740",
+            "description": "Impeller bronze",
+            "qty": "4",
+            "uom": "EA",
+            "unitPrice": "212.8",
+            "discountPct": null,
+            "amount": "851.2"
+          },
+          {
+            "sku": "KP-7790",
+            "description": "Gasket set",
+            "qty": "10",
+            "uom": "EA",
+            "unitPrice": "17.4",
+            "discountPct": null,
+            "amount": "174"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S08",
+      "file": "S08.heavy.jpg",
+      "damage": "heavy",
+      "applied": {
+        "level": "heavy",
+        "rotationDeg": -3.44,
+        "skewX": -0.037,
+        "skewY": 0.022,
+        "scale": 0.5,
+        "blurPx": 1.4,
+        "lightingShade": 0.3,
+        "castShadow": 0.42,
+        "noiseSigma": 12,
+        "jpegQuality": 40,
+        "deskBackground": true
+      },
+      "pixels": "980x1230",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "DMY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "MO-77203",
+          "poRef": "SG-5521",
+          "supplierName": "Marigold Organics Pty Ltd",
+          "supplierTaxId": "51824753556",
+          "currency": "AUD",
+          "docDate": "2026-08-11",
+          "taxRate": "10",
+          "subtotal": "2090.2",
+          "discountTotal": null,
+          "freight": null,
+          "taxTotal": "209.02",
+          "total": "2299.22"
+        },
+        "lines": [
+          {
+            "sku": "OR-101",
+            "description": "Rolled oats 1kg",
+            "qty": "48",
+            "uom": null,
+            "unitPrice": "3.2",
+            "discountPct": null,
+            "amount": "153.6"
+          },
+          {
+            "sku": "OR-102",
+            "description": "Almond butter 250g",
+            "qty": "36",
+            "uom": null,
+            "unitPrice": "6.9",
+            "discountPct": null,
+            "amount": "248.4"
+          },
+          {
+            "sku": "OR-110",
+            "description": "Chia seeds 500g",
+            "qty": "24",
+            "uom": null,
+            "unitPrice": "8.75",
+            "discountPct": null,
+            "amount": "210"
+          },
+          {
+            "sku": "OR-115",
+            "description": "Coconut oil 500ml",
+            "qty": "30",
+            "uom": null,
+            "unitPrice": "9.4",
+            "discountPct": null,
+            "amount": "282"
+          },
+          {
+            "sku": "OR-120",
+            "description": "Maple syrup 250ml",
+            "qty": "24",
+            "uom": null,
+            "unitPrice": "11.2",
+            "discountPct": null,
+            "amount": "268.8"
+          },
+          {
+            "sku": "OR-133",
+            "description": "Quinoa 1kg",
+            "qty": "20",
+            "uom": null,
+            "unitPrice": "7.85",
+            "discountPct": null,
+            "amount": "157"
+          },
+          {
+            "sku": "OR-140",
+            "description": "Dried mango 200g",
+            "qty": "40",
+            "uom": null,
+            "unitPrice": "4.95",
+            "discountPct": null,
+            "amount": "198"
+          },
+          {
+            "sku": "OR-151",
+            "description": "Peanut butter 380g",
+            "qty": "36",
+            "uom": null,
+            "unitPrice": "4.3",
+            "discountPct": null,
+            "amount": "154.8"
+          },
+          {
+            "sku": "OR-160",
+            "description": "Green tea 50 bags",
+            "qty": "48",
+            "uom": null,
+            "unitPrice": "3.65",
+            "discountPct": null,
+            "amount": "175.2"
+          },
+          {
+            "sku": "OR-170",
+            "description": "Honey raw 500g",
+            "qty": "24",
+            "uom": null,
+            "unitPrice": "10.1",
+            "discountPct": null,
+            "amount": "242.4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S09",
+      "file": "S09.heavy.jpg",
+      "damage": "heavy",
+      "applied": {
+        "level": "heavy",
+        "rotationDeg": -2.37,
+        "skewX": -0.054,
+        "skewY": -0.035,
+        "scale": 0.5,
+        "blurPx": 1.4,
+        "lightingShade": 0.3,
+        "castShadow": 0.42,
+        "noiseSigma": 12,
+        "jpegQuality": 40,
+        "deskBackground": true
+      },
+      "pixels": "980x1230",
+      "hint": {
+        "numberLocale": "eu",
+        "dateOrder": "DMY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "LO-2026-3340",
+          "poRef": "VC-0612",
+          "supplierName": "Lumen Optics SA",
+          "supplierTaxId": "ESB12345678",
+          "currency": "EUR",
+          "docDate": "2026-09-05",
+          "taxRate": "21",
+          "subtotal": "2399.3",
+          "discountTotal": null,
+          "freight": "35",
+          "taxTotal": "503.85",
+          "total": "2938.15"
+        },
+        "lines": [
+          {
+            "sku": "OP-210",
+            "description": "Lens blank 1.60 pair",
+            "qty": "80",
+            "uom": null,
+            "unitPrice": "12.4",
+            "discountPct": null,
+            "amount": "992"
+          },
+          {
+            "sku": "OP-215",
+            "description": "Anti-glare coating",
+            "qty": "80",
+            "uom": null,
+            "unitPrice": "3.15",
+            "discountPct": null,
+            "amount": "252"
+          },
+          {
+            "sku": "OP-301",
+            "description": "Frame titanium M",
+            "qty": "25",
+            "uom": null,
+            "unitPrice": "38",
+            "discountPct": null,
+            "amount": "950"
+          },
+          {
+            "sku": "OP-322",
+            "description": "Lens cloth 10-pack",
+            "qty": "12",
+            "uom": null,
+            "unitPrice": "6.9",
+            "discountPct": null,
+            "amount": "82.8"
+          },
+          {
+            "sku": "OP-340",
+            "description": "Case hard black",
+            "qty": "50",
+            "uom": null,
+            "unitPrice": "2.45",
+            "discountPct": null,
+            "amount": "122.5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S10",
+      "file": "S10.heavy.jpg",
+      "damage": "heavy",
+      "applied": {
+        "level": "heavy",
+        "rotationDeg": 2.39,
+        "skewX": -0.046,
+        "skewY": -0.02,
+        "scale": 0.5,
+        "blurPx": 1.4,
+        "lightingShade": 0.3,
+        "castShadow": 0.42,
+        "noiseSigma": 12,
+        "jpegQuality": 40,
+        "deskBackground": true
+      },
+      "pixels": "980x1230",
+      "hint": {
+        "numberLocale": "us",
+        "dateOrder": "MDY"
+      },
+      "gold": {
+        "docType": "INVOICE",
+        "fields": {
+          "docNumber": "OS-0291",
+          "poRef": "GR-17",
+          "supplierName": "Orchid & Slate Design Studio",
+          "supplierTaxId": "05-7741208",
+          "currency": "USD",
+          "docDate": "2026-10-23",
+          "taxRate": "6.5",
+          "subtotal": "5167",
+          "discountTotal": null,
+          "freight": "40",
+          "taxTotal": "335.86",
+          "total": "5542.86"
+        },
+        "lines": [
+          {
+            "sku": "OS-01",
+            "description": "Brand guideline layout",
+            "qty": "1",
+            "uom": null,
+            "unitPrice": "1800",
+            "discountPct": null,
+            "amount": "1800"
+          },
+          {
+            "sku": "OS-02",
+            "description": "Logo variants set",
+            "qty": "3",
+            "uom": null,
+            "unitPrice": "350",
+            "discountPct": null,
+            "amount": "1050"
+          },
+          {
+            "sku": "OS-05",
+            "description": "Signage artwork",
+            "qty": "2",
+            "uom": null,
+            "unitPrice": "420",
+            "discountPct": null,
+            "amount": "840"
+          },
+          {
+            "sku": "OS-07",
+            "description": "Brochure print-ready",
+            "qty": "1",
+            "uom": null,
+            "unitPrice": "960",
+            "discountPct": null,
+            "amount": "960"
+          },
+          {
+            "sku": "OS-09",
+            "description": "Revision rounds",
+            "qty": "4",
+            "uom": null,
+            "unitPrice": "85",
+            "discountPct": null,
+            "amount": "340"
+          },
+          {
+            "sku": "OS-11",
+            "description": "Stock photo licences",
+            "qty": "6",
+            "uom": null,
+            "unitPrice": "29.5",
+            "discountPct": null,
+            "amount": "177"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -17,6 +17,7 @@
     "fixtures": "tsx scripts/generate-fixtures.ts",
     "seed": "tsx scripts/seed.ts",
     "eval": "tsx scripts/eval.ts",
+    "eval:stress": "tsx scripts/eval-stress.ts",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",

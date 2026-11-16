@@ -25,7 +25,7 @@ export function fixtureBytes(file: string): Buffer {
 }
 
 const NUMERIC = new Set(["subtotal", "discountTotal", "freight", "taxTotal", "total", "taxRate", "qty", "unitPrice", "discountPct", "amount"]);
-function equal(key: string, a: string | null | undefined, b: string | null | undefined): boolean {
+export function equal(key: string, a: string | null | undefined, b: string | null | undefined): boolean {
   if (a == null || b == null) return a == b;
   if (NUMERIC.has(key)) {
     const x = tryD(a), y = tryD(b);

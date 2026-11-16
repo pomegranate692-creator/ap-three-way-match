@@ -19,6 +19,25 @@
 
 Why B0/B1: they are the transparent "simple deterministic alternatives" a spreadsheet user would apply. They fail in specific, explainable ways — B0 cannot see over-billing that preserves the PO total and false-flags every partial receipt; B1 cannot see tax, currency, duplicates or injected text.
 
+## 1b. SYNTHETIC STRESS TEST: OCR on degraded phone-style photos (`npm run eval:stress`, results in `docs/results/stress-results.json`)
+**Kept separate from §1 (clean synthetic PDFs) and from any future real-document results. This is not real-world accuracy.** 10 invoices from fictional vendors, drawn with layouts, fonts, label wording, date formats and currency placements that are not in the 25-bundle fixtures (`fixtures/stress/`, generator `scripts/make-stress-fixtures.mjs`), then degraded like phone photos (rotation, skew, uneven lighting and a cast shadow, blur, low resolution, sensor noise, JPEG compression). Ground truth is computed from the source numbers, not read from the images. Every expected field is scored exactly one way: **correct**, **wrong** (a different value was read) or **missed** (nothing read); a value read where the truth is "absent" is **spurious**. A read counts as *confident* when the extractor's own confidence is at or above 0.8, the app's review threshold.
+
+| Damage level (docs) | Fields expected | Correct | Wrong | Missed | Spurious | Wrong or spurious at conf ≥ 0.8 | Mean OCR word conf. |
+|---|---|---|---|---|---|---|---|
+| Light (3): ≤ 0.8° rotation, blur 0.5 px, 85% scale, JPEG q80 | 94 | 39 (41.5%) | 2 | 53 | 0 | 1 | 0.74 |
+| Medium (4): ≤ 2° rotation, blur 1.0 px, 60% scale, shadow, JPEG q60 | 164 | 7 (4.3%) | 1 | 156 | 0 | 0 | 0.49 |
+| Heavy (3): ≤ 4° rotation, blur 1.4 px, 50% scale, strong shadow, desk background, JPEG q40 | 137 | 0 (0.0%) | 0 | 137 | 0 | 0 | 0.27 |
+| **All (10)** | **395** | **46 (11.6%)** | **3** | **346** | **0** | **1** | |
+
+Key fields only (invoice number, date, currency, subtotal, tax, total; line SKU, quantity, unit price, amount): 31 of 276 correct (11.2%), 0 wrong, 245 missed, 0 confident errors. Light 28/66, medium 3/108, heavy 0/102. Document type was recognised from the page text in 6 of 10; the other 4 (S05 and all three heavy scans) fell back to INVOICE after a "could not be determined" warning, so they do not count as read. 11 of the 46 correct values were themselves marked below 0.8 (a human would be asked to check them).
+
+What the numbers say, and what they do not:
+- **The failure mode is "read nothing", not "read the wrong thing".** Only 3 wrong values in 395 expected fields. The single confident error (conf 0.81) is a vendor name cut to its first word ("Saltmarsh"); the other two are a stray `~~` read as a PO number (conf 0.24) and an address line taken as the vendor name (conf 0.71).
+- **The OCR step is the bottleneck.** On the medium-damage sample inspected, Tesseract's page layout analysis returned fragments (skew, shadow gradient and desk background defeat its built-in thresholding), so the extractor never saw the table. A parameter sweep (scratch script, not kept) over page-segmentation modes and Sauvola thresholding helped little: medium best 13/164 correct, heavy 0/137 in every setting; sparse-text mode lifted light from 39 to 50 correct but raised wrong reads from 2 to 7 (4 of them confident), so it was not adopted. Real gains probably need image preprocessing (grayscale, adaptive normalisation, deskew, upscaling), which the app does not do yet. This is a diagnosis from 2 inspected documents and a small sweep, not a measured fix.
+- **Light damage is also weak.** In S01 (clean, readable photo) the ruled table borders were read as `|` characters and the header row and several columns were lost, and `Invoice #` was read as `Invoice &`, so the invoice number was missed. The extractor's label vocabulary was written alongside the original fixtures; no extractor changes were made to fit this set.
+- **Caveats.** 10 documents, one layout each; damage severity was chosen by the author before OCR was run (heavy was eased once, before any OCR number existed); the same author wrote the generator and the scorer. Tesseract was left at its defaults. Header locale hints (number format, day/month order) are supplied per document, as an organisation setting would supply them.
+- **One fix came out of this run:** the "hidden text" risk flag fired on 3 of the 10 scans because OCR noise produces tiny word boxes. It now applies only to PDF text layers (test `tests/unit/injection-ocr.test.ts`). It changed no field results.
+
 ## 2. Not yet measured (placeholders)
 | KPI | Method to measure | Value |
 |---|---|---|

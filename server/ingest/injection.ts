@@ -44,7 +44,8 @@ export function scanForRisk(layer: TextLayer): RiskFlag[] {
         if (m[0].length === 0) g.lastIndex++;
       }
     }
-    const tiny = pg.words.filter((w) => w.size < TINY_TEXT_PT);
+    // Tiny-text = "hidden text" only makes sense for a PDF text layer. OCR box sizes come from image noise and fine print.
+    const tiny = layer.source === "pdf-text" ? pg.words.filter((w) => w.size < TINY_TEXT_PT) : [];
     if (tiny.length >= 3) {
       flags.push({
         code: "HIDDEN_TEXT",
