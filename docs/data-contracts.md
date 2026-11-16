@@ -8,7 +8,7 @@ TextLayer { source: "pdf-text" | "ocr"; pages: { page, width, height, words: Wor
 Word      { id: "p1w17", text, bbox: BBox, size, conf: 0..1, run?: number }
 BBox      { page, x, y, w, h }          // normalised 0..1, origin top-left
 ```
-`conf` is 1.0 for native PDF text; an OCR engine would supply per-word confidence (adapter boundary — no OCR in this build).
+`conf` is 1.0 for native PDF text; OCR (`tesseract.js`, PNG/JPEG only) supplies per-word confidence 0..1. OCR pages use a virtual 612-point-wide page so layout heuristics behave the same.
 
 ## 2. Extracted field (extractor → grounding validator → DB)
 ```ts

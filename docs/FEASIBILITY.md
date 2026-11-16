@@ -9,7 +9,7 @@ Inspected only this project folder and the machine's tools. Nothing in any other
 | Python | 3.9.6 (not needed by the app) |
 | SQLite CLI | 3.51.0 |
 | Docker | **not installed** → Dockerfile written but **never built or run** |
-| `pdftotext`, `tesseract` | **not installed** → OCR not built; PDF text layer via `pdfjs-dist` instead |
+| `pdftotext`, `tesseract` | **not installed**; PDF text layer via `pdfjs-dist`, and OCR for PNG/JPEG via the bundled `tesseract.js` (WASM, local) |
 | `ANTHROPIC_API_KEY` | **not set** → Claude adapters exist, are disabled, and were tested only against a mock transport |
 | Browser | Google Chrome installed → Playwright runs with `channel: "chrome"` (no download) |
 | npm registry | reachable |
@@ -38,7 +38,7 @@ Upload → read PDF text layer with word boxes → rules extraction with source 
 |---|---|
 | Local upload, SQLite, pdf.js, CSV/XLSX | **Available** (used) |
 | Claude API | **Optional / disabled** (no key; mock-tested only) |
-| OCR | **Not built** (no engine installed) |
+| OCR | **Built, optional** (`tesseract.js`, PNG/JPEG only; image-only PDFs not read) |
 | ERP / payments / ledger | **Blocked by design** — no route exists |
 | Email / Gmail / calendar / MCP | **Not connected, not used** |
 

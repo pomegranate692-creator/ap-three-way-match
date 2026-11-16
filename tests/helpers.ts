@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createApp } from "../server/app.ts";
 import { openDb } from "../server/db.ts";
+import type { OcrEngine } from "../server/ingest/ocr.ts";
 import { disabledAdapters, type LlmAdapters } from "../server/llm/adapters.ts";
 import { readManifest, seedOrgs } from "../server/services/demo.ts";
 
@@ -14,13 +15,13 @@ export const U = {
   meridian: { org: "org-meridian", clerk: "u-meridian-clerk", controller: "u-meridian-ctrl", purchasing: "u-meridian-purch" },
 } as const;
 
-export function makeApp(llm: LlmAdapters = disabledAdapters("test")) {
+export function makeApp(llm: LlmAdapters = disabledAdapters("test"), ocr?: OcrEngine) {
   const dataDir = mkdtempSync(join(tmpdir(), "ap3wm-"));
   const db = openDb(":memory:");
   let tick = Date.UTC(2026, 2, 10, 9, 0, 0);
   const now = () => new Date((tick += 1000)).toISOString();
   seedOrgs(db, readManifest(FIXTURES), now());
-  const app = createApp({ db, dataDir, fixtureDir: FIXTURES, llm, now });
+  const app = createApp({ db, dataDir, fixtureDir: FIXTURES, llm, now, ...(ocr ? { ocr } : {}) });
 
   async function api<T = any>(method: string, path: string, o: { org: string; user: string; body?: unknown; headers?: Record<string, string>; form?: FormData } ) {
     const headers: Record<string, string> = { "x-org-id": o.org, "x-user-id": o.user, ...(o.headers ?? {}) };
@@ -43,7 +44,7 @@ export function makeApp(llm: LlmAdapters = disabledAdapters("test")) {
       del: <T = any>(p: string, body?: unknown) => api<T>("DELETE", p, { org, user, body }),
       upload: <T = any>(files: { name: string; bytes: Uint8Array | Buffer }[]) => {
         const form = new FormData();
-        for (const f of files) form.append("files", new File([new Uint8Array(f.bytes)], f.name, { type: "application/pdf" }));
+        for (const f of files) form.append("files", new File([new Uint8Array(f.bytes)], f.name, { type: f.name.endsWith(".png") ? "image/png" : "application/pdf" }));
         return api<T>("POST", "/api/upload", { org, user, form });
       },
     };
@@ -52,6 +53,7 @@ export function makeApp(llm: LlmAdapters = disabledAdapters("test")) {
 }
 
 export const pdf = (name: string) => readFileSync(join(FIXTURES, "pdf", name));
+export const scan = (name: string) => readFileSync(join(FIXTURES, "scanned", name));
 
 export async function bundleByLabel(session: ReturnType<ReturnType<typeof makeApp>["as"]>, label: string) {
   const list = (await session.get("/api/bundles")).data as { id: string; label: string }[];

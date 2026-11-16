@@ -23,14 +23,26 @@ export function PdfViewer({ documentId, highlights, selectedKey, onPick }: Props
   const [width, setWidth] = useState(600);
   const [zoom, setZoom] = useState(1);
   const [pages, setPages] = useState<{ w: number; h: number }[]>([]);
+  const [img, setImg] = useState<{ url: string; w: number; h: number } | null>(null);
 
   useEffect(() => {
     let live = true;
     let loaded: pdfjs.PDFDocumentProxy | null = null;
-    setDoc(null); setErr(null);
+    let objectUrl: string | null = null;
+    setDoc(null); setImg(null); setErr(null);
     (async () => {
       try {
         const blob = await api<Blob>("GET", `/api/documents/${documentId}/file`, undefined, { raw: true });
+        if (blob.type.startsWith("image/")) {
+          // scanned upload (OCR): show the original image; boxes use the same normalised coordinates
+          objectUrl = URL.createObjectURL(blob);
+          const el = new Image();
+          el.src = objectUrl;
+          await el.decode();
+          if (!live) return;
+          setImg({ url: objectUrl, w: el.naturalWidth, h: el.naturalHeight });
+          return;
+        }
         const buf = await blob.arrayBuffer();
         loaded = await pdfjs.getDocument({ data: new Uint8Array(buf), isEvalSupported: false }).promise;
         if (!live) return;
@@ -39,7 +51,7 @@ export function PdfViewer({ documentId, highlights, selectedKey, onPick }: Props
         setPages(sizes); setDoc(loaded);
       } catch (e) { if (live) setErr((e as Error).message || "The PDF could not be displayed."); }
     })();
-    return () => { live = false; loaded?.destroy().catch(() => {}); };
+    return () => { live = false; loaded?.destroy().catch(() => {}); if (objectUrl) URL.revokeObjectURL(objectUrl); };
   }, [documentId]);
 
   useEffect(() => {
@@ -76,7 +88,8 @@ export function PdfViewer({ documentId, highlights, selectedKey, onPick }: Props
       </div>
       <div className="viewer-canvas" ref={wrap} tabIndex={0} aria-label="Document preview">
         {err && <ErrorBox message={`Preview unavailable: ${err}`} />}
-        {!doc && !err && <div style={{ background: "var(--surface)", borderRadius: 8 }}><LoadingBlock label="Loading document" /></div>}
+        {!doc && !img && !err && <div style={{ background: "var(--surface)", borderRadius: 8 }}><LoadingBlock label="Loading document" /></div>}
+        {img && <ImagePage url={img.url} size={{ w: img.w, h: img.h }} cssWidth={width * zoom} highlights={highlights.filter((h) => h.bbox.page === 1)} selectedKey={selectedKey} onPick={onPick} />}
         {doc && pages.map((p, i) => <Page key={`${documentId}-${i}`} doc={doc} index={i + 1} size={p} cssWidth={width * zoom} highlights={highlights.filter((h) => h.bbox.page === i + 1)} selectedKey={selectedKey} onPick={onPick} />)}
       </div>
     </div>
@@ -107,6 +120,20 @@ function Page({ doc, index, size, cssWidth, highlights, selectedKey, onPick }: {
     <div className="pdf-page" style={{ width: cssWidth, height: cssHeight, marginBottom: 14 }}>
       <canvas ref={canvas} />
       {hl.map((h) => (
+        <button key={h.key} data-hl={h.key} className={`hl ${selectedKey === h.key ? "sel" : ""} ${h.kind ?? ""}`} aria-label={`Source of ${h.key}`}
+          onClick={() => onPick(h.key)}
+          style={{ left: h.bbox.x * cssWidth, top: h.bbox.y * cssHeight, width: Math.max(8, h.bbox.w * cssWidth), height: Math.max(8, h.bbox.h * cssHeight) }} />
+      ))}
+    </div>
+  );
+}
+
+function ImagePage({ url, size, cssWidth, highlights, selectedKey, onPick }: { url: string; size: { w: number; h: number }; cssWidth: number; highlights: Highlight[]; selectedKey: string | null; onPick(k: string): void }) {
+  const cssHeight = (cssWidth * size.h) / size.w;
+  return (
+    <div className="pdf-page" style={{ width: cssWidth, height: cssHeight, marginBottom: 14 }}>
+      <img src={url} alt="Scanned document" width={cssWidth} height={cssHeight} style={{ display: "block", width: cssWidth, height: cssHeight }} />
+      {highlights.map((h) => (
         <button key={h.key} data-hl={h.key} className={`hl ${selectedKey === h.key ? "sel" : ""} ${h.kind ?? ""}`} aria-label={`Source of ${h.key}`}
           onClick={() => onPick(h.key)}
           style={{ left: h.bbox.x * cssWidth, top: h.bbox.y * cssHeight, width: Math.max(8, h.bbox.w * cssWidth), height: Math.max(8, h.bbox.h * cssHeight) }} />

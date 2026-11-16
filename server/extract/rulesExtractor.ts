@@ -116,7 +116,9 @@ function interpret(kind: Spec["kind"], ws: Word[], opts: ExtractOptions): [strin
     }
     case "currency": {
       const t = raw.toUpperCase();
-      if (/^[A-Z]{3}$/.test(t)) return [t, 0.97, "ISO currency code next to its label"];
+      if (KNOWN_CURRENCIES.includes(t)) return [t, 0.97, "ISO currency code next to its label"];
+      // well-formed but not a currency this build knows (e.g. OCR misreads "USD" as "USB"): keep the text, send it to a human
+      if (/^[A-Z]{3}$/.test(t)) return [t, 0.5, `"${t}" is not a currency this build recognises (${KNOWN_CURRENCIES.join(", ")}); check it against the document`];
       return [null, 0.3, `"${raw}" is not an ISO currency code`];
     }
   }

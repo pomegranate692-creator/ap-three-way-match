@@ -11,6 +11,6 @@
 | R7 | Formula injection in exports | Med | Med | Cells beginning `= + - @ \t \r` are prefixed; tested. | Opening in tools that interpret other prefixes. |
 | R8 | Sensitive data leakage to an LLM | Low (disabled) | High | LLM disabled by default; key server-side only; request contains only document text of the current bundle; documented in SECURITY.md. | Real data should not be used with live LLM without review. |
 | R9 | Synthetic data too clean → overstated metrics | High | Med | Metrics labelled *synthetic, self-authored*; adversarial fixtures; no human baseline claimed. | Real-world accuracy is unknown. |
-| R10 | Scanned/handwritten docs unsupported | High | Med | Explicit rejection message; adapter boundary documented. | Feature gap. |
+| R10 | Scanned/handwritten docs misread or unsupported | High | Med | PNG/JPEG scans go through local OCR; per-word confidence lowers field confidence, below 0.8 raises `LOW_CONFIDENCE` and a human review; unrecognised currency codes capped at 0.5. Handwriting and image-only PDFs are rejected or held. | Partly open: only five synthetic scans tested. |
 | R11 | Tax regimes beyond simple exclusive sales tax | Med | Med | Documented limitation; policy fields for rate and freight-taxability. | VAT-inclusive, multi-rate lines unsupported. |
 | R12 | Clock/timezone confusion | Low | Low | Document dates remain date-only; audit timestamps UTC + org timezone display. | — |

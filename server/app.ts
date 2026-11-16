@@ -7,7 +7,8 @@ import { all, get } from "./db.ts";
 import { HttpError, audit, badRequest, forbidden, notFound, type Ctx } from "./context.ts";
 import type { LlmAdapters } from "./llm/adapters.ts";
 import { DecisionBody, ExceptionResolveBody, ExportBody, FieldCorrectionBody } from "../shared/schemas.ts";
-import { LIMITS } from "./ingest/pdfText.ts";
+import { LIMITS, sniffType } from "./ingest/pdfText.ts";
+import { disabledOcr, type OcrEngine } from "./ingest/ocr.ts";
 import { ingestFile } from "./services/ingest.ts";
 import { runMatch } from "./services/matching.ts";
 import { correctField, decide, resolveException, saveSettings } from "./services/review.ts";
@@ -22,6 +23,8 @@ export interface AppOptions {
   dataDir: string;
   fixtureDir: string;
   llm: LlmAdapters;
+  /** OCR for PNG/JPEG scans; omitted = disabled */
+  ocr?: OcrEngine;
   now?: () => string;
   /** directory holding the built SPA (optional) */
   webDir?: string;
@@ -44,6 +47,7 @@ class RateLimiter {
 }
 
 export function createApp(opts: AppOptions) {
+  const ocrStatus = (opts.ocr ?? disabledOcr("not configured")).status();
   const app = new Hono<{ Variables: { ctx: Ctx } }>();
   const limiter = new RateLimiter();
   const now = opts.now ?? (() => new Date().toISOString());
@@ -88,7 +92,7 @@ export function createApp(opts: AppOptions) {
         { name: "SQLite (node:sqlite)", status: "available" },
         { name: "PDF text layer (pdf.js)", status: "available" },
         { name: "CSV / XLSX export (file only)", status: "available" },
-        { name: "OCR for scanned images", status: "not built", detail: "No OCR engine installed; scanned/image-only files are rejected with a clear message." },
+        { name: "OCR for scanned PNG/JPEG images", status: ocrStatus.enabled ? "available" : "optional · disabled", detail: ocrStatus.enabled ? `${ocrStatus.reason}. Low-confidence words are flagged for review; image-only PDFs are not read.` : `${ocrStatus.reason}. Image uploads are rejected with a clear message.` },
         { name: "Claude API (extraction + wording)", status: opts.llm.status().enabled ? "enabled" : "optional · disabled", detail: opts.llm.status().reason },
         { name: "ERP / payment / ledger posting", status: "blocked by design", detail: "No such route exists. The system never pays or posts." },
         { name: "Email / Gmail / calendar", status: "not connected" },
@@ -110,7 +114,7 @@ export function createApp(opts: AppOptions) {
     if (!orgId || !userId) throw new HttpError(401, "NO_IDENTITY", "Choose a demo user first (top-right menu).");
     const u = get<{ id: string; name: string; role: "clerk" | "controller" | "purchasing" }>(opts.db, "SELECT id, name, role FROM users WHERE id=? AND org_id=?", userId, orgId);
     if (!u) throw new HttpError(401, "UNKNOWN_IDENTITY", "That demo user does not belong to this organisation.");
-    c.set("ctx", { db: opts.db, orgId, actor: { id: u.id, name: u.name, role: u.role }, now, dataDir: opts.dataDir, llm: opts.llm });
+    c.set("ctx", { db: opts.db, orgId, actor: { id: u.id, name: u.name, role: u.role }, now, dataDir: opts.dataDir, llm: opts.llm, ...(opts.ocr ? { ocr: opts.ocr } : {}) });
     await next();
   });
 
@@ -134,7 +138,9 @@ export function createApp(opts: AppOptions) {
     const ctx = ctxOf(c);
     const d = get<{ stored_path: string; filename: string }>(opts.db, "SELECT stored_path, filename FROM documents WHERE id=? AND org_id=?", c.req.param("id"), ctx.orgId);
     if (!d) throw notFound("Document");
-    return new Response(readFileSync(d.stored_path), { headers: { "content-type": "application/pdf", "content-disposition": `inline; filename="${d.filename.replace(/"/g, "")}"`, "cache-control": "private, max-age=300" } });
+    const bytes = readFileSync(d.stored_path);
+    const type = ({ pdf: "application/pdf", png: "image/png", jpeg: "image/jpeg", unknown: "application/octet-stream" } as const)[sniffType(bytes)];
+    return new Response(bytes, { headers: { "content-type": type, "x-content-type-options": "nosniff", "content-disposition": `inline; filename="${d.filename.replace(/"/g, "")}"`, "cache-control": "private, max-age=300" } });
   });
 
   app.get("/api/exports/:id/download", (c) => {

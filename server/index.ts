@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { createApp } from "./app.ts";
 import { openDb } from "./db.ts";
 import { llmFromEnv } from "./llm/adapters.ts";
+import { ocrFromEnv } from "./ingest/ocr.ts";
 import { readManifest, seedOrgs } from "./services/demo.ts";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -26,8 +27,9 @@ const fixtureDir = join(ROOT, "fixtures");
 const db = openDb(dbPath);
 if (existsSync(join(fixtureDir, "manifest.json"))) seedOrgs(db, readManifest(fixtureDir), new Date().toISOString());
 const llm = llmFromEnv(process.env);
+const ocr = ocrFromEnv(process.env, dataDir);
 
-const app = createApp({ db, dataDir, fixtureDir, llm, webDir: process.env.NODE_ENV === "production" ? join(ROOT, "dist", "web") : undefined });
+const app = createApp({ db, dataDir, fixtureDir, llm, ocr, webDir: process.env.NODE_ENV === "production" ? join(ROOT, "dist", "web") : undefined });
 
 // Bind to loopback only: this is a local-first tool with a demo identity switcher, not an internet service.
 serve({ fetch: app.fetch, port, hostname: "127.0.0.1" }, (info) => {

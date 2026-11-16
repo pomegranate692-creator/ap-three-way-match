@@ -32,4 +32,4 @@ The recorded synthetic evaluation detected all eight planted discrepancies acros
 
 ## What remains
 
-The test documents were created alongside the reader, so these results do not establish accuracy on real supplier documents. Scanned PDFs are unsupported, login is a demo user switcher, and time savings have not been measured. The next step is testing a permitted, de-identified set of real documents.
+The test documents were created alongside the reader, so these results do not establish accuracy on real supplier documents. Scanned PNG/JPEG images are read by an optional local OCR step that was tested on only five synthetic scans, image-only PDFs are unsupported, login is a demo user switcher, and time savings have not been measured. The next step is testing a permitted, de-identified set of real documents.

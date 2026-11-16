@@ -30,7 +30,7 @@ Why B0/B1: they are the transparent "simple deterministic alternatives" a spread
 | Reliability | uptime/error rate over a real pilot | `[UNTESTED]` |
 | Cost per run | tokens × price if the Claude adapters are enabled; deterministic path costs no API fees | `[UNTESTED]` — adapters never run live here |
 | User satisfaction | SUS or 5-point post-task survey | `[UNTESTED]` |
-| Accuracy on scanned / handwritten / unseen layouts | run `npm run eval` against a real, labelled set | `[UNTESTED]` — OCR not built |
+| Accuracy on scanned / handwritten / unseen layouts | run `npm run eval` against a real, labelled set | Scanned: one run on 5 synthetic scans (4 clean ~220 dpi, 1 deliberately poor ~90 dpi), 107 ground-truth fields from the same documents' PDF text: 87 read correctly, 5 wrong, 15 missing; all 5 wrong reads carried confidence below the 0.8 review threshold (none confidently wrong); document type right 5/5. Rendered by the same project, so an optimistic bound. Handwritten, real-world scans and unseen layouts `[UNTESTED]` |
 
 ## 3. Measurement protocol (for the untested items)
 1. **Sample**: ≥ 30 real bundles (de-identified) incl. partial receipts, discounts, multi-currency; hold out ≥ 10 never used while tuning rules.

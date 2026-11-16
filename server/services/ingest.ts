@@ -3,7 +3,7 @@ import { basename, join } from "node:path";
 import type { Ctx } from "../context.ts";
 import { audit } from "../context.ts";
 import { all, get, newId, run, tx } from "../db.ts";
-import { IngestError, LIMITS } from "../ingest/pdfText.ts";
+import { IngestError, LIMITS, sniffType } from "../ingest/pdfText.ts";
 import { analyzePdf } from "../pipeline/analyze.ts";
 import { normDocNumber } from "../../shared/normalize.ts";
 import { getSettings, sha256, sameRef, type DocRow } from "./common.ts";
@@ -42,6 +42,7 @@ export async function ingestFile(ctx: Ctx, file: { name: string; bytes: Uint8Arr
   try {
     analysis = await analyzePdf(file.bytes, {
       numberLocale: settings.numberLocale, dateOrder: settings.dateOrder,
+      ...(ctx.ocr ? { ocr: ctx.ocr } : {}),
       ...(settings.llm.extraction && ctx.llm.extract ? { llmExtract: ctx.llm.extract } : {}),
     });
   } catch (e) {
@@ -62,7 +63,8 @@ export async function ingestFile(ctx: Ctx, file: { name: string; bytes: Uint8Arr
   const id = newId("doc");
   const dir = join(ctx.dataDir, "uploads", ctx.orgId);
   mkdirSync(dir, { recursive: true });
-  const storedPath = join(dir, `${id}.pdf`);
+  const ext = { pdf: "pdf", png: "png", jpeg: "jpg", unknown: "bin" }[sniffType(file.bytes)];
+  const storedPath = join(dir, `${id}.${ext}`);
 
   return tx(ctx.db, () => {
     writeFileSync(storedPath, file.bytes, { flag: "wx" });
@@ -86,7 +88,7 @@ export async function ingestFile(ctx: Ctx, file: { name: string; bytes: Uint8Arr
     run(ctx.db, `INSERT INTO decisions(id,org_id,bundle_id,document_id,run_id,kind,actor,model,input_hash,output_json,created_at) VALUES (?,?,NULL,?,NULL,'extraction',?,?,?,?,?)`,
       newId("dec"), ctx.orgId, id, analysis.extractorsUsed.join(","), analysis.extractorsUsed.find((e) => e.startsWith("claude:"))?.slice(7) ?? null, hash,
       JSON.stringify({ fieldCount: ex.fields.length, lineCount: ex.lineCount, rejectedByGrounding: analysis.rejected, warnings: ex.warnings }), now);
-    audit(ctx, { action: source === "demo" ? "document.loaded_demo" : "document.uploaded", entityType: "document", entityId: id, note: `${filename} → ${ex.docType} ${docNumber ?? "(no number)"}`, after: { sha256: hash, size: file.bytes.byteLength, pages: analysis.pageCount } });
+    audit(ctx, { action: source === "demo" ? "document.loaded_demo" : "document.uploaded", entityType: "document", entityId: id, note: `${filename} → ${ex.docType} ${docNumber ?? "(no number)"}`, after: { sha256: hash, size: file.bytes.byteLength, pages: analysis.pageCount, ...(analysis.ocrMeanConfidence !== null ? { ocr: true, ocrMeanConfidence: Math.round(analysis.ocrMeanConfidence * 1000) / 1000 } : {}) } });
     audit(ctx, { action: "document.extracted", entityType: "document", entityId: id, kind: "agent", after: { extractors: analysis.extractorsUsed, fields: ex.fields.length, lines: ex.lineCount, risks: analysis.riskFlags.map((r) => r.code) }, note: ex.classification.reason });
 
     const doc = get<DocRow>(ctx.db, "SELECT * FROM documents WHERE id=?", id)!;

@@ -114,6 +114,7 @@ export function Review({ id, initialTab }: { id: string; initialTab?: Tab }) {
                 <span className="muted mono" title={doc.filename}>{doc.filename.length > 30 ? doc.filename.slice(0, 28) + "…" : doc.filename}</span>
                 <span className="muted" title={`SHA-256 ${doc.sha256}`}>sha {doc.sha256.slice(0, 8)}</span>
                 <AiBadge ai={doc.extractors.some((e) => e.startsWith("claude"))} label={doc.extractors.join(" + ")} />
+                {doc.extractors.some((e) => e.startsWith("ocr")) && <span className="badge warn" title="Read from a scanned image by OCR. Check each highlighted value against the image; doubtful values are marked ⚠.">Scanned · OCR</span>}
               </div>
               <PdfViewer documentId={doc.id} highlights={highlights} selectedKey={sel?.docId === doc.id ? sel.key : null} onPick={(k) => { setSel({ docId: doc.id, key: k }); setTab("fields"); setPane("analysis"); }} />
             </div>

@@ -42,7 +42,7 @@ Agents deliberately **not** created: a separate "matching agent", "tax agent", "
 ## 3. Components
 
 - `shared/` — Zod schemas (single source of truth for types), decimal `Money` helpers.
-- `server/ingest` — pdf.js text-layer reader → `TextLayer` (`pages[].words[] {id,text,bbox,conf}`); prompt-injection scanner; (OCR adapter boundary).
+- `server/ingest` — pdf.js text-layer reader → `TextLayer` (`pages[].words[] {id,text,bbox,conf}`); prompt-injection scanner; `ocr.ts` optional local OCR (tesseract.js) for PNG/JPEG → the same `TextLayer`, with per-word confidence.
 - `server/extract` — rules extractor, locale-aware parsers, grounding validator, optional Claude extractor.
 - `server/engine` — `matchBundle(po, grns, invoice, settings, context) → MatchResult`; no I/O.
 - `server/workflow` — state machine, RBAC, approvals, audit writer.
@@ -61,7 +61,7 @@ SQLite (`data/app.db`), WAL mode. Tables: `organizations, users, settings, docum
 | Local filesystem upload | **Available** | Default intake. |
 | SQLite | **Available** | `node:sqlite` (Node 24). |
 | PDF text layer (pdf.js) | **Available** | Native-text PDFs. |
-| OCR (scanned images) | **Optional / not built in MVP** | Adapter boundary exists (`TextLayer` with per-word `conf`); no OCR engine installed (`tesseract` absent on this machine). Image upload is rejected with an explicit message. |
+| OCR (scanned images) | **Optional, built** | `tesseract.js` runs locally on PNG/JPEG uploads (`ENABLE_OCR=0` turns it off). Output is a `TextLayer` with per-word `conf`, so the rules extractor, grounding, source boxes and the low-confidence rule apply unchanged. Language data is downloaded once into `data/ocr/`. Image-only PDFs are still rejected with a message. Limits: 8 MB, 24 MP, 300 px short side, 90 s per image, one image at a time. |
 | Claude API (extraction/explanation) | **Optional, disabled, mock-tested only** | No `ANTHROPIC_API_KEY` on this machine; never run live. |
 | ERP / payment / accounting posting | **Blocked by design** | Not implemented; no route exists. |
 | Email / Gmail / calendar | **Blocked** (not needed) | Not connected; not used. |

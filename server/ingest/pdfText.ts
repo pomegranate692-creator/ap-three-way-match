@@ -2,7 +2,7 @@ import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 import type { TextLayer, Word } from "../../shared/schemas.ts";
 
 export class IngestError extends Error {
-  constructor(message: string, readonly code: "NOT_PDF" | "CORRUPT" | "EMPTY" | "NO_TEXT_LAYER" | "TOO_LARGE" | "UNSUPPORTED_IMAGE" | "TOO_MANY_PAGES") {
+  constructor(message: string, readonly code: "NOT_PDF" | "CORRUPT" | "EMPTY" | "NO_TEXT_LAYER" | "TOO_LARGE" | "UNSUPPORTED_IMAGE" | "TOO_MANY_PAGES" | "OCR_UNAVAILABLE" | "OCR_FAILED" | "IMAGE_UNREADABLE") {
     super(message);
   }
 }
@@ -19,7 +19,7 @@ export function sniffType(buf: Uint8Array): "pdf" | "png" | "jpeg" | "unknown" {
 
 /**
  * Read the native text layer of a PDF into words with normalised boxes (origin top-left).
- * Deterministic. No network. Bounded size/pages. Image-only PDFs are rejected explicitly (no OCR engine installed).
+ * Deterministic. No network. Bounded size/pages. Image-only PDFs are rejected explicitly; PNG/JPEG scans go through the optional OCR engine instead (see ocr.ts).
  */
 export async function readPdfTextLayer(data: Uint8Array): Promise<{ layer: TextLayer; pageCount: number }> {
   if (data.byteLength === 0) throw new IngestError("The file is empty.", "EMPTY");
@@ -93,7 +93,7 @@ export async function readPdfTextLayer(data: Uint8Array): Promise<{ layer: TextL
   }
   await pdf.destroy();
   if (total === 0) {
-    throw new IngestError("No text layer found. This looks like a scanned/image-only PDF; OCR is not available in this build.", "NO_TEXT_LAYER");
+    throw new IngestError("No text layer found. This looks like a scanned/image-only PDF. OCR currently reads PNG/JPEG images only: export the scan as an image and upload that.", "NO_TEXT_LAYER");
   }
   return { layer: { source: "pdf-text", pages }, pageCount: pdf.numPages };
 }

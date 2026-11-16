@@ -172,7 +172,7 @@ test("errors are explained and recoverable: wrong file type, role denial, server
   await page.getByLabel("Organisation").selectOption({ label: "Harbor & Pine Hardware" });
   await page.setInputFiles('input[type="file"]', [{ name: "scan.png", mimeType: "image/png", buffer: Buffer.from("89504e470d0a1a0a0000000d49484452", "hex") }, { name: "bad.pdf", mimeType: "application/pdf", buffer: Buffer.from("hello") }]);
   await expect(page.getByText("Rejected").first()).toBeVisible();
-  await expect(page.getByText(/OCR engine/)).toBeVisible();
+  await expect(page.getByText(/image file could not be read/)).toBeVisible();
   await expect(page.getByText(/missing %PDF header/)).toBeVisible();
   await shot(page, "11-upload-rejections");
   // a purchasing lead is told clearly that they cannot approve

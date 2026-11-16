@@ -2,6 +2,7 @@ import type { DB } from "./db.ts";
 import { run } from "./db.ts";
 import type { Role } from "../shared/schemas.ts";
 import type { LlmAdapters } from "./llm/adapters.ts";
+import type { OcrEngine } from "./ingest/ocr.ts";
 
 export class HttpError extends Error {
   constructor(readonly status: number, readonly code: string, message: string, readonly details?: unknown) {
@@ -28,6 +29,8 @@ export interface Ctx {
   now: () => string;
   dataDir: string;
   llm: LlmAdapters;
+  /** optional: only PNG/JPEG scans need it */
+  ocr?: OcrEngine;
 }
 
 export interface AuditInput {

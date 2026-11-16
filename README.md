@@ -71,7 +71,7 @@ docs/          PRD, architecture, contracts, risks, acceptance tests, metrics, s
 On the 25 synthetic bundles (8 seeded discrepancies, 17 clean): **8/8 detected with the intended exception code, 0 false alarms**; field F1 100% on 72 documents. A total-only comparison scores F1 50% and a zero-tolerance line comparison 61.5%. Invoice analysis ≈ 2 ms median. These fixtures were written together with the extractor, so this is an **optimistic ceiling, not real-world accuracy**. Time saved, human correction time, user satisfaction and LLM cost are **untested**. Details: [docs/METRICS_PLAN.md](docs/METRICS_PLAN.md).
 
 ## Known limitations
-- Native-text PDFs only — **no OCR** (scans/images are rejected with an explanation); no handwriting.
+- Text-layer PDFs, plus PNG/JPEG scans read by optional local OCR (tesseract.js; first scan downloads ~10 MB of language data into `data/ocr/`; `ENABLE_OCR=0` disables it). OCR was tested on five synthetic scans only. Image-only PDFs and handwriting are rejected or held.
 - Rules extractor knows three layout families (US grid, compact stacked, German/EU). Unfamiliar layouts degrade to low confidence → human review rather than silent errors, but accuracy on real suppliers is unknown.
 - One-page-style documents; tables spanning pages and wrapped descriptions are not handled; no ability to *add* a missing line item in the UI.
 - Tax: exclusive sales-tax/VAT on one rate per PO; no VAT-inclusive pricing or mixed rates. Currency: strict or manual dated rates; no rate fetching.

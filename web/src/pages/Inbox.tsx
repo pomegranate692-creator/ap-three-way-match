@@ -88,7 +88,7 @@ export function Inbox() {
 
       {noData ? (
         <div className="card"><Empty title="No invoices yet" actions={<><button className="btn primary" onClick={loadDemo} disabled={!!busy}>Load synthetic demo data</button><button className="btn" onClick={() => fileInput.current?.click()} disabled={!!busy}>Upload your own PDFs</button></>}>
-          Load the synthetic bundles for {app.org?.name} to try the full flow, or drop in a purchase order, receiving record and invoice (PDFs with a text layer). Nothing leaves this computer.
+          Load the synthetic bundles for {app.org?.name} to try the full flow, or drop in a purchase order, receiving record and invoice (PDFs with a text layer, or PNG/JPEG scans). Nothing leaves this computer.
         </Empty></div>
       ) : (
         <div className="kpis" role="group" aria-label="Filter bundles">
@@ -106,7 +106,7 @@ export function Inbox() {
         onDrop={(e) => { e.preventDefault(); setOver(false); void upload(e.dataTransfer.files); }}
       >
         <b>Drop purchase orders, receiving records and invoices here</b>
-        <span className="muted small">PDF with a text layer · up to {app.meta?.limits.maxFileMb ?? 8} MB each · documents are grouped by PO number automatically · </span>
+        <span className="muted small">PDF with a text layer, or a PNG/JPEG scan (read locally by OCR) · up to {app.meta?.limits.maxFileMb ?? 8} MB each · documents are grouped by PO number automatically · </span>
         <button className="btn sm" onClick={() => fileInput.current?.click()} disabled={!!busy}>Choose files</button>
         <input ref={fileInput} type="file" accept="application/pdf,.pdf,image/*" multiple hidden onChange={(e) => { if (e.target.files) void upload(e.target.files); e.target.value = ""; }} />
         {busy && <div role="status" className="banner info" style={{ marginTop: 10, justifyContent: "center" }}>{busy}</div>}
