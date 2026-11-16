@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 
-const SHOTS = join(import.meta.dirname, "..", "..", "screenshots");
+const SHOTS = process.env.SCREENSHOT_DIR ?? join(import.meta.dirname, "..", "..", "test-results", "screenshots");
 mkdirSync(SHOTS, { recursive: true });
 
 test("mobile layout: no horizontal page scroll, bottom navigation, document/analysis switch", async ({ page }) => {

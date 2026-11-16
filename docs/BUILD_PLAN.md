@@ -19,7 +19,7 @@ Legend: [x] done and verified by a run · [~] done, partially verified · [ ] pe
 - [ ] Real-document evaluation · [ ] OCR adapter · [x] compact mobile decision bar (status + Approve + More; verified in Chrome at phone size) · [x] tabs arrow-key navigation (ARIA pattern; Left/Right/Home/End, roving tabindex) · [ ] manual screen-reader pass
 
 ## Phase 5 — Packaging [~]
-- [x] README, DEMO_SCRIPT (+ video storyboard), CASE_STUDY_DRAFT, METRICS_PLAN, SECURITY, OPERATIONS · [~] Dockerfile written, **untested** · [ ] recorded video · [ ] hosted deployment
+- [x] README, DEMO_SCRIPT (+ video storyboard), CASE_STUDY_DRAFT, METRICS_PLAN, SECURITY, OPERATIONS · [~] Dockerfile written, **untested** · [x] recorded video (`demos/ap-three-way-match-demo.mp4`, 85 s) · hosted deployment ruled out by the user
 
 ## Recommended next smallest increment
 Run `npm run eval` on 10–20 real (permitted, de-identified) supplier PDFs to learn where the rules extractor fails; add those layouts or enable the grounded LLM fill-in for them.

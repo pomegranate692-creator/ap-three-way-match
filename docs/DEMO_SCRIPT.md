@@ -1,7 +1,7 @@
 # Demo script (60 seconds, live, synthetic data, no credentials)
 
 Setup once: `npm run build && npm start`, open http://127.0.0.1:8791. (Reset any time: *Data & safety → Reset*.)
-Every step below is automated in `tests/e2e/demo.spec.ts`; screenshots from that real run are in `screenshots/`.
+Every step below is automated in `tests/e2e/demo.spec.ts`; the tracked images in `screenshots/` come from that run. To refresh them, run `SCREENSHOT_DIR=screenshots npm run test:e2e`; by default the run writes to the ignored `test-results/screenshots/`.
 
 | Time | Do | Say | Proves |
 |---|---|---|---|

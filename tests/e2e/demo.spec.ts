@@ -3,7 +3,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 
-const SHOTS = join(import.meta.dirname, "..", "..", "screenshots");
+const SHOTS = process.env.SCREENSHOT_DIR ?? join(import.meta.dirname, "..", "..", "test-results", "screenshots");
 mkdirSync(SHOTS, { recursive: true });
 const shot = (page: Page, name: string) => page.screenshot({ path: join(SHOTS, `${name}.png`), fullPage: false });
 
