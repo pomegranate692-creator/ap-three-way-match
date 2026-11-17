@@ -12,7 +12,7 @@ export function Audit() {
   const { data, error, loading, reload } = useLoad<Ev[]>(`/api/audit?limit=400${action ? `&action=${encodeURIComponent(action)}` : ""}`);
   return (
     <div className="page">
-      <div className="page-head"><div><h1>Audit log</h1><p>Everything that changed state — who or what did it, when, and what it was before and after. Times are shown in {app.org?.timezone} and stored in UTC.</p></div>
+      <div className="page-head"><div><h1>Audit Trail</h1><p>Everything that changed state — who or what did it, when, and what it was before and after. Times are shown in {app.org?.timezone} and stored in UTC.</p></div>
         <div className="actions"><button className="btn" onClick={() => download("/api/data-export", `ap-data-${app.org?.id}.json`).catch((e) => app.reportError(e))}>Download all data (JSON)</button></div></div>
       <div className="filters">
         <select className="input" aria-label="Filter by event type" value={action} onChange={(e) => setAction(e.target.value)}>

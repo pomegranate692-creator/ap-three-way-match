@@ -64,7 +64,7 @@ export function Review({ id, initialTab }: { id: string; initialTab?: Tab }) {
   };
 
   if (loading && !data) return <div className="page"><div className="card"><LoadingBlock label="Loading bundle" /></div></div>;
-  if (error && !data) return <div className="page"><a href="#/">← Inbox</a><div style={{ marginTop: 12 }}><ErrorBox message={error.status === 404 ? "This bundle doesn't exist in the current organisation (or was deleted)." : error.message} onRetry={reload} /></div></div>;
+  if (error && !data) return <div className="page"><a href="#/invoices">← Invoice queue</a><div style={{ marginTop: 12 }}><ErrorBox message={error.status === 404 ? "This bundle doesn't exist in the current organisation (or was deleted)." : error.message} onRetry={reload} /></div></div>;
   if (!data) return null;
 
   const open = data.exceptions.filter((e) => e.status === "open");
@@ -81,7 +81,7 @@ export function Review({ id, initialTab }: { id: string; initialTab?: Tab }) {
     <>
       <div className="page" style={{ paddingBottom: 0, paddingTop: 14 }}>
         <div className="row" style={{ marginBottom: 6 }}>
-          <a href="#/">← Inbox</a>
+          <a href="#/invoices">← Invoice queue</a>
           <span className="muted">/</span>
           <h1 style={{ fontSize: 18 }}>{data.bundle.label} · <span className="mono">{f("docNumber") ?? "invoice"}</span></h1>
           <StateBadge state={data.bundle.state} /> <RecBadge rec={data.bundle.recommendation} />

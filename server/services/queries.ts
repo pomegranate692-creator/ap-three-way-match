@@ -4,12 +4,14 @@ import { all, get } from "../db.ts";
 import { canApprove, canCorrectFields, canOverride, canResolveException, canExport } from "../../shared/permissions.ts";
 import type { ExceptionItem, MatchResult, RiskFlag } from "../../shared/schemas.ts";
 import { tryD } from "../../shared/money.ts";
+import { matchesCategory } from "../../shared/exceptionCategories.ts";
 import { bundleDocs, canonOf, getSettings, type BundleRow, type DocRow, type FieldRow } from "./common.ts";
 
 export interface BundleSummary {
   id: string; label: string; state: string; recommendation: string | null; supplier: string | null; poNumber: string | null; invoiceNumber: string | null;
   invoiceDate: string | null; currency: string | null; total: string | null; open: number; openBlocking: number; closed: number; docs: { po: boolean; grn: number; invoice: boolean };
   source: string; fixtureId: string | null; createdAt: string; updatedAt: string; corrections: number;
+  /** codes of OPEN exceptions */ codes: string[]; /** line-level result of the current run */ lines: { matched: number; variance: number; unmatched: number };
 }
 
 export function listBundles(ctx: Ctx, filter: { state?: string; recommendation?: string; q?: string } = {}): BundleSummary[] {
@@ -21,13 +23,17 @@ export function listBundles(ctx: Ctx, filter: { state?: string; recommendation?:
     if (filter.recommendation && b.recommendation !== filter.recommendation) continue;
     const d = bundleDocs(ctx.db, b.id);
     const inv = d.invoice ? canonOf(ctx.db, d.invoice, settings) : null;
-    const exc = all<{ status: string; severity: string }>(ctx.db, "SELECT status, severity FROM exceptions WHERE bundle_id=?", b.id);
+    const exc = all<{ status: string; severity: string; code: string }>(ctx.db, "SELECT status, severity, code FROM exceptions WHERE bundle_id=?", b.id);
+    const cur = b.current_run_id ? get<{ result_json: string }>(ctx.db, "SELECT result_json FROM runs WHERE id=?", b.current_run_id) : undefined;
+    const rl = cur ? (JSON.parse(cur.result_json) as MatchResult).lines : [];
     const corr = get<{ n: number }>(ctx.db, "SELECT COUNT(*) n FROM corrections WHERE bundle_ids_json LIKE ?", `%"${b.id}"%`)?.n ?? 0;
     const row: BundleSummary = {
       id: b.id, label: b.label, state: b.state, recommendation: b.recommendation, supplier: inv?.supplierName ?? null, poNumber: b.po_number, invoiceNumber: inv?.docNumber ?? null,
       invoiceDate: inv?.docDate ?? null, currency: inv?.currency ?? null, total: inv?.total ?? null,
       open: exc.filter((e) => e.status === "open").length, openBlocking: exc.filter((e) => e.status === "open" && e.severity === "blocking").length, closed: exc.filter((e) => e.status !== "open").length,
       docs: { po: !!d.po, grn: d.grns.length, invoice: !!d.invoice }, source: b.source, fixtureId: b.fixture_id, createdAt: b.created_at, updatedAt: b.updated_at, corrections: corr,
+      codes: exc.filter((e) => e.status === "open").map((e) => e.code),
+      lines: { matched: rl.filter((l) => l.status === "matched").length, variance: rl.filter((l) => l.status === "variance").length, unmatched: rl.filter((l) => l.status === "unmatched").length },
     };
     if (filter.q) {
       const q = filter.q.toLowerCase();
@@ -130,14 +136,14 @@ export function getBundleDetail(ctx: Ctx, bundleId: string) {
   };
 }
 
-export function listExceptions(ctx: Ctx, f: { status?: string; severity?: string; code?: string } = {}) {
+export function listExceptions(ctx: Ctx, f: { status?: string; severity?: string; code?: string; category?: string } = {}) {
   const rows = all<{ id: string; bundle_id: string; label: string; state: string; status: string; severity: string; code: string; title: string; data_json: string; note: string | null; created_at: string }>(
     ctx.db,
     `SELECT e.id, e.bundle_id, b.label, b.state, e.status, e.severity, e.code, e.title, e.data_json, e.note, e.created_at
      FROM exceptions e JOIN bundles b ON b.id=e.bundle_id WHERE b.org_id=? ORDER BY CASE e.severity WHEN 'blocking' THEN 0 WHEN 'review' THEN 1 ELSE 2 END, b.seq`, ctx.orgId,
   );
   return rows
-    .filter((r) => (!f.status || r.status === f.status) && (!f.severity || r.severity === f.severity) && (!f.code || r.code === f.code))
+    .filter((r) => (!f.status || r.status === f.status) && (!f.severity || r.severity === f.severity) && (!f.code || r.code === f.code) && (!f.category || matchesCategory(f.category, r.code, r.title)))
     .map((r) => {
       const item = JSON.parse(r.data_json) as ExceptionItem;
       return { id: r.id, bundleId: r.bundle_id, bundleLabel: r.label, bundleState: r.state, status: r.status, severity: r.severity, code: r.code, title: r.title, ownerRole: item.ownerRole, delta: item.delta, currency: item.currency, explanation: item.explanation, note: r.note };
@@ -165,7 +171,7 @@ export function getStats(ctx: Ctx) {
   const corrections = get<{ n: number }>(ctx.db, "SELECT COUNT(*) n FROM corrections WHERE org_id=?", ctx.orgId)?.n ?? 0;
   const fields = get<{ n: number }>(ctx.db, "SELECT COUNT(*) n FROM fields f JOIN documents d ON d.id=f.document_id WHERE d.org_id=? AND f.extractor != 'human'", ctx.orgId)?.n ?? 0;
   return {
-    bundles: bundles.length, byState,
+    bundles: bundles.length, byState, pendingApprovals: bundles.filter((b) => ["matched", "held", "incomplete"].includes(b.state)).length,
     byRecommendation: { READY_FOR_APPROVAL: bundles.filter((b) => b.recommendation === "READY_FOR_APPROVAL").length, EXCEPTION_REVIEW: bundles.filter((b) => b.recommendation === "EXCEPTION_REVIEW").length, HOLD: bundles.filter((b) => b.recommendation === "HOLD").length },
     openExceptions: exc.filter((e) => e.status === "open").length, openBlocking: exc.filter((e) => e.status === "open" && e.severity === "blocking").length,
     exceptionsByCode: Object.entries(exc.reduce<Record<string, number>>((m, e) => ((m[e.code] = (m[e.code] ?? 0) + 1), m), {})).sort((a, b) => b[1] - a[1]),

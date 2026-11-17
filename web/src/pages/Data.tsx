@@ -21,7 +21,7 @@ export function Data() {
   }
   return (
     <div className="page" style={{ maxWidth: 980 }}>
-      <div className="page-head"><div><h1>Data and safety</h1><p>What this system is connected to, what it will never do, and how to take your data out or delete it.</p></div></div>
+      <div className="page-head"><div><h2 className="sub-h">Data and safety</h2><p>What this system is connected to, what it will never do, and how to take your data out or delete it.</p></div></div>
       <div className="stack">
         <section className="card card-pad stack"><h2>Connections</h2>
           <table className="t"><thead><tr><th>Connector</th><th>Status</th><th>Notes</th></tr></thead><tbody>

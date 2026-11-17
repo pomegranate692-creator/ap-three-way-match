@@ -26,6 +26,7 @@ export function safeName(name: string): string {
 }
 
 export async function ingestFile(ctx: Ctx, file: { name: string; bytes: Uint8Array }, source: "upload" | "demo"): Promise<IngestResult> {
+  const startedAt = performance.now();
   const filename = safeName(file.name);
   const settings = getSettings(ctx.db, ctx.orgId);
   const hash = sha256(file.bytes);
@@ -93,6 +94,8 @@ export async function ingestFile(ctx: Ctx, file: { name: string; bytes: Uint8Arr
 
     const doc = get<DocRow>(ctx.db, "SELECT * FROM documents WHERE id=?", id)!;
     const bundleIds = linkDocument(ctx, doc);
+    // measured end-to-end time (read, classify, extract, validate, match) for the dashboard's processing-time KPI
+    run(ctx.db, "UPDATE decisions SET output_json=json_set(output_json,'$.processingMs',?) WHERE document_id=? AND kind='extraction'", Math.round(performance.now() - startedAt), id);
     return { filename, status: "created" as const, documentId: id, docType: ex.docType, bundleIds, warnings: ex.warnings };
   });
 }

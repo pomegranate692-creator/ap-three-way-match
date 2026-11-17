@@ -12,6 +12,7 @@ interface AppState {
   notify(text: string, kind?: "ok" | "bad"): void; toasts: Toast[]; dismiss(id: number): void;
   version: number; refresh(): void; openOnboarding(): void; onboardingOpen: boolean; closeOnboarding(): void;
   reportError(e: unknown, prefix?: string): void; retry(): void;
+  days: number; setDays(d: number): void; source: "all" | "demo" | "upload"; setSource(s: "all" | "demo" | "upload"): void;
 }
 const Ctx = createContext<AppState | null>(null);
 export const useApp = () => { const c = useContext(Ctx); if (!c) throw new Error("no provider"); return c; };
@@ -32,6 +33,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [version, setVersion] = useState(0);
   const [onboardingOpen, setOnboardingOpen] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [days, setDaysState] = useState<number>(() => { const v = Number(ls.get("ap.days")); return [0, 7, 30, 90, 365].includes(v) && ls.get("ap.days") !== null ? v : 30; });
+  const [source, setSourceState] = useState<"all" | "demo" | "upload">(() => { const v = ls.get("ap.source"); return v === "demo" || v === "upload" ? v : "all"; });
 
   useEffect(() => {
     let live = true;
@@ -67,6 +70,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     orgs, org, user, meta, loading, offline, toasts, version, onboardingOpen,
     setOrg(id) { const o = orgs.find((x) => x.id === id); if (!o) return; setOrgId(id); const u = o.users[0]!; setUserId(u.id); ls.set("ap.org", id); ls.set("ap.user", u.id); setVersion((v) => v + 1); },
     setUser(id) { setUserId(id); ls.set("ap.user", id); setVersion((v) => v + 1); },
+    days, source,
+    setDays(d) { setDaysState(d); ls.set("ap.days", String(d)); },
+    setSource(s) { setSourceState(s); ls.set("ap.source", s); },
     notify, dismiss: (id) => setToasts((t) => t.filter((x) => x.id !== id)),
     refresh: () => setVersion((v) => v + 1),
     openOnboarding: () => setOnboardingOpen(true),
@@ -76,7 +82,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       notify(`${prefix ? prefix + " " : ""}${e instanceof Error ? e.message : "Unexpected error."}`, "bad");
     },
     retry: () => { setOffline(null); setAttempt((a) => a + 1); setVersion((v) => v + 1); },
-  }), [orgs, org, user, meta, loading, offline, toasts, version, onboardingOpen, notify]);
+  }), [orgs, org, user, meta, loading, offline, toasts, version, onboardingOpen, notify, days, source]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

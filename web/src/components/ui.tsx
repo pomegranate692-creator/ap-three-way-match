@@ -126,3 +126,30 @@ export function tablistKeys(e: ReactKeyboardEvent<HTMLElement>) {
 }
 /** Roving tabindex: the selected tab is tabbable; if nothing is selected yet, the first tab is. */
 export const tabIndexFor = (selected: boolean, anySelected: boolean, first: boolean) => (selected || (!anySelected && first) ? 0 : -1);
+
+/* ---------- dashboard icons ---------- */
+export const DIcon = {
+  home: () => <svg viewBox="0 0 24 24" {...P}><path d="M4 11l8-7 8 7M6 10v10h12V10M10 20v-6h4v6" /></svg>,
+  doc: () => <svg viewBox="0 0 24 24" {...P}><path d="M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5" /></svg>,
+  match: () => <svg viewBox="0 0 24 24" {...P}><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="18" cy="18" r="2.5" /><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6" /></svg>,
+  warn: () => <svg viewBox="0 0 24 24" {...P}><path d="M12 3l9.5 16.5h-19zM12 10v4.5M12 17.5v.5" /></svg>,
+  approve: () => <svg viewBox="0 0 24 24" {...P}><circle cx="12" cy="12" r="9" /><path d="M8 12.5l3 3 5-6" /></svg>,
+  folder: () => <svg viewBox="0 0 24 24" {...P}><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>,
+  list: () => <svg viewBox="0 0 24 24" {...P}><path d="M8 6h12M8 12h12M8 18h12M4 6h.5M4 12h.5M4 18h.5" /></svg>,
+  chart: () => <svg viewBox="0 0 24 24" {...P}><path d="M5 20V10M12 20V4M19 20v-7" /></svg>,
+  gear: () => <svg viewBox="0 0 24 24" {...P}><circle cx="12" cy="12" r="3" /><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" /></svg>,
+  clock: () => <svg viewBox="0 0 24 24" {...P}><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>,
+  coins: () => <svg viewBox="0 0 24 24" {...P}><ellipse cx="12" cy="6" rx="7" ry="3" /><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" /></svg>,
+  cloud: () => <svg viewBox="0 0 24 24" {...P}><path d="M7 18a4 4 0 01-.5-7.97A5.5 5.5 0 0117 8.5 4.5 4.5 0 0117 18zM12 12v6M9.5 14.5L12 12l2.5 2.5" /></svg>,
+  refresh: () => <svg viewBox="0 0 24 24" {...P}><path d="M20 11a8 8 0 00-14-4L4 9M4 4v5h5M4 13a8 8 0 0014 4l2-2M20 20v-5h-5" /></svg>,
+  cal: () => <svg viewBox="0 0 24 24" {...P}><rect x="4" y="5" width="16" height="15" rx="2" /><path d="M4 10h16M9 3v4M15 3v4" /></svg>,
+  menu: () => <svg viewBox="0 0 24 24" {...P}><path d="M4 7h16M4 12h16M4 17h16" /></svg>,
+  chev: () => <svg viewBox="0 0 24 24" {...P}><path d="M9 6l6 6-6 6" /></svg>,
+  chevL: () => <svg viewBox="0 0 24 24" {...P}><path d="M15 6l-6 6 6 6" /></svg>,
+  dots: () => <svg viewBox="0 0 24 24" {...P}><circle cx="5" cy="12" r="1" /><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /></svg>,
+  search: () => <svg viewBox="0 0 24 24" {...P}><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4 4" /></svg>,
+  info: () => <svg viewBox="0 0 24 24" {...P}><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8v.5" /></svg>,
+  msg: () => <svg viewBox="0 0 24 24" {...P}><path d="M4 5h16v11H9l-5 4z" /></svg>,
+  arrowUp: () => <svg viewBox="0 0 24 24" {...P}><path d="M12 19V6M6 11l6-6 6 6" /></svg>,
+  arrowDown: () => <svg viewBox="0 0 24 24" {...P}><path d="M12 5v13M6 13l6 6 6-6" /></svg>,
+};

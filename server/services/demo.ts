@@ -36,23 +36,53 @@ export async function loadDemoData(ctx: Ctx, fixtureDir: string): Promise<{ bund
   const mine = manifest.bundles.filter((b) => b.orgId === ctx.orgId).sort((a, b) => a.n - b.n);
   if (!mine.length) throw unprocessable("No demo data is defined for this organisation.");
   let bundlesLoaded = 0, documentsCreated = 0, duplicatesSkipped = 0, rejected = 0;
-  audit(ctx, { action: "demo.load_started", entityType: "org", entityId: ctx.orgId, kind: "system", note: `Loading ${mine.length} synthetic bundles through the real extraction + matching pipeline` });
-  for (const b of mine) {
+  audit(ctx, { action: "demo.load_started", entityType: "org", entityId: ctx.orgId, kind: "system", note: `Loading ${mine.length} synthetic bundles through the real extraction + matching pipeline (received dates are spread synthetically over 28 days)` });
+  const DAY = 86_400_000;
+  const nowMs = Date.parse(ctx.now());
+  for (const [k, b] of mine.entries()) {
+    const docIds: string[] = [];
     for (const [slot, file] of [["po", b.files.po], ["grn", b.files.grn], ["invoice", b.files.invoice]] as const) {
       if (!file) continue;
       const bytes = readFileSync(join(fixtureDir, "pdf", file));
       const r = await ingestFile(ctx, { name: file, bytes }, "demo");
-      if (r.status === "created") documentsCreated++;
+      if (r.status === "created") { documentsCreated++; if (r.documentId) docIds.push(r.documentId); }
       else if (r.status === "duplicate_file") duplicatesSkipped++;
       else rejected++;
       if (slot === "invoice" && r.status === "created" && r.bundleIds[0]) {
         run(ctx.db, "UPDATE bundles SET label=?, fixture_id=? WHERE id=?", b.id, b.id, r.bundleIds[0]);
         bundlesLoaded++;
+        // SYNTHETIC received dates: spread the demo bundles over the last 28 days (deterministic) so trends have history.
+        // Only bundle/document/decision timestamps move; audit events keep the real load time.
+        const daysAgo = Math.round(((mine.length - 1 - k) * 27) / Math.max(1, mine.length - 1));
+        const at = new Date(nowMs - daysAgo * DAY - ((k * 5) % 8) * 3_600_000).toISOString();
+        run(ctx.db, "UPDATE bundles SET created_at=?, updated_at=? WHERE id=?", at, at, r.bundleIds[0]);
+        for (const id of docIds) {
+          run(ctx.db, "UPDATE documents SET created_at=? WHERE id=?", at, id);
+          run(ctx.db, "UPDATE decisions SET created_at=? WHERE document_id=?", at, id);
+        }
       }
     }
   }
   audit(ctx, { action: "demo.load_finished", entityType: "org", entityId: ctx.orgId, kind: "system", after: { bundlesLoaded, documentsCreated, duplicatesSkipped, rejected } });
   return { bundlesLoaded, documentsCreated, duplicatesSkipped, rejected };
+}
+
+/**
+ * Demo scenario "invoice with no purchase order": ingest a SYNTHETIC invoice that belongs to ANOTHER organisation's fixture set,
+ * so this organisation has no PO or receipt for it. The real pipeline then raises "No purchase order on file".
+ */
+export async function loadMissingPoScenario(ctx: Ctx, fixtureDir: string) {
+  const manifest = readManifest(fixtureDir);
+  const cand = manifest.bundles.filter((b) => b.orgId !== ctx.orgId && b.expectedExceptions.length === 0 && b.files.po).sort((a, b) => b.n - a.n)[0];
+  if (!cand) throw unprocessable("No suitable demo invoice is available.");
+  const bytes = readFileSync(join(fixtureDir, "pdf", cand.files.invoice));
+  const r = await ingestFile(ctx, { name: cand.files.invoice, bytes }, "demo");
+  if (r.status === "duplicate_file") throw unprocessable("This scenario is already loaded; look for the invoice without a purchase order in the queue.");
+  if (r.status !== "created" || !r.bundleIds[0]) throw unprocessable(r.message ?? "The scenario invoice could not be read.");
+  const label = `${cand.id}-noPO`;
+  run(ctx.db, "UPDATE bundles SET label=?, fixture_id=? WHERE id=?", label, label, r.bundleIds[0]);
+  audit(ctx, { action: "demo.scenario_loaded", entityType: "bundle", entityId: r.bundleIds[0], bundleId: r.bundleIds[0], kind: "system", note: "Synthetic invoice loaded without its purchase order (missing-PO scenario)" });
+  return { bundleId: r.bundleIds[0], label };
 }
 
 export function deleteBundle(ctx: Ctx, bundleId: string) {

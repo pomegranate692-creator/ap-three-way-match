@@ -39,7 +39,7 @@ export function Exports() {
 
   return (
     <div className="page">
-      <div className="page-head"><div><h1>Exports</h1><p>Preview exactly what goes into the file, then create it. Exports are files on your computer — they never post to a ledger or trigger payment.</p></div></div>
+      <div className="page-head"><div><h1>Reports</h1><p>Preview exactly what goes into the file, then create it. Exports are files on your computer — they never post to a ledger or trigger payment.</p></div></div>
       <div className="card card-pad stack" style={{ marginBottom: 18 }}>
         <div className="row" style={{ gap: 24 }}>
           <fieldset style={{ border: 0, padding: 0, margin: 0 }}><legend className="small muted" style={{ padding: 0 }}>What to export</legend>

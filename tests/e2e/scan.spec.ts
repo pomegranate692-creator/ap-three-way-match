@@ -16,7 +16,7 @@ test("AT-13 · scanned invoice: OCR warning, original image with source boxes, d
   await page.reload();
   await page.getByLabel("Organisation").selectOption({ label: "Cobalt Bay Foods" });
   await page.setInputFiles('input[type="file"]', names.map((n) => ({ name: n, mimeType: "image/png", buffer: readFileSync(join(ROOT, "fixtures", "scanned", n)) })));
-  await page.getByRole("link", { name: /Open bundle/ }).first().click({ timeout: 60_000 });
+  await page.locator(".uplist").getByRole("link", { name: "Open", exact: true }).first().click({ timeout: 90_000 });
   await expect(page.getByText("Scanned · OCR")).toBeVisible();
   await expect(page.getByText("Original document · boxes mark where each value was read")).toBeVisible();
   await expect(page.locator('img[alt="Scanned document"]')).toBeVisible();

@@ -4,9 +4,9 @@ A local-first web app that checks **purchase order ↔ receiving record ↔ invo
 
 > **Synthetic data only. It never pays, posts or sends anything.** Every company, person and document in the demo is fictional.
 
-**Demo:** [Watch the 85-second walkthrough on my portfolio](https://claude.ai/artifact/1tbJbHHFzbUXTwGGmLg6mn#ap-three-way-match) · [Download the MP4](https://github.com/pomegranate692-creator/ap-three-way-match/raw/main/demos/ap-three-way-match-demo.mp4) · [Read the short case study](docs/CASE_STUDY.md)
+**Demo:** [Watch the 95-second walkthrough on my portfolio](https://claude.ai/artifact/1tbJbHHFzbUXTwGGmLg6mn#ap-three-way-match) · [Download the video (WebM)](https://github.com/pomegranate692-creator/ap-three-way-match/raw/main/demos/ap-three-way-match-demo.webm) · [Read the short case study](docs/CASE_STUDY.md)
 
-GitHub cannot play videos stored in a repository, so the portfolio page hosts the player and the MP4 link downloads the file. The video is silent and captioned. Synthetic data only.
+GitHub cannot play videos stored in a repository, so the portfolio page hosts the player and the video link downloads the file. The video is silent and captioned. Synthetic data only.
 
 ![Quantity mismatch with source highlight](screenshots/05-source-highlight.png)
 
@@ -18,12 +18,14 @@ GitHub cannot play videos stored in a repository, so the portfolio page hosts th
 - **Human in the loop**: correct a field (reason required) → automatic re-match as a new run; accept/resolve/override exceptions with a note; role, amount-limit and separation-of-duties gates; approval is superseded if data changes later.
 - **Export** approved register or exception record as CSV/XLSX with preview; formula-injection-safe.
 - **Audit log** of every proposal → decision → execution; JSON export and deletion of all data.
-- Onboarding, empty/loading/error states, keyboard operable, responsive to phone width, light/dark.
+- Onboarding, empty/loading/error states, keyboard operable, responsive to phone width, dark (default) / light.
+- **Operations dashboard** (Overview): five KPIs, processing trend, invoice queue (search, sort, filter, pagination, selection, export), three-way-match donut, clickable exception alerts and a side Approval Review panel whose Approve / Reject / Request Info buttons call the real decision API. Every number is computed from stored records by `GET /api/dashboard`; comparison arrows appear only when the previous period holds at least 5 invoices. Demo data is flagged as synthetic and can be filtered apart from your uploads.
+- **Nine screens**: Overview, Invoice Processing (upload + queue + scenario guide), Three-Way Match, Exceptions, Approvals, Documents (preview, remove/replace), Audit Trail, Reports, Settings (+ Data & safety).
 
 | | |
 |---|---|
-| ![Inbox](screenshots/03-inbox.png) | ![Exception](screenshots/06-exception-card.png) |
-| ![Audit](screenshots/10-audit-log.png) | ![Mobile](screenshots/13-mobile-review.png) |
+| ![Overview dashboard](screenshots/24-desktop-1440.png) | ![Mobile approval drawer](screenshots/23-mobile-approval-drawer.png) |
+| ![Exception](screenshots/06-exception-card.png) | ![Audit](screenshots/10-audit-log.png) |
 
 ## Run it
 Requires Node ≥ 22.13 (tested on 24.19).
@@ -34,8 +36,8 @@ npm run build && npm start        # → http://127.0.0.1:8791
 Then follow the 3-step tour, or see [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md). Development: `npm run dev`. Preload everything from the CLI: `npm run seed -- --reset`.
 
 ```bash
-npm run check        # typecheck + 112 unit/integration tests
-npm run test:e2e     # 6 Playwright tests in real Chrome (builds + serves on :8793; uses its own data/e2e/ folder, never your demo data)
+npm run check        # typecheck + 178 unit/integration tests
+npm run test:e2e     # 14 Playwright tests in real Chrome (desktop + Pixel 7) (builds + serves on :8793; uses its own data/e2e/ folder, never your demo data)
 npm run eval         # extraction / matching metrics + baselines on the 25 fixtures
 npm run fixtures     # regenerate the synthetic PDFs deterministically
 node scripts/record-demo.mjs   # re-record the demo video: own synthetic DB in data/e2e/demo-recording/ on :8795, output in demos/<timestamp>/

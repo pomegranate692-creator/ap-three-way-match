@@ -2,14 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { AppProvider, useApp, useLoad } from "./state";
 import { api } from "./lib/api";
 import { ROLE_LABEL } from "./lib/format";
-import { Icon, Modal } from "./components/ui";
-import { Inbox } from "./pages/Inbox";
+import { DIcon, Modal } from "./components/ui";
+import { Overview } from "./pages/Overview";
+import { Invoices } from "./pages/Invoices";
+import { ThreeWay } from "./pages/ThreeWay";
+import { Approvals } from "./pages/Approvals";
+import { Documents } from "./pages/Documents";
+import { SettingsHub } from "./pages/SettingsHub";
 import { Review } from "./pages/Review";
 import { Queue } from "./pages/Queue";
 import { Exports } from "./pages/Exports";
 import { Audit } from "./pages/Audit";
-import { Settings } from "./pages/Settings";
-import { Data } from "./pages/Data";
 
 function useHash() {
   const [h, setH] = useState(location.hash || "#/");
@@ -50,10 +53,10 @@ function Onboarding() {
 function Shell() {
   const app = useApp();
   const hash = useHash();
-  const stats = useLoad<{ openExceptions: number; openBlocking: number }>(app.user ? "/api/stats" : null);
+  const stats = useLoad<{ openExceptions: number; openBlocking: number; pendingApprovals: number }>(app.user ? "/api/stats" : null);
   const [route, qs] = hash.replace(/^#/, "").split("?");
   const params = new URLSearchParams(qs ?? "");
-  const [theme, setTheme] = useState<string>(() => { try { return localStorage.getItem("ap.theme") ?? "auto"; } catch { return "auto"; } });
+  const [theme, setTheme] = useState<string>(() => { try { return localStorage.getItem("ap.theme") ?? "dark"; } catch { return "dark"; } });
   useEffect(() => {
     if (theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", theme);
     try { localStorage.setItem("ap.theme", theme); } catch { /* ignore */ }
@@ -66,52 +69,60 @@ function Shell() {
     document.getElementById("main")?.focus({ preventScroll: true });
   }, [route]);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => { setMenuOpen(false); }, [route]);
   const nav: [string, string, () => React.JSX.Element, string?][] = [
-    ["/", "Inbox", Icon.inbox], ["/exceptions", "Exceptions", Icon.queue, stats.data?.openExceptions ? String(stats.data.openExceptions) : undefined],
-    ["/exports", "Exports", Icon.export], ["/audit", "Audit log", Icon.audit], ["/settings", "Settings", Icon.settings], ["/data", "Data & safety", Icon.shield],
+    ["/", "Overview", DIcon.home], ["/invoices", "Invoice Processing", DIcon.doc], ["/match", "Three-Way Match", DIcon.match],
+    ["/exceptions", "Exceptions", DIcon.warn, stats.data?.openExceptions ? String(stats.data.openExceptions) : undefined],
+    ["/approvals", "Approvals", DIcon.approve, stats.data?.pendingApprovals ? String(stats.data.pendingApprovals) : undefined],
+    ["/documents", "Documents", DIcon.folder], ["/audit", "Audit Trail", DIcon.list], ["/reports", "Reports", DIcon.chart], ["/settings", "Settings", DIcon.gear],
   ];
-  const active = (p: string) => (p === "/" ? route === "/" || route!.startsWith("/bundles") : route!.startsWith(p));
+  const active = (p: string) => (p === "/" ? route === "/" : p === "/invoices" ? route!.startsWith("/invoices") || route!.startsWith("/bundles") : route!.startsWith(p));
 
   let page;
   if (app.loading && !app.org) page = <div className="page"><div role="status">Starting…</div></div>;
   else if (!app.org || !app.user) page = <div className="page"><div className="banner bad" role="alert">{app.offline ?? "No organisations found."} <button className="btn sm" onClick={app.retry}>Retry</button></div></div>;
   else if (route!.startsWith("/bundles/")) page = <Review id={route!.split("/")[2]!} key={route} initialTab={(params.get("tab") as never) ?? undefined} />;
   else if (route === "/exceptions") page = <Queue />;
-  else if (route === "/exports") page = <Exports />;
+  else if (route === "/reports" || route === "/exports") page = <Exports />;
   else if (route === "/audit") page = <Audit />;
-  else if (route === "/settings") page = <Settings />;
-  else if (route === "/data") page = <Data />;
-  else page = <Inbox />;
+  else if (route === "/settings" || route === "/data") page = <SettingsHub initialTab={route === "/data" ? "data" : (params.get("tab") as "settings" | "data" | null) ?? "settings"} theme={theme} setTheme={setTheme} onTour={app.openOnboarding} />;
+  else if (route === "/invoices") page = <Invoices />;
+  else if (route === "/match") page = <ThreeWay />;
+  else if (route === "/approvals") page = <Approvals />;
+  else if (route === "/documents") page = <Documents />;
+  else page = <Overview />;
 
   return (
-    <div className="app">
+    <div className="app" data-menu={menuOpen}>
       <a className="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>Skip to content</a>
-      <aside className="rail">
-        <div className="brand"><div className="brand-mark" aria-hidden>3∙</div><div><b>Three-Way Match</b><span>AP document intelligence</span></div></div>
+      <header className="mobilebar">
+        <button className="iconbtn" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="sidebar" onClick={() => setMenuOpen(!menuOpen)}><DIcon.menu /></button>
+        <b>AP Document Intelligence</b>
+        {stats.data?.openExceptions ? <span className="count" aria-label={`${stats.data.openExceptions} open exceptions`}>{stats.data.openExceptions}</span> : null}
+      </header>
+      {menuOpen && <button className="nav-scrim" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
+      <aside className="rail" id="sidebar">
+        <div className="brand"><div className="brand-mark" aria-hidden>AP</div><div><b>Three-Way Match</b><span>AP document intelligence</span></div></div>
         <nav className="nav" aria-label="Main">
           {nav.map(([p, label, I, count]) => (
             <a key={p} href={`#${p}`} aria-current={active(p) ? "page" : undefined}><I /><span className="label">{label}</span>{count && <span className="count" aria-label={`${count} open`}>{count}</span>}</a>
           ))}
         </nav>
         <div className="rail-foot">
-          <button className="btn sm" onClick={app.openOnboarding}>Guided tour</button>
-          <label className="small muted" style={{ display: "grid", gap: 3 }}>Theme<select className="input" value={theme} onChange={(e) => setTheme(e.target.value)} style={{ minHeight: 28, padding: "2px 6px" }}><option value="auto">Match system</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+          <span className="synthetic-tag" title="Every company, person and document in the demo data is fictional">Synthetic demo data</span>
+          {app.org && app.user && (
+            <>
+              <label className="small muted who">Organisation
+                <select className="input" aria-label="Organisation" value={app.org.id} onChange={(e) => { app.setOrg(e.target.value); location.hash = "#/"; }}>{app.orgs.map((o) => <option key={o.id} value={o.id}>{o.name}</option>)}</select></label>
+              <label className="small muted who">Acting as
+                <select className="input" aria-label="Acting as" value={app.user.id} onChange={(e) => app.setUser(e.target.value)}>{app.org.users.map((u) => <option key={u.id} value={u.id}>{u.name} · {ROLE_LABEL[u.role]}</option>)}</select></label>
+            </>
+          )}
           <span className="small muted">v0.1 · local-first · no payments</span>
         </div>
       </aside>
       <div className="main">
-        <header className="topbar">
-          <span className="synthetic-tag" title="Every company, person and document here is fictional">Synthetic data</span>
-          <span className="grow" />
-          {app.org && app.user && (
-            <>
-              <label className="row small muted">Organisation
-                <select className="input" aria-label="Organisation" value={app.org.id} onChange={(e) => { app.setOrg(e.target.value); location.hash = "#/"; }} style={{ width: "auto", minHeight: 30, padding: "3px 8px" }}>{app.orgs.map((o) => <option key={o.id} value={o.id}>{o.name}</option>)}</select></label>
-              <label className="row small muted">Acting as
-                <select className="input" aria-label="Acting as" value={app.user.id} onChange={(e) => app.setUser(e.target.value)} style={{ width: "auto", minHeight: 30, padding: "3px 8px" }}>{app.org.users.map((u) => <option key={u.id} value={u.id}>{u.name} · {ROLE_LABEL[u.role]}</option>)}</select></label>
-            </>
-          )}
-        </header>
         {app.offline && app.org && <div className="banner bad" role="alert" style={{ margin: "12px 24px 0" }}>{app.offline}<button className="btn sm" onClick={app.retry}>Retry</button></div>}
         <main id="main" tabIndex={-1} style={{ outline: "none" }}>{page}</main>
       </div>

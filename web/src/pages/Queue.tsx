@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { EXCEPTION_CATEGORIES } from "../../../shared/exceptionCategories";
+import { hashParams } from "../lib/hooks";
 import { CODE_LABEL, money, ROLE_LABEL, signed } from "../lib/format";
 import { useLoad } from "../state";
 import { CodeBadge, Empty, ErrorBox, LoadingBlock, SevBadge, StateBadge } from "../components/ui";
@@ -8,14 +10,17 @@ interface Row { id: string; bundleId: string; bundleLabel: string; bundleState: 
 export function Queue() {
   const [sev, setSev] = useState("");
   const [code, setCode] = useState("");
-  const qs = new URLSearchParams({ status: "open", ...(sev ? { severity: sev } : {}), ...(code ? { code } : {}) }).toString();
+  const category = hashParams().get("category") ?? "";
+  const qs = new URLSearchParams({ status: "open", ...(sev ? { severity: sev } : {}), ...(code ? { code } : {}), ...(category ? { category } : {}) }).toString();
   const { data, error, loading, reload } = useLoad<Row[]>(`/api/exceptions?${qs}`);
   return (
     <div className="page">
-      <div className="page-head"><div><h1>Exception queue</h1><p>Every open exception across your bundles, most serious first. Open one to see the evidence on the original document and clear it.</p></div></div>
+      <div className="page-head"><div><h1>Exceptions</h1><p>Every open exception across your bundles, most serious first. Open one to see the evidence on the original document and clear it.</p></div></div>
       <div className="filters">
         <label className="sr-only" htmlFor="sev">Severity</label>
         <select id="sev" className="input" value={sev} onChange={(e) => setSev(e.target.value)}><option value="">All severities</option><option value="blocking">Blocking</option><option value="review">Needs review</option></select>
+        <label className="sr-only" htmlFor="cat">Category</label>
+        <select id="cat" className="input" value={category} onChange={(e) => { location.hash = e.target.value ? `#/exceptions?category=${e.target.value}` : "#/exceptions"; }}><option value="">All categories</option>{EXCEPTION_CATEGORIES.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}</select>
         <label className="sr-only" htmlFor="code">Exception type</label>
         <select id="code" className="input" value={code} onChange={(e) => setCode(e.target.value)}><option value="">All exception types</option>{Object.entries(CODE_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select>
         {data && <span className="small muted">{data.length} open</span>}
@@ -35,7 +40,7 @@ export function Queue() {
                 <td className="num mono">{r.delta ? signed(r.currency ? money(r.delta, r.currency) : r.delta) : "—"} {r.currency ?? ""}</td>
               </tr>
             ))}
-            {!data.length && <tr><td colSpan={6}><Empty title="No open exceptions">{sev || code ? "Nothing matches these filters." : "Everything in this organisation is either clean or already cleared. Load demo data from the inbox to see exceptions."}</Empty></td></tr>}
+            {!data.length && <tr><td colSpan={6}><Empty title="No open exceptions">{sev || code || category ? "Nothing matches these filters." : "Everything in this organisation is either clean or already cleared. Load demo data from Overview to see exceptions."}</Empty></td></tr>}
           </tbody>
         </table></div></div>
       )}

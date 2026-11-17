@@ -20,7 +20,7 @@ export default defineConfig({
     timeout: 180_000,
   },
   projects: [
-    { name: "desktop", testMatch: /(demo|scan)\.spec\.ts/, use: { viewport: { width: 1360, height: 860 } } },
+    { name: "desktop", testMatch: /(demo|demo2-dashboard|scan)\.spec\.ts/, use: { viewport: { width: 1360, height: 860 } } },
     { name: "mobile", testMatch: /mobile\.spec\.ts/, use: { ...devices["Pixel 7"], channel: "chrome" } },
   ],
 });

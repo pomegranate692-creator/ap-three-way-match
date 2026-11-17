@@ -14,7 +14,9 @@ import { runMatch } from "./services/matching.ts";
 import { correctField, decide, resolveException, saveSettings } from "./services/review.ts";
 import { getBundleDetail, getStats, listAudit, listBundles, listExceptions } from "./services/queries.ts";
 import { createExport, exportFile, listExports } from "./services/exports.ts";
-import { deleteBundle, exportOrgData, loadDemoData, wipeOrgData } from "./services/demo.ts";
+import { deleteBundle, exportOrgData, loadDemoData, loadMissingPoScenario, wipeOrgData } from "./services/demo.ts";
+import { getDashboard, type SourceFilter } from "./services/dashboard.ts";
+import { deleteDocument, listDocuments } from "./services/documents.ts";
 import { generateAiSummary } from "./services/ai.ts";
 import { getSettings } from "./services/common.ts";
 
@@ -129,8 +131,16 @@ export function createApp(opts: AppOptions) {
   app.get("/api/stats", (c) => c.json(getStats(ctxOf(c))));
   app.get("/api/bundles", (c) => c.json(listBundles(ctxOf(c), { ...(c.req.query("state") ? { state: c.req.query("state")! } : {}), ...(c.req.query("recommendation") ? { recommendation: c.req.query("recommendation")! } : {}), ...(c.req.query("q") ? { q: c.req.query("q")! } : {}) })));
   app.get("/api/bundles/:id", (c) => c.json(getBundleDetail(ctxOf(c), c.req.param("id"))));
-  app.get("/api/exceptions", (c) => c.json(listExceptions(ctxOf(c), { ...(c.req.query("status") ? { status: c.req.query("status")! } : { status: "open" }), ...(c.req.query("severity") ? { severity: c.req.query("severity")! } : {}), ...(c.req.query("code") ? { code: c.req.query("code")! } : {}) })));
+  app.get("/api/exceptions", (c) => c.json(listExceptions(ctxOf(c), { ...(c.req.query("status") ? { status: c.req.query("status")! } : { status: "open" }), ...(c.req.query("severity") ? { severity: c.req.query("severity")! } : {}), ...(c.req.query("code") ? { code: c.req.query("code")! } : {}), ...(c.req.query("category") ? { category: c.req.query("category")! } : {}) })));
   app.get("/api/audit", (c) => c.json(listAudit(ctxOf(c), { ...(c.req.query("bundleId") ? { bundleId: c.req.query("bundleId")! } : {}), ...(c.req.query("action") ? { action: c.req.query("action")! } : {}), limit: Number(c.req.query("limit") ?? 200), offset: Number(c.req.query("offset") ?? 0) })));
+  app.get("/api/dashboard", (c) => {
+    const raw = Number(c.req.query("days") ?? 30);
+    const days = [0, 7, 30, 90, 365].includes(raw) ? raw : 30;
+    const src = c.req.query("source");
+    const source: SourceFilter = src === "demo" || src === "upload" ? src : "all";
+    return c.json(getDashboard(ctxOf(c), { days, source }));
+  });
+  app.get("/api/documents", (c) => c.json(listDocuments(ctxOf(c))));
   app.get("/api/settings", (c) => c.json(getSettings(opts.db, ctxOf(c).orgId)));
   app.get("/api/exports", (c) => c.json(listExports(ctxOf(c))));
 
@@ -192,6 +202,7 @@ export function createApp(opts: AppOptions) {
     return c.json(decide(ctxOf(c), c.req.param("id"), b, c.req.header("idempotency-key") ?? null));
   });
   app.post("/api/bundles/:id/ai-summary", async (c) => c.json(await generateAiSummary(ctxOf(c), c.req.param("id"))));
+  app.delete("/api/documents/:id", (c) => c.json(deleteDocument(ctxOf(c), c.req.param("id"))));
   app.delete("/api/bundles/:id", (c) => c.json(deleteBundle(ctxOf(c), c.req.param("id"))));
   app.put("/api/settings", async (c) => {
     let json: unknown;
@@ -201,6 +212,7 @@ export function createApp(opts: AppOptions) {
   app.post("/api/exports", async (c) => c.json(await createExport(ctxOf(c), await body(c, ExportBody), c.req.header("idempotency-key") ?? null)));
 
   app.post("/api/demo/load", async (c) => c.json(await loadDemoData(ctxOf(c), opts.fixtureDir)));
+  app.post("/api/demo/scenario/missing-po", async (c) => c.json(await loadMissingPoScenario(ctxOf(c), opts.fixtureDir)));
   app.post("/api/demo/reset", async (c) => {
     const ctx = ctxOf(c);
     const wiped = wipeOrgData(ctx, true);

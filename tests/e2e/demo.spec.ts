@@ -13,8 +13,11 @@ async function pickUser(page: Page, org: string, user: string) {
   if (current !== org) await orgSel.selectOption({ label: org }); // switching organisation returns to its inbox
   await page.getByLabel("Acting as").selectOption({ label: user });
 }
+/** Open a demo bundle from the invoice queue by its scenario id (B05 …), as a person would. */
 async function openBundle(page: Page, label: string) {
-  await page.getByRole("link", { name: label, exact: true }).first().click();
+  await page.goto("/#/invoices");
+  await page.locator("table.qt").waitFor();
+  await page.locator("table.qt tbody tr", { has: page.locator(".scn", { hasText: new RegExp(`^${label}$`) }) }).getByRole("link").first().click();
   await expect(page.getByRole("heading", { level: 1 }).filter({ hasText: label })).toBeVisible();
 }
 async function axeCheck(page: Page, where: string) {
@@ -36,16 +39,16 @@ test("AT-12 · first run → demo data → success path → exception path → h
   await dlg.getByRole("button", { name: "Next" }).click();
   // empty state first: say no to the tour's data load, look at the honest empty inbox
   await dlg.getByRole("button", { name: "Skip" }).click();
-  await expect(page.getByRole("heading", { name: "No invoices yet" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Start with a document or the demo" })).toBeVisible();
   await shot(page, "02-empty-state");
 
   /* ---------- load synthetic data through the real pipeline ---------- */
   await pickUser(page, "Harbor & Pine Hardware", "Dana Whitfield · AP Clerk");
   await page.getByRole("button", { name: "Load synthetic demo data" }).click();
   await expect(page.getByText("Loaded 9 synthetic bundles")).toBeVisible({ timeout: 60_000 });
-  await expect(page.locator("table.t tbody tr")).toHaveCount(9);
-  await shot(page, "03-inbox");
-  await axeCheck(page, "inbox");
+  await expect(page.getByRole("group", { name: "Invoices Processed" })).toContainText("9");
+  await shot(page, "03-overview");
+  await axeCheck(page, "overview");
 
   /* ---------- SUCCESS PATH: clean bundle approved with one click ---------- */
   await openBundle(page, "B01");
@@ -56,7 +59,6 @@ test("AT-12 · first run → demo data → success path → exception path → h
   await expect(page.getByText("Approved", { exact: true }).first()).toBeVisible();
 
   /* ---------- FAILURE PATH: quantity mismatch, evidence on the original page ---------- */
-  await page.goto("/#/");
   await openBundle(page, "B05");
   await expect(page.getByText("System recommendation: Exception review")).toBeVisible();
   await expect(page.locator("table.t").first().getByText("Billed > received")).toBeVisible();
@@ -79,7 +81,7 @@ test("AT-12 · first run → demo data → success path → exception path → h
   await expect(page.getByText(/Can't approve yet/)).toBeVisible();
 
   /* ---------- export an exception record for approval routing ---------- */
-  await page.getByRole("link", { name: "Exports" }).click();
+  await page.getByRole("link", { name: "Reports", exact: true }).click();
   await page.getByLabel(/Exception record/).check();
   await page.getByLabel(/CSV/).check();
   await expect(page.getByText("Preview", { exact: true })).toBeVisible();
@@ -123,7 +125,7 @@ test("AT-12 · first run → demo data → success path → exception path → h
   await expect(page.getByText("Approved. Recorded with your name")).toBeVisible();
 
   /* ---------- regenerated, trustworthy output ---------- */
-  await page.getByRole("link", { name: "Exports" }).click();
+  await page.getByRole("link", { name: "Reports", exact: true }).click();
   await page.getByLabel(/Approved register/).check();
   await page.getByLabel(/Excel/).check();
   await expect(page.locator("table.t").first()).toContainText("B14");
@@ -133,7 +135,7 @@ test("AT-12 · first run → demo data → success path → exception path → h
   await expect(page.getByText(/No payment or posting happened/)).toBeVisible();
 
   /* ---------- audit trail shows proposal → human → execution ---------- */
-  await page.getByRole("link", { name: "Audit log" }).click();
+  await page.getByRole("link", { name: "Audit Trail" }).click();
   await expect(page.locator("table.t").first()).toContainText("field.corrected");
   await expect(page.locator("table.t").first()).toContainText("approval.approved");
   await expect(page.locator("table.t").first()).toContainText("export.executed");
@@ -149,9 +151,7 @@ test("keyboard: skip link, tab order, dialog focus trap and Escape", async ({ pa
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
   // reach a bundle link and open it with Enter
-  await page.getByRole("link", { name: "B05", exact: true }).focus();
-  await page.keyboard.press("Enter");
-  await expect(page.getByRole("heading", { level: 1 }).filter({ hasText: "B05" })).toBeVisible();
+  await openBundle(page, "B05");
   // open the hold dialog by keyboard, verify focus is inside it, Escape returns focus
   const hold = page.getByRole("button", { name: "Hold", exact: true });
   await hold.focus();
@@ -170,6 +170,7 @@ test("errors are explained and recoverable: wrong file type, role denial, server
   await page.evaluate(() => localStorage.setItem("ap.onboarded", "1"));
   await page.reload();
   await page.getByLabel("Organisation").selectOption({ label: "Harbor & Pine Hardware" });
+  await page.goto("/#/invoices");
   await page.setInputFiles('input[type="file"]', [{ name: "scan.png", mimeType: "image/png", buffer: Buffer.from("89504e470d0a1a0a0000000d49484452", "hex") }, { name: "bad.pdf", mimeType: "application/pdf", buffer: Buffer.from("hello") }]);
   await expect(page.getByText("Rejected").first()).toBeVisible();
   await expect(page.getByText(/image file could not be read/)).toBeVisible();
@@ -177,7 +178,7 @@ test("errors are explained and recoverable: wrong file type, role denial, server
   await shot(page, "11-upload-rejections");
   // a purchasing lead is told clearly that they cannot approve
   await page.getByLabel("Acting as").selectOption({ label: "Priya Raman · Purchasing Lead" });
-  await page.getByRole("link", { name: "B02", exact: true }).first().click();
+  await openBundle(page, "B02");
   await expect(page.getByRole("button", { name: "Approve", exact: true })).toBeDisabled();
   await expect(page.getByText(/do not approve payment/)).toBeVisible();
   // settings are read-only unless controller

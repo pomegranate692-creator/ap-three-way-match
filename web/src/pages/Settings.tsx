@@ -41,7 +41,7 @@ export function Settings() {
 
   return (
     <div className="page" style={{ maxWidth: 980 }}>
-      <div className="page-head"><div><h1>Matching settings</h1><p>Tolerances and policies for <b>{app.org?.name}</b>. Every change is audited. Tolerances are inclusive: a difference exactly equal to the limit passes.</p></div>
+      <div className="page-head"><div><h2 className="sub-h">Matching settings</h2><p>Tolerances and policies for <b>{app.org?.name}</b>. Every change is audited. Tolerances are inclusive: a difference exactly equal to the limit passes.</p></div>
         <div className="actions"><button className="btn primary" disabled={!canEdit || !dirty || busy} onClick={save}>{busy ? "Saving…" : "Save settings"}</button></div></div>
       {!canEdit && <div className="banner info" style={{ marginBottom: 14 }}>You're signed in as {app.user?.name}. Only a Controller can change these settings — switch user at the top to try.</div>}
       {error && <ErrorBox message={error.message} onRetry={reload} />}
