@@ -2,6 +2,7 @@ import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import type { TextLayer, Word } from "../../shared/schemas.ts";
 import { imageSize } from "./imageInfo.ts";
+import { preprocessImage } from "./preprocess.ts";
 import { IngestError } from "./pdfText.ts";
 
 /**
@@ -16,7 +17,13 @@ export interface OcrStatus {
 }
 export interface OcrEngine {
   status(): OcrStatus;
+  /** one read of the image exactly as uploaded */
   recognize(bytes: Uint8Array): Promise<TextLayer>;
+  /**
+   * The original read plus, when image clean-up is available and enabled, a second read of a cleaned-up copy (lighting flattened,
+   * upscaled, deskewed). Neither is better everywhere, so callers compare them: see analyzePdf.
+   */
+  recognizeVariants?(bytes: Uint8Array): Promise<TextLayer[]>;
 }
 
 export const OCR_LIMITS = { maxPixels: 24_000_000, minSide: 300, timeoutMs: 90_000 };
@@ -45,6 +52,8 @@ export interface TesseractOptions {
   /** optional local/mirrored folder or URL holding <lang>.traineddata (offline use) */
   langPath?: string;
   /** test seam */
+  /** also read a cleaned-up copy (lighting, resolution, tilt) in recognizeVariants; default true */
+  preprocess?: boolean;
   /** per-image limit; default OCR_LIMITS.timeoutMs */
   timeoutMs?: number;
   createWorker?: (lang: string, oem: number, opts: Record<string, unknown>) => Promise<TessWorker>;
@@ -75,41 +84,51 @@ export function tesseractOcr(o: TesseractOptions): OcrEngine {
     if (w) await w.then((x) => x.terminate()).catch(() => {});
   };
 
+  const read = (bytes: Uint8Array, enhance: boolean): Promise<{ layer: TextLayer; enhanced: boolean }> => {
+    const size = imageSize(bytes);
+    if (!size || size.width < 1 || size.height < 1) return Promise.reject(new IngestError("This image file could not be read (its header is damaged or incomplete). Upload a PNG or JPEG scan.", "IMAGE_UNREADABLE"));
+    if (size.width * size.height > OCR_LIMITS.maxPixels) return Promise.reject(new IngestError(`Image is ${size.width}×${size.height}px; the limit is ${OCR_LIMITS.maxPixels / 1e6} megapixels.`, "IMAGE_UNREADABLE"));
+    if (Math.min(size.width, size.height) < OCR_LIMITS.minSide) return Promise.reject(new IngestError(`Image is too small to read reliably (${size.width}×${size.height}px; at least ${OCR_LIMITS.minSide}px on the short side).`, "IMAGE_UNREADABLE"));
+
+    // one recognition at a time: a single worker is shared and memory stays bounded
+    const job = queue.then(async () => {
+      const w = await start();
+      const prepared = enhance ? await preprocessImage(bytes).catch(() => null) : null;
+      let timer: NodeJS.Timeout | undefined;
+      try {
+        const result = await Promise.race([
+          w.recognize(prepared ? prepared.bytes : new Uint8Array(bytes), {}, { blocks: true }),
+          new Promise<never>((_, rej) => { timer = setTimeout(() => rej(new Error("timed out")), o.timeoutMs ?? OCR_LIMITS.timeoutMs); }),
+        ]);
+        const layer = toTextLayer(result, prepared?.width ?? size.width, prepared?.height ?? size.height);
+        return { layer: prepared && prepared.rotationRad !== 0 ? { ...layer, frame: { rotationRad: prepared.rotationRad, width: prepared.width, height: prepared.height } } : layer, enhanced: prepared !== null };
+      } catch (e) {
+        await reset(); // a hung or crashed worker is discarded; the next upload starts a fresh one
+        if (e instanceof IngestError) throw e;
+        throw new IngestError(`OCR failed: ${(e as Error).message}`, "OCR_FAILED");
+      } finally {
+        if (timer) clearTimeout(timer);
+      }
+    });
+    queue = job.catch(() => {});
+    return job;
+  };
+
   return {
     status: () => ({ enabled: true, reason: `tesseract.js, language "${lang}", runs locally`, engine: "tesseract.js" }),
-    recognize(bytes) {
-      const size = imageSize(bytes);
-      if (!size || size.width < 1 || size.height < 1) return Promise.reject(new IngestError("This image file could not be read (its header is damaged or incomplete). Upload a PNG or JPEG scan.", "IMAGE_UNREADABLE"));
-      if (size.width * size.height > OCR_LIMITS.maxPixels) return Promise.reject(new IngestError(`Image is ${size.width}×${size.height}px; the limit is ${OCR_LIMITS.maxPixels / 1e6} megapixels.`, "IMAGE_UNREADABLE"));
-      if (Math.min(size.width, size.height) < OCR_LIMITS.minSide) return Promise.reject(new IngestError(`Image is too small to read reliably (${size.width}×${size.height}px; at least ${OCR_LIMITS.minSide}px on the short side).`, "IMAGE_UNREADABLE"));
-
-      // one recognition at a time: a single worker is shared and memory stays bounded
-      const job = queue.then(async () => {
-        const w = await start();
-        let timer: NodeJS.Timeout | undefined;
-        try {
-          const result = await Promise.race([
-            w.recognize(new Uint8Array(bytes), {}, { blocks: true }),
-            new Promise<never>((_, rej) => { timer = setTimeout(() => rej(new Error("timed out")), o.timeoutMs ?? OCR_LIMITS.timeoutMs); }),
-          ]);
-          return toTextLayer(result, size.width, size.height);
-        } catch (e) {
-          await reset(); // a hung or crashed worker is discarded; the next upload starts a fresh one
-          if (e instanceof IngestError) throw e;
-          throw new IngestError(`OCR failed: ${(e as Error).message}`, "OCR_FAILED");
-        } finally {
-          if (timer) clearTimeout(timer);
-        }
-      });
-      queue = job.catch(() => {});
-      return job;
+    recognize: (bytes) => read(bytes, false).then((r) => r.layer),
+    async recognizeVariants(bytes) {
+      const original = await read(bytes, false);
+      if (o.preprocess === false) return [original.layer];
+      const enhanced = await read(bytes, true).catch(() => null); // a failed second read never loses the first
+      return enhanced?.enhanced ? [original.layer, enhanced.layer] : [original.layer];
     },
   };
 }
 
 export function ocrFromEnv(env: NodeJS.ProcessEnv, dataDir: string): OcrEngine {
   if (env.ENABLE_OCR === "0") return disabledOcr("ENABLE_OCR=0");
-  return tesseractOcr({ cachePath: env.OCR_CACHE_PATH ?? join(dataDir, "ocr"), ...(env.OCR_LANG ? { lang: env.OCR_LANG } : {}), ...(env.OCR_LANG_PATH ? { langPath: env.OCR_LANG_PATH } : {}) });
+  return tesseractOcr({ cachePath: env.OCR_CACHE_PATH ?? join(dataDir, "ocr"), ...(env.OCR_LANG ? { lang: env.OCR_LANG } : {}), ...(env.OCR_LANG_PATH ? { langPath: env.OCR_LANG_PATH } : {}), preprocess: env.OCR_PREPROCESS !== "0" });
 }
 
 const median = (xs: number[]) => {

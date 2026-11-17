@@ -1,0 +1,3599 @@
+{
+  "label": "SYNTHETIC STRESS TEST (not real-world accuracy)",
+  "note": "SYNTHETIC STRESS TEST. Fictional vendors; invoices drawn from source data and degraded to imitate phone photos. Ground truth is computed from the source numbers, not read from the images. Not real-world accuracy.",
+  "confidenceThreshold": 0.8,
+  "overall": {
+    "documents": 10,
+    "all": {
+      "expected": 395,
+      "correct": 129,
+      "wrong": 10,
+      "missed": 256,
+      "spurious": 0,
+      "confidentErrors": 1,
+      "confidentWrong": 1,
+      "confidentSpurious": 0,
+      "correctButFlagged": 27
+    },
+    "critical": {
+      "expected": 276,
+      "correct": 86,
+      "wrong": 3,
+      "missed": 187,
+      "spurious": 0,
+      "confidentErrors": 0,
+      "confidentWrong": 0,
+      "confidentSpurious": 0,
+      "correctButFlagged": 17
+    }
+  },
+  "byLevel": {
+    "light": {
+      "documents": 3,
+      "all": {
+        "expected": 94,
+        "correct": 45,
+        "wrong": 3,
+        "missed": 46,
+        "spurious": 0,
+        "confidentErrors": 1,
+        "confidentWrong": 1,
+        "confidentSpurious": 0,
+        "correctButFlagged": 5
+      },
+      "critical": {
+        "expected": 66,
+        "correct": 34,
+        "wrong": 0,
+        "missed": 32,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 3
+      }
+    },
+    "medium": {
+      "documents": 4,
+      "all": {
+        "expected": 164,
+        "correct": 84,
+        "wrong": 7,
+        "missed": 73,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 22
+      },
+      "critical": {
+        "expected": 108,
+        "correct": 52,
+        "wrong": 3,
+        "missed": 53,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 14
+      }
+    },
+    "heavy": {
+      "documents": 3,
+      "all": {
+        "expected": 137,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 137,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "critical": {
+        "expected": 102,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 102,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      }
+    }
+  },
+  "documents": [
+    {
+      "id": "S01",
+      "file": "S01.light.jpg",
+      "damage": "light",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": true,
+      "ocrMeanConfidence": 0.837,
+      "riskFlags": [],
+      "all": {
+        "expected": 35,
+        "correct": 9,
+        "wrong": 1,
+        "missed": 25,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 2
+      },
+      "critical": {
+        "expected": 22,
+        "correct": 6,
+        "wrong": 0,
+        "missed": 16,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 1
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "QF-30417",
+          "got": "QF-30417",
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "wrong",
+          "conf": 0.105,
+          "expected": "PO-55102",
+          "got": "~~",
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "correct",
+          "conf": 0.782,
+          "expected": "Quillfeather Print Works",
+          "got": "Quillfeather Print Works",
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "missed",
+          "conf": null,
+          "expected": "47-3318820",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "correct",
+          "conf": 0.787,
+          "expected": "USD",
+          "got": "USD",
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "2026-03-14",
+          "got": "2026-03-14",
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "8.25",
+          "got": "8.25",
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "1320.8",
+          "got": "1320.8",
+          "critical": true
+        },
+        {
+          "key": "freight",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "24",
+          "got": "24",
+          "critical": false
+        },
+        {
+          "key": "taxTotal",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "108.97",
+          "got": "108.97",
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "1453.77",
+          "got": "1453.77",
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "PR-2201",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Business cards matte box/500",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "12",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.uom",
+          "kind": "missed",
+          "conf": null,
+          "expected": "BX",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "38.4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "460.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "PR-2210",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Letterhead 24lb ream",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "20",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.uom",
+          "kind": "missed",
+          "conf": null,
+          "expected": "RM",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "21.75",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "435",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "PR-2230",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Presentation folders",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "150",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.uom",
+          "kind": "missed",
+          "conf": null,
+          "expected": "EA",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1.18",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "177",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "PR-2244",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Die-cut stickers 3in",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "400",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.uom",
+          "kind": "missed",
+          "conf": null,
+          "expected": "EA",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "0.62",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "248",
+          "got": null,
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "file": "S02.light.jpg",
+      "damage": "light",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": true,
+      "ocrMeanConfidence": 0.944,
+      "riskFlags": [],
+      "all": {
+        "expected": 35,
+        "correct": 34,
+        "wrong": 1,
+        "missed": 0,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 2
+      },
+      "critical": {
+        "expected": 26,
+        "correct": 26,
+        "wrong": 0,
+        "missed": 0,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 1
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "correct",
+          "conf": 0.863,
+          "expected": "TH-100823",
+          "got": "TH-100823",
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "correct",
+          "conf": 0.854,
+          "expected": "WL-4471-B",
+          "got": "WL-4471-B",
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "correct",
+          "conf": 0.808,
+          "expected": "Tanager Hydro Supply",
+          "got": "Tanager Hydro Supply",
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "wrong",
+          "conf": 0.731,
+          "expected": "82-5540913",
+          "got": "82-5540013",
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "correct",
+          "conf": 0.787,
+          "expected": "USD",
+          "got": "USD",
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "2026-04-02",
+          "got": "2026-04-02",
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "7",
+          "got": "7",
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "1311.2",
+          "got": "1311.2",
+          "critical": true
+        },
+        {
+          "key": "taxTotal",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "91.78",
+          "got": "91.78",
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "1402.98",
+          "got": "1402.98",
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "HY-100",
+          "got": "HY-100",
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "correct",
+          "conf": 0.874,
+          "expected": "PVC elbow 2in",
+          "got": "PVC elbow 2in",
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "60",
+          "got": "60",
+          "critical": true
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "3.85",
+          "got": "3.85",
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "231",
+          "got": "231",
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "correct",
+          "conf": 0.873,
+          "expected": "HY-118",
+          "got": "HY-118",
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "Ball valve brass 1in",
+          "got": "Ball valve brass 1in",
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "24",
+          "got": "24",
+          "critical": true
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "14.2",
+          "got": "14.2",
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "340.8",
+          "got": "340.8",
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "correct",
+          "conf": 0.863,
+          "expected": "HY-203",
+          "got": "HY-203",
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "correct",
+          "conf": 0.47,
+          "expected": "Pipe cement 8oz",
+          "got": "Pipe cement 8oz",
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "12",
+          "got": "12",
+          "critical": true
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "6.95",
+          "got": "6.95",
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "83.4",
+          "got": "83.4",
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "HY-310",
+          "got": "HY-310",
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "PTFE tape 3/4in",
+          "got": "PTFE tape 3/4in",
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "100",
+          "got": "100",
+          "critical": true
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "0.89",
+          "got": "0.89",
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "89",
+          "got": "89",
+          "critical": true
+        },
+        {
+          "key": "line.5.sku",
+          "kind": "correct",
+          "conf": 0.834,
+          "expected": "HY-415",
+          "got": "HY-415",
+          "critical": true
+        },
+        {
+          "key": "line.5.description",
+          "kind": "correct",
+          "conf": 0.864,
+          "expected": "Sump pump 1/3HP",
+          "got": "Sump pump 1/3HP",
+          "critical": false
+        },
+        {
+          "key": "line.5.qty",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "3",
+          "got": "3",
+          "critical": true
+        },
+        {
+          "key": "line.5.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "189",
+          "got": "189",
+          "critical": true
+        },
+        {
+          "key": "line.5.amount",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "567",
+          "got": "567",
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "file": "S03.light.jpg",
+      "damage": "light",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": true,
+      "ocrMeanConfidence": 0.931,
+      "riskFlags": [],
+      "all": {
+        "expected": 24,
+        "correct": 2,
+        "wrong": 1,
+        "missed": 21,
+        "spurious": 0,
+        "confidentErrors": 1,
+        "confidentWrong": 1,
+        "confidentSpurious": 0,
+        "correctButFlagged": 1
+      },
+      "critical": {
+        "expected": 18,
+        "correct": 2,
+        "wrong": 0,
+        "missed": 16,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 1
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "missed",
+          "conf": null,
+          "expected": "SF/2026/00871",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "supplierName",
+          "kind": "wrong",
+          "conf": 0.808,
+          "expected": "Saltmarsh Freight Services",
+          "got": "Saltmarsh",
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "missed",
+          "conf": null,
+          "expected": "01-6620034",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "correct",
+          "conf": 0.752,
+          "expected": "USD",
+          "got": "USD",
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "2026-05-09",
+          "got": "2026-05-09",
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "6",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1558.4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "93.5",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1651.9",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "SVC-LTL",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LTL freight Boston-Albany",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "312.5",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1250",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "SVC-LGT",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Liftgate delivery",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "45",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "180",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "SVC-FSC",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Fuel surcharge",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "128.4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "128.4",
+          "got": null,
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "file": "S04.medium.jpg",
+      "damage": "medium",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": true,
+      "ocrMeanConfidence": 0.757,
+      "riskFlags": [],
+      "all": {
+        "expected": 40,
+        "correct": 27,
+        "wrong": 1,
+        "missed": 12,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 10
+      },
+      "critical": {
+        "expected": 26,
+        "correct": 14,
+        "wrong": 0,
+        "missed": 12,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 5
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "missed",
+          "conf": null,
+          "expected": "RE-2026-0418",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "B-77120",
+          "got": "B-77120",
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "correct",
+          "conf": 0.765,
+          "expected": "Nordlicht Elektro GmbH",
+          "got": "Nordlicht Elektro GmbH",
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "wrong",
+          "conf": 0.238,
+          "expected": "DE811234567",
+          "got": "DES811234567",
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "correct",
+          "conf": 0.697,
+          "expected": "EUR",
+          "got": "EUR",
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2026-03-21",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "correct",
+          "conf": 0.691,
+          "expected": "19",
+          "got": "19",
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1554.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxTotal",
+          "kind": "correct",
+          "conf": 0.747,
+          "expected": "295.41",
+          "got": "295.41",
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "correct",
+          "conf": 0.825,
+          "expected": "1850.21",
+          "got": "1850.21",
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "correct",
+          "conf": 0.504,
+          "expected": "EL-4410",
+          "got": "EL-4410",
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "correct",
+          "conf": 0.749,
+          "expected": "Kabel NYM-J 3x1,5 Ring 50m",
+          "got": "Kabel NYM-J 3x1,5 Ring 50m",
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "12",
+          "got": "12",
+          "critical": true
+        },
+        {
+          "key": "line.1.uom",
+          "kind": "correct",
+          "conf": 0.836,
+          "expected": "ST",
+          "got": "ST",
+          "critical": false
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "58.9",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "706.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "EL-4420",
+          "got": "EL-4420",
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "correct",
+          "conf": 0.864,
+          "expected": "Schalter Serie 55 weiss",
+          "got": "Schalter Serie 55 weiss",
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "40",
+          "got": "40",
+          "critical": true
+        },
+        {
+          "key": "line.2.uom",
+          "kind": "correct",
+          "conf": 0.893,
+          "expected": "ST",
+          "got": "ST",
+          "critical": false
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "4.35",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "correct",
+          "conf": 0.563,
+          "expected": "174",
+          "got": "174",
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "correct",
+          "conf": 0.873,
+          "expected": "EL-4455",
+          "got": "EL-4455",
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "correct",
+          "conf": 0.874,
+          "expected": "Steckdose 2-fach",
+          "got": "Steckdose 2-fach",
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "40",
+          "got": "40",
+          "critical": true
+        },
+        {
+          "key": "line.3.uom",
+          "kind": "correct",
+          "conf": 0.893,
+          "expected": "ST",
+          "got": "ST",
+          "critical": false
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "6.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "272",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "EL-5001",
+          "got": "EL-5001",
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "correct",
+          "conf": 0.864,
+          "expected": "Verteilerkasten 24 TE",
+          "got": "Verteilerkasten 24 TE",
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "correct",
+          "conf": 0.582,
+          "expected": "3",
+          "got": "3",
+          "critical": true
+        },
+        {
+          "key": "line.4.uom",
+          "kind": "correct",
+          "conf": 0.57,
+          "expected": "ST",
+          "got": "ST",
+          "critical": false
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "74.5",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "223.5",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.sku",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "EL-5090",
+          "got": "EL-5090",
+          "critical": true
+        },
+        {
+          "key": "line.5.description",
+          "kind": "correct",
+          "conf": 0.816,
+          "expected": "Sicherungsautomat B16",
+          "got": "Sicherungsautomat B16",
+          "critical": false
+        },
+        {
+          "key": "line.5.qty",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "30",
+          "got": "30",
+          "critical": true
+        },
+        {
+          "key": "line.5.uom",
+          "kind": "correct",
+          "conf": 0.694,
+          "expected": "ST",
+          "got": "ST",
+          "critical": false
+        },
+        {
+          "key": "line.5.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "5.95",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "178.5",
+          "got": null,
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "file": "S05.medium.jpg",
+      "damage": "medium",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": true,
+      "ocrMeanConfidence": 0.682,
+      "riskFlags": [],
+      "all": {
+        "expected": 54,
+        "correct": 3,
+        "wrong": 0,
+        "missed": 51,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "critical": {
+        "expected": 38,
+        "correct": 1,
+        "wrong": 0,
+        "missed": 37,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "BL-55190",
+          "got": "BL-55190",
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "missed",
+          "conf": null,
+          "expected": "HI-0098",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "correct",
+          "conf": 0.816,
+          "expected": "Brightwater Linen Co.",
+          "got": "Brightwater Linen Co.",
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "correct",
+          "conf": 0.864,
+          "expected": "GB284771903",
+          "got": "GB284771903",
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "missed",
+          "conf": null,
+          "expected": "GBP",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2026-02-27",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "20",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2957.88",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "freight",
+          "kind": "missed",
+          "conf": null,
+          "expected": "18.5",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "taxTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "591.58",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "missed",
+          "conf": null,
+          "expected": "3567.96",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-101",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Table cloth white 90in",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "24",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "14.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.discountPct",
+          "kind": "missed",
+          "conf": null,
+          "expected": "10",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "319.68",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-104",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Napkins cotton pack/12",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "30",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "9.45",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "283.5",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-110",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Bed sheet king",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "40",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "17.2",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.discountPct",
+          "kind": "missed",
+          "conf": null,
+          "expected": "10",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "619.2",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-112",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Pillowcase std pair",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "80",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "6.35",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "508",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-120",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Bath towel 500gsm",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.5.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "60",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "8.9",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "534",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-121",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Hand towel 500gsm",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.6.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "60",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "4.75",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.discountPct",
+          "kind": "missed",
+          "conf": null,
+          "expected": "10",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.6.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "256.5",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-130",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Laundry bag large",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.7.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "15",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "11",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "165",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LN-140",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Mattress protector",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.8.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "20",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "13.6",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "272",
+          "got": null,
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "file": "S06.medium.jpg",
+      "damage": "medium",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": true,
+      "ocrMeanConfidence": 0.835,
+      "riskFlags": [],
+      "all": {
+        "expected": 34,
+        "correct": 29,
+        "wrong": 2,
+        "missed": 3,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 2
+      },
+      "critical": {
+        "expected": 22,
+        "correct": 19,
+        "wrong": 2,
+        "missed": 1,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 1
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "correct",
+          "conf": 0.873,
+          "expected": "PB-20948",
+          "got": "PB-20948",
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "correct",
+          "conf": 0.873,
+          "expected": "SRL-331",
+          "got": "SRL-331",
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "correct",
+          "conf": 0.808,
+          "expected": "Pinecrest Bakery Wholesale",
+          "got": "Pinecrest Bakery Wholesale",
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "missed",
+          "conf": null,
+          "expected": "812345678RT0001",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "wrong",
+          "conf": 0.771,
+          "expected": "CAD",
+          "got": "USD",
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "correct",
+          "conf": 0.672,
+          "expected": "2026-06-03",
+          "got": "2026-06-03",
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "5",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "1562.5",
+          "got": "1562.5",
+          "critical": true
+        },
+        {
+          "key": "taxTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "78.13",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "1640.63",
+          "got": "1640.63",
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "correct",
+          "conf": 0.815,
+          "expected": "BK-010",
+          "got": "BK-010",
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "correct",
+          "conf": 0.643,
+          "expected": "Sourdough loaf 800g",
+          "got": "Sourdough loaf 800g",
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "120",
+          "got": "120",
+          "critical": true
+        },
+        {
+          "key": "line.1.uom",
+          "kind": "correct",
+          "conf": 0.903,
+          "expected": "EA",
+          "got": "EA",
+          "critical": false
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "4.1",
+          "got": "4.1",
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "wrong",
+          "conf": 0.468,
+          "expected": "492",
+          "got": "492.001",
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "BK-022",
+          "got": "BK-022",
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "Croissant butter 70g",
+          "got": "Croissant butter 70g",
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "300",
+          "got": "300",
+          "critical": true
+        },
+        {
+          "key": "line.2.uom",
+          "kind": "correct",
+          "conf": 0.893,
+          "expected": "EA",
+          "got": "EA",
+          "critical": false
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "1.35",
+          "got": "1.35",
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "405",
+          "got": "405",
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "BK-031",
+          "got": "BK-031",
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "correct",
+          "conf": 0.893,
+          "expected": "Rye bread sliced",
+          "got": "Rye bread sliced",
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "60",
+          "got": "60",
+          "critical": true
+        },
+        {
+          "key": "line.3.uom",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "EA",
+          "got": "EA",
+          "critical": false
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "3.8",
+          "got": "3.8",
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "228",
+          "got": "228",
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "correct",
+          "conf": 0.825,
+          "expected": "BK-045",
+          "got": "BK-045",
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "correct",
+          "conf": 0.883,
+          "expected": "Cinnamon roll tray/12",
+          "got": "Cinnamon roll tray/12",
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "25",
+          "got": "25",
+          "critical": true
+        },
+        {
+          "key": "line.4.uom",
+          "kind": "correct",
+          "conf": 0.903,
+          "expected": "TR",
+          "got": "TR",
+          "critical": false
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "17.5",
+          "got": "17.5",
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "437.5",
+          "got": "437.5",
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "file": "S07.medium.jpg",
+      "damage": "medium",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": true,
+      "ocrMeanConfidence": 0.776,
+      "riskFlags": [],
+      "all": {
+        "expected": 36,
+        "correct": 25,
+        "wrong": 4,
+        "missed": 7,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 10
+      },
+      "critical": {
+        "expected": 22,
+        "correct": 18,
+        "wrong": 1,
+        "missed": 3,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 8
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "correct",
+          "conf": 0.708,
+          "expected": "KP-981204",
+          "got": "KP-981204",
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "missed",
+          "conf": null,
+          "expected": "GWU-2026-114",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "correct",
+          "conf": 0.799,
+          "expected": "Kestrel Industrial Pumps Ltd",
+          "got": "Kestrel Industrial Pumps Ltd",
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "missed",
+          "conf": null,
+          "expected": "74-2201186",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "correct",
+          "conf": 0.779,
+          "expected": "USD",
+          "got": "USD",
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "2026-07-18",
+          "got": "2026-07-18",
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "9.5",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "correct",
+          "conf": 0,
+          "expected": "3094.7",
+          "got": "3094.7",
+          "critical": true
+        },
+        {
+          "key": "discountTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "154.74",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "freight",
+          "kind": "correct",
+          "conf": 0.339,
+          "expected": "85",
+          "got": "85",
+          "critical": false
+        },
+        {
+          "key": "taxTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "279.3",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "3304.26",
+          "got": "3304.26",
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "wrong",
+          "conf": 0.525,
+          "expected": "KP-7700",
+          "got": "ki",
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "wrong",
+          "conf": 0.23,
+          "expected": "Centrifugal pump 2in",
+          "got": "Ct intugal «iN",
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "2",
+          "got": "2",
+          "critical": true
+        },
+        {
+          "key": "line.1.uom",
+          "kind": "wrong",
+          "conf": 0.731,
+          "expected": "EA",
+          "got": "FA",
+          "critical": false
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "845",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1690",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "correct",
+          "conf": 0.815,
+          "expected": "KP-7712",
+          "got": "KP-7712",
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "Mechanical seal kit",
+          "got": "Mechanical seal kit",
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "6",
+          "got": "6",
+          "critical": true
+        },
+        {
+          "key": "line.2.uom",
+          "kind": "correct",
+          "conf": 0.903,
+          "expected": "EA",
+          "got": "EA",
+          "critical": false
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "63.25",
+          "got": "63.25",
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "correct",
+          "conf": 0.795,
+          "expected": "379.5",
+          "got": "379.5",
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "correct",
+          "conf": 0.795,
+          "expected": "KP-7740",
+          "got": "KP-7740",
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "wrong",
+          "conf": 0.787,
+          "expected": "Impeller bronze",
+          "got": "impeller bronze",
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "correct",
+          "conf": 0.922,
+          "expected": "4",
+          "got": "4",
+          "critical": true
+        },
+        {
+          "key": "line.3.uom",
+          "kind": "correct",
+          "conf": 0.912,
+          "expected": "EA",
+          "got": "EA",
+          "critical": false
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "correct",
+          "conf": 0.378,
+          "expected": "212.8",
+          "got": "212.8",
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "correct",
+          "conf": 0.766,
+          "expected": "851.2",
+          "got": "851.2",
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "correct",
+          "conf": 0.582,
+          "expected": "KP-7790",
+          "got": "KP-7790",
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "correct",
+          "conf": 0.893,
+          "expected": "Gasket set",
+          "got": "Gasket set",
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "correct",
+          "conf": 0.892,
+          "expected": "10",
+          "got": "10",
+          "critical": true
+        },
+        {
+          "key": "line.4.uom",
+          "kind": "correct",
+          "conf": 0.874,
+          "expected": "EA",
+          "got": "EA",
+          "critical": false
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "correct",
+          "conf": 0.873,
+          "expected": "17.4",
+          "got": "17.4",
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "correct",
+          "conf": 0.931,
+          "expected": "174",
+          "got": "174",
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "file": "S08.heavy.jpg",
+      "damage": "heavy",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": false,
+      "ocrMeanConfidence": 0.243,
+      "riskFlags": [],
+      "all": {
+        "expected": 60,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 60,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "critical": {
+        "expected": 46,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 46,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "missed",
+          "conf": null,
+          "expected": "MO-77203",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "missed",
+          "conf": null,
+          "expected": "SG-5521",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Marigold Organics Pty Ltd",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "missed",
+          "conf": null,
+          "expected": "51824753556",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "missed",
+          "conf": null,
+          "expected": "AUD",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2026-08-11",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "10",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2090.2",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "209.02",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2299.22",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-101",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Rolled oats 1kg",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "48",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "3.2",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "153.6",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-102",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Almond butter 250g",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "36",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "6.9",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "248.4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-110",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Chia seeds 500g",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "24",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "8.75",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "210",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-115",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Coconut oil 500ml",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "30",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "9.4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "282",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-120",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Maple syrup 250ml",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.5.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "24",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "11.2",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "268.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-133",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Quinoa 1kg",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.6.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "20",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "7.85",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "157",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-140",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Dried mango 200g",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.7.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "40",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "4.95",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.7.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "198",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-151",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Peanut butter 380g",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.8.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "36",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "4.3",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.8.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "154.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.9.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-160",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.9.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Green tea 50 bags",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.9.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "48",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.9.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "3.65",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.9.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "175.2",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.10.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OR-170",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.10.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Honey raw 500g",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.10.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "24",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.10.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "10.1",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.10.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "242.4",
+          "got": null,
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "file": "S09.heavy.jpg",
+      "damage": "heavy",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": false,
+      "ocrMeanConfidence": 0.26,
+      "riskFlags": [],
+      "all": {
+        "expected": 36,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 36,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "critical": {
+        "expected": 26,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 26,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "missed",
+          "conf": null,
+          "expected": "LO-2026-3340",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "missed",
+          "conf": null,
+          "expected": "VC-0612",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Lumen Optics SA",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "missed",
+          "conf": null,
+          "expected": "ESB12345678",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "missed",
+          "conf": null,
+          "expected": "EUR",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2026-09-05",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "21",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2399.3",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "freight",
+          "kind": "missed",
+          "conf": null,
+          "expected": "35",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "taxTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "503.85",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2938.15",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OP-210",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Lens blank 1.60 pair",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "80",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "12.4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "992",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OP-215",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Anti-glare coating",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "80",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "3.15",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "252",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OP-301",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Frame titanium M",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "25",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "38",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "950",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OP-322",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Lens cloth 10-pack",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "12",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "6.9",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "82.8",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OP-340",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Case hard black",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.5.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "50",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2.45",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "122.5",
+          "got": null,
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "file": "S10.heavy.jpg",
+      "damage": "heavy",
+      "docTypeRead": "INVOICE",
+      "docTypeRecognised": false,
+      "ocrMeanConfidence": 0.26,
+      "riskFlags": [],
+      "all": {
+        "expected": 41,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 41,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "critical": {
+        "expected": 30,
+        "correct": 0,
+        "wrong": 0,
+        "missed": 30,
+        "spurious": 0,
+        "confidentErrors": 0,
+        "confidentWrong": 0,
+        "confidentSpurious": 0,
+        "correctButFlagged": 0
+      },
+      "outcomes": [
+        {
+          "key": "docNumber",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OS-0291",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "poRef",
+          "kind": "missed",
+          "conf": null,
+          "expected": "GR-17",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierName",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Orchid & Slate Design Studio",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "supplierTaxId",
+          "kind": "missed",
+          "conf": null,
+          "expected": "05-7741208",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "currency",
+          "kind": "missed",
+          "conf": null,
+          "expected": "USD",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "docDate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2026-10-23",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "taxRate",
+          "kind": "missed",
+          "conf": null,
+          "expected": "6.5",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "subtotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "5167",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "freight",
+          "kind": "missed",
+          "conf": null,
+          "expected": "40",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "taxTotal",
+          "kind": "missed",
+          "conf": null,
+          "expected": "335.86",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "total",
+          "kind": "missed",
+          "conf": null,
+          "expected": "5542.86",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OS-01",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Brand guideline layout",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.1.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1800",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.1.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1800",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OS-02",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Logo variants set",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.2.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "3",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "350",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.2.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1050",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OS-05",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Signage artwork",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.3.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "2",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "420",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.3.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "840",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OS-07",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Brochure print-ready",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.4.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "1",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "960",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.4.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "960",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OS-09",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Revision rounds",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.5.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "4",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "85",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.5.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "340",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.sku",
+          "kind": "missed",
+          "conf": null,
+          "expected": "OS-11",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.description",
+          "kind": "missed",
+          "conf": null,
+          "expected": "Stock photo licences",
+          "got": null,
+          "critical": false
+        },
+        {
+          "key": "line.6.qty",
+          "kind": "missed",
+          "conf": null,
+          "expected": "6",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.unitPrice",
+          "kind": "missed",
+          "conf": null,
+          "expected": "29.5",
+          "got": null,
+          "critical": true
+        },
+        {
+          "key": "line.6.amount",
+          "kind": "missed",
+          "conf": null,
+          "expected": "177",
+          "got": null,
+          "critical": true
+        }
+      ]
+    }
+  ]
+}

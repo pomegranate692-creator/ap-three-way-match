@@ -40,7 +40,10 @@ export const Word = z.object({
 export type Word = z.infer<typeof Word>;
 
 export const TextPage = z.object({ page: z.number().int(), width: z.number(), height: z.number(), words: z.array(Word) });
-export const TextLayer = z.object({ source: z.enum(["pdf-text", "ocr"]), pages: z.array(TextPage) });
+/** Set only while an OCR layer is still in the deskewed frame it was read in; consumers map boxes back with server/ingest/frame.ts. */
+export const OcrFrame = z.object({ rotationRad: z.number(), width: z.number().positive(), height: z.number().positive() });
+export type OcrFrame = z.infer<typeof OcrFrame>;
+export const TextLayer = z.object({ source: z.enum(["pdf-text", "ocr"]), pages: z.array(TextPage), frame: OcrFrame.optional() });
 export type TextLayer = z.infer<typeof TextLayer>;
 
 /* ---------------- risk flags ---------------- */

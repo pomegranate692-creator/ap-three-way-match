@@ -28,6 +28,7 @@
     "@fontsource/ibm-plex-mono": "^5.1.0",
     "@fontsource/ibm-plex-sans": "^5.1.0",
     "@hono/node-server": "^1.13.7",
+    "@napi-rs/canvas": "^0.1.100",
     "decimal.js": "^10.4.3",
     "exceljs": "^4.4.0",
     "hono": "^4.6.14",

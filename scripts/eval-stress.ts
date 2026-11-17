@@ -10,7 +10,7 @@ import { analyzePdf } from "../server/pipeline/analyze.ts";
 import { CONFIDENT, STRESS_DIR, loadStressTruth, mergeSummaries, scoreStressDoc, summarize, type Level, type Outcome, type Summary } from "../server/eval/stress.ts";
 
 const root = join(import.meta.dirname, "..");
-const ocr = tesseractOcr({ cachePath: join(root, "data", "ocr") });
+const ocr = tesseractOcr({ cachePath: join(root, "data", "ocr"), preprocess: process.env.OCR_PREPROCESS !== "0" });
 const truth = loadStressTruth();
 const perDoc: { id: string; file: string; damage: Level; docTypeRead: string; docTypeRecognised: boolean; ocrMeanConfidence: number | null; riskFlags: string[]; all: Summary; critical: Summary; outcomes: Outcome[] }[] = [];
 
