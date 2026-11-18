@@ -78,7 +78,7 @@ On the 25 synthetic bundles (8 seeded discrepancies, 17 clean): **8/8 detected w
 - One-page-style documents; tables spanning pages and wrapped descriptions are not handled; no ability to *add* a missing line item in the UI.
 - Tax: exclusive sales-tax/VAT on one rate per PO; no VAT-inclusive pricing or mixed rates. Currency: strict or manual dated rates; no rate fetching.
 - Quantities compared by SKU across all receipts; unit-of-measure conversion is not modelled.
-- **Demo identity is not authentication**; single user at a time; no hosted deployment; Docker image is untested (Docker not installed here).
+- **Demo identity is not authentication**; single user at a time; not deployed yet: a password-protected, self-resetting public-demo mode (`PUBLIC_DEMO=1`) and Fly.io/Render configs are ready (see [docs/DEPLOY.md](docs/DEPLOY.md)), but the Docker image is untested (Docker not installed here).
 - Accessibility: automated axe scans and keyboard tests pass, but there has been no manual screen-reader pass yet.
 
 ## Who built what

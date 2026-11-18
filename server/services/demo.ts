@@ -146,3 +146,23 @@ export function exportOrgData(ctx: Ctx) {
 }
 
 void newId;
+
+/**
+ * Put every organisation back to its pristine SYNTHETIC state: wipe documents, decisions and audit, restore the manifest
+ * settings, then reload the demo bundles through the real pipeline. Destructive by design: used only by the public demo's scheduled reset, never by `npm run seed`.
+ */
+export async function resetAllDemo(db: DB, dataDir: string, fixtureDir: string, llm: Ctx["llm"], onOrg?: (name: string, r: Awaited<ReturnType<typeof loadDemoData>>) => void) {
+  const manifest = readManifest(fixtureDir);
+  seedOrgs(db, manifest, new Date().toISOString());
+  let tick = Date.now();
+  for (const org of all<{ id: string; name: string }>(db, "SELECT id, name FROM organizations ORDER BY rowid")) {
+    const mo = manifest.orgs.find((o) => o.id === org.id);
+    const controller = mo?.users.find((u) => u.role === "controller");
+    if (!mo || !controller) continue;
+    const ctx: Ctx = { db, orgId: org.id, actor: { id: controller.id, name: controller.name, role: "controller" }, now: () => new Date(tick++).toISOString(), dataDir, llm };
+    wipeOrgData(ctx, true);
+    run(db, "UPDATE settings SET json=?, updated_at=?, updated_by=NULL WHERE org_id=?", JSON.stringify(SettingsSchema.parse(mo.settings)), ctx.now(), org.id);
+    const loaded = await loadDemoData(ctx, fixtureDir); // not inside onOrg?.(...): optional calls skip evaluating their arguments
+    onOrg?.(org.name, loaded);
+  }
+}

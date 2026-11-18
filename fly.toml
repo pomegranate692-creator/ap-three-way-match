@@ -1,0 +1,30 @@
+# Fly.io config for the PUBLIC DEMO (synthetic data only). Change `app` to a unique name before `fly launch --copy-config`.
+# The shared password is set as a secret, never here:  fly secrets set DEMO_PASSWORD='...'
+app = "ap-three-way-match-demo"
+primary_region = "ord"
+
+[build]
+
+[env]
+  PUBLIC_DEMO = "1"
+  PORT = "8791"
+  ENABLE_OCR = "0"
+  ENABLE_LLM = "0"
+  DEMO_RESET_HOURS = "24"
+
+[http_service]
+  internal_port = 8791
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  [[http_service.checks]]
+    method = "GET"
+    path = "/api/health"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "40s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

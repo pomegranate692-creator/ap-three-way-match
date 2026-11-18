@@ -19,6 +19,7 @@ import { getDashboard, type SourceFilter } from "./services/dashboard.ts";
 import { deleteDocument, listDocuments } from "./services/documents.ts";
 import { generateAiSummary } from "./services/ai.ts";
 import { getSettings } from "./services/common.ts";
+import { passwordGate } from "./access.ts";
 
 export interface AppOptions {
   db: DB;
@@ -28,6 +29,8 @@ export interface AppOptions {
   /** OCR for PNG/JPEG scans; omitted = disabled */
   ocr?: OcrEngine;
   now?: () => string;
+  /** public demo only: require this shared password (HTTP Basic) on every route except /api/health */
+  accessPassword?: string;
   /** directory holding the built SPA (optional) */
   webDir?: string;
 }
@@ -53,6 +56,8 @@ export function createApp(opts: AppOptions) {
   const app = new Hono<{ Variables: { ctx: Ctx } }>();
   const limiter = new RateLimiter();
   const now = opts.now ?? (() => new Date().toISOString());
+
+  if (opts.accessPassword) app.use("*", passwordGate(opts.accessPassword));
 
   /* ---------- security headers ---------- */
   app.use("*", async (c, next) => {

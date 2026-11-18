@@ -4,4 +4,9 @@ data
 .git
 screenshots
 test-results
+demos
 .env
+fixtures/stress
+fixtures/scanned
+docs
+tests
