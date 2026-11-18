@@ -52,3 +52,30 @@ describe("public demo: scheduled reset restores pristine synthetic data", () => 
     expect(((await marcus.get("/api/audit?action=approval.")).data as unknown[]).length).toBe(0);
   }, 120_000);
 });
+
+describe("open public demo (DEMO_OPEN=1): no password, abusable actions switched off", () => {
+  const db = openDb(":memory:");
+  seedOrgs(db, readManifest(FIXTURES), new Date().toISOString());
+  const app = createApp({ db, dataDir: mkdtempSync(join(tmpdir(), "ap-open-")), fixtureDir: FIXTURES, llm: disabledAdapters("t"), openDemo: true });
+  const hdr = { "x-org-id": U.harbor.org, "x-user-id": U.harbor.controller };
+  it("needs no password and says uploads are off", async () => {
+    expect((await app.request("/api/orgs", { headers: hdr })).status).toBe(200);
+    const meta = await (await app.request("/api/meta")).json() as { publicDemo: { open: boolean; uploadsEnabled: boolean } };
+    expect(meta.publicDemo).toEqual({ open: true, uploadsEnabled: false });
+  });
+  it("blocks uploads, data deletion, bundle/document deletion and settings changes with an explanation", async () => {
+    const calls: [string, string][] = [["POST", "/api/upload"], ["DELETE", "/api/data"], ["DELETE", "/api/bundles/x"], ["DELETE", "/api/documents/x"], ["PUT", "/api/settings"]];
+    for (const [method, path] of calls) {
+      const r = await app.request(path, { method, headers: hdr });
+      expect(r.status, `${method} ${path}`).toBe(403);
+      expect(((await r.json()) as { error: { code: string } }).error.code).toBe("DEMO_READ_ONLY");
+    }
+  });
+  it("still lets visitors load demo data and approve", async () => {
+    expect((await app.request("/api/demo/load", { method: "POST", headers: hdr })).status).toBe(200);
+    const list = await (await app.request("/api/bundles", { headers: hdr })).json() as { id: string; label: string }[];
+    const b01 = list.find((b) => b.label === "B01")!;
+    const r = await app.request(`/api/bundles/${b01.id}/decision`, { method: "POST", headers: { ...hdr, "content-type": "application/json" }, body: JSON.stringify({ action: "approve" }) });
+    expect(r.status).toBe(200);
+  }, 120_000);
+});

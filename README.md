@@ -4,7 +4,7 @@ A local-first web app that checks **purchase order ↔ receiving record ↔ invo
 
 > **Synthetic data only. It never pays, posts or sends anything.** Every company, person and document in the demo is fictional.
 
-**Demo:** [Watch the 95-second walkthrough on my portfolio](https://claude.ai/artifact/1tbJbHHFzbUXTwGGmLg6mn#ap-three-way-match) · [Download the video (WebM)](https://github.com/pomegranate692-creator/ap-three-way-match/raw/main/demos/ap-three-way-match-demo.webm) · [Read the short case study](docs/CASE_STUDY.md)
+**Live demo:** [ap-three-way-match-demo.onrender.com](https://ap-three-way-match-demo.onrender.com/) (synthetic data, no login) · **Video:** [Watch the 95-second walkthrough on my portfolio](https://claude.ai/artifact/1tbJbHHFzbUXTwGGmLg6mn#ap-three-way-match) · [Download the video (WebM)](https://github.com/pomegranate692-creator/ap-three-way-match/raw/main/demos/ap-three-way-match-demo.webm) · [Read the short case study](docs/CASE_STUDY.md)
 
 GitHub cannot play videos stored in a repository, so the portfolio page hosts the player and the video link downloads the file. The video is silent and captioned. Synthetic data only.
 
@@ -78,7 +78,7 @@ On the 25 synthetic bundles (8 seeded discrepancies, 17 clean): **8/8 detected w
 - One-page-style documents; tables spanning pages and wrapped descriptions are not handled; no ability to *add* a missing line item in the UI.
 - Tax: exclusive sales-tax/VAT on one rate per PO; no VAT-inclusive pricing or mixed rates. Currency: strict or manual dated rates; no rate fetching.
 - Quantities compared by SKU across all receipts; unit-of-measure conversion is not modelled.
-- **Demo identity is not authentication**; single user at a time; not deployed yet: a password-protected, self-resetting public-demo mode (`PUBLIC_DEMO=1`) and Fly.io/Render configs are ready (see [docs/DEPLOY.md](docs/DEPLOY.md)), but the Docker image is untested (Docker not installed here).
+- **Demo identity is not authentication**; single user at a time; a public demo runs on Render's free tier with synthetic data (uploads, deletions and settings changes are switched off; it resets every 12 h; first load after idle takes about a minute). See [docs/DEPLOY.md](docs/DEPLOY.md).
 - Accessibility: automated axe scans and keyboard tests pass, but there has been no manual screen-reader pass yet.
 
 ## Who built what

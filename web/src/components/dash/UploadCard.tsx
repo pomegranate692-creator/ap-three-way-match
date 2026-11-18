@@ -57,6 +57,7 @@ export function UploadCard({ onDone, compact }: { onDone(): void; compact?: bool
     try { await api("DELETE", `/api/documents/${it.documentId}`); setItems((xs) => xs.filter((x) => x.id !== it.id)); app.notify(`Removed ${it.name}. Matching was re-run for any bundle it fed.`); onDone(); }
     catch (e) { app.reportError(e, "Could not remove the document."); }
   };
+  const uploadsOff = app.meta?.publicDemo?.uploadsEnabled === false;
   const busy = items.some((x) => x.status === "processing" || x.status === "queued");
 
   return (
@@ -64,13 +65,14 @@ export function UploadCard({ onDone, compact }: { onDone(): void; compact?: bool
       <div
         className={`dropzone ${over ? "over" : ""}`}
         onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
-        onDrop={(e) => { e.preventDefault(); setOver(false); void add(e.dataTransfer.files); }}
+        onDrop={(e) => { e.preventDefault(); setOver(false); if (!uploadsOff) void add(e.dataTransfer.files); }}
       >
         <div className="up-ico" aria-hidden><DIcon.cloud /></div>
         <h2 id="up-h">Upload AP Documents</h2>
         <p>Drag and drop or click to select files</p>
         <p className="muted small">Supports PDF, PNG, JPG · Purchase Orders, Receipts, Invoices · up to {maxMb} MB each</p>
-        <button className="btn primary" onClick={() => input.current?.click()} disabled={busy}><Icon_Upload /> {busy ? "Processing…" : "Select Files"}</button>
+        {uploadsOff && <p className="small" role="note" style={{ color: "var(--warn)" }}>Uploads are switched off in the public demo. Everything else works on the synthetic data.</p>}
+        <button className="btn primary" onClick={() => input.current?.click()} disabled={busy || uploadsOff}><Icon_Upload /> {busy ? "Processing…" : "Select Files"}</button>
         <input ref={input} type="file" accept="application/pdf,.pdf,image/png,image/jpeg,.png,.jpg,.jpeg" multiple hidden aria-label="Select AP documents" onChange={(e) => { if (e.target.files) void add(e.target.files); e.target.value = ""; }} />
       </div>
       {items.length > 0 && (

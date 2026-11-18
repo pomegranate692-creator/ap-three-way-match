@@ -31,6 +31,8 @@ export interface AppOptions {
   now?: () => string;
   /** public demo only: require this shared password (HTTP Basic) on every route except /api/health */
   accessPassword?: string;
+  /** open public demo: no password, but uploads, deletions and settings changes are switched off */
+  openDemo?: boolean;
   /** directory holding the built SPA (optional) */
   webDir?: string;
 }
@@ -79,6 +81,16 @@ export function createApp(opts: AppOptions) {
     return c.json({ error: { code: "INTERNAL", message: "Something went wrong on the server. Nothing was changed if this was a write; it is safe to retry." } }, 500);
   });
 
+  /* ---------- open public demo: switch off what a stranger could abuse ---------- */
+  if (opts.openDemo) {
+    const blocked = (m: string, path: string) =>
+      (m === "POST" && path === "/api/upload") || (m === "DELETE" && (path === "/api/data" || path.startsWith("/api/documents/") || path.startsWith("/api/bundles/"))) || (m === "PUT" && path === "/api/settings");
+    app.use("/api/*", async (c, next) => {
+      if (blocked(c.req.method, c.req.path)) throw new HttpError(403, "DEMO_READ_ONLY", "This action is switched off in the public demo (uploads, deleting data and changing settings). Approving, rejecting and requesting information still work. Run the app locally to use everything.");
+      await next();
+    });
+  }
+
   /* ---------- rate limiting ---------- */
   app.use("/api/*", async (c, next) => {
     const ip = (c.env as { incoming?: { socket?: { remoteAddress?: string } } } | undefined)?.incoming?.socket?.remoteAddress ?? "local";
@@ -104,6 +116,7 @@ export function createApp(opts: AppOptions) {
         { name: "ERP / payment / ledger posting", status: "blocked by design", detail: "No such route exists. The system never pays or posts." },
         { name: "Email / Gmail / calendar", status: "not connected" },
       ],
+      publicDemo: { open: !!opts.openDemo, uploadsEnabled: !opts.openDemo },
       limits: { maxFileMb: LIMITS.maxBytes / 1024 / 1024, maxPages: LIMITS.maxPages, maxFilesPerBatch: MAX_BATCH_FILES },
     }),
   );

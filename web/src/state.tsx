@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { api, ApiError, setIdentity } from "./lib/api";
 
 export interface OrgInfo { id: string; name: string; timezone: string; baseCurrency: string; users: { id: string; name: string; role: "clerk" | "controller" | "purchasing" }[] }
-export interface Meta { llm: { enabled: boolean; reason: string; model: string | null; mode: string }; connectors: { name: string; status: string; detail?: string }[]; limits: { maxFileMb: number; maxFilesPerBatch: number } }
+export interface Meta { llm: { enabled: boolean; reason: string; model: string | null; mode: string }; connectors: { name: string; status: string; detail?: string }[]; publicDemo?: { open: boolean; uploadsEnabled: boolean }; limits: { maxFileMb: number; maxFilesPerBatch: number } }
 interface Toast { id: number; kind: "ok" | "bad"; text: string }
 
 interface AppState {

@@ -29,11 +29,15 @@ if (existsSync(join(fixtureDir, "manifest.json"))) seedOrgs(db, readManifest(fix
 const llm = llmFromEnv(process.env);
 const ocr = ocrFromEnv(process.env, dataDir);
 
-// PUBLIC_DEMO=1 is the hosted, synthetic-data-only mode. It refuses to start without a password, resets all data on boot and on a
-// schedule, and is the only mode that may listen beyond loopback. Never point it at a database that holds anything real.
+// PUBLIC_DEMO=1 is the hosted, synthetic-data-only mode: it resets all data on boot and on a schedule and is the only mode that may
+// listen beyond loopback. Never point it at a database that holds anything real.
+//  - with DEMO_PASSWORD (8+ chars): every route needs that shared password
+//  - with DEMO_OPEN=1: no password, but uploads, deletions and settings changes are switched off
+// It refuses to start with neither, so it can never be exposed with everything switched on.
 const publicDemo = process.env.PUBLIC_DEMO === "1";
 const password = process.env.DEMO_PASSWORD ?? "";
-if (publicDemo && password.length < 8) { console.error("PUBLIC_DEMO=1 needs DEMO_PASSWORD (at least 8 characters). Refusing to start unprotected."); process.exit(1); }
+const openDemo = publicDemo && process.env.DEMO_OPEN === "1";
+if (publicDemo && !openDemo && password.length < 8) { console.error("PUBLIC_DEMO=1 needs DEMO_PASSWORD (8+ characters) or DEMO_OPEN=1. Refusing to start unprotected."); process.exit(1); }
 const host = publicDemo ? (process.env.HOST ?? "0.0.0.0") : "127.0.0.1";
 if (process.env.HOST && !publicDemo && process.env.HOST !== "127.0.0.1") console.warn("HOST ignored: only PUBLIC_DEMO=1 may listen beyond loopback (the identity switcher is not authentication).");
 if (publicDemo) {
@@ -43,7 +47,7 @@ if (publicDemo) {
   setInterval(() => { void reset(); }, hours * 3_600_000).unref();
 }
 
-const app = createApp({ db, dataDir, fixtureDir, llm, ocr, webDir: process.env.NODE_ENV === "production" ? join(ROOT, "dist", "web") : undefined, ...(publicDemo ? { accessPassword: password } : {}) });
+const app = createApp({ db, dataDir, fixtureDir, llm, ocr, webDir: process.env.NODE_ENV === "production" ? join(ROOT, "dist", "web") : undefined, ...(publicDemo && !openDemo ? { accessPassword: password } : {}), ...(openDemo ? { openDemo: true } : {}) });
 
 // Local use binds to loopback only; see the PUBLIC_DEMO note above.
 serve({ fetch: app.fetch, port, hostname: host }, (info) => {

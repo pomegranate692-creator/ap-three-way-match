@@ -1,5 +1,5 @@
 # Render Blueprint for the PUBLIC DEMO (synthetic data only). Free plan: sleeps when idle, so it also resets to demo data on wake.
-# After creating the service, set DEMO_PASSWORD in the dashboard (it is not stored in this file).
+# Open mode: no password, synthetic data only, uploads/deletions/settings switched off, data reset every 12 h.
 services:
   - type: web
     name: ap-three-way-match-demo
@@ -13,5 +13,7 @@ services:
         value: "0"
       - key: ENABLE_LLM
         value: "0"
-      - key: DEMO_PASSWORD
-        sync: false
+      - key: DEMO_OPEN
+        value: "1"
+      - key: DEMO_RESET_HOURS
+        value: "12"
